@@ -1,6 +1,7 @@
 {
   "name": "nevlohapp",
   "version": "0.1.0",
+  "homepage": "https://nevloh-website.onrender.com",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
