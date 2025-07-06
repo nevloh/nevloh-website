@@ -21,51 +21,40 @@ import {
   Phone
 } from 'lucide-react';
 
+// Import the Managing Director's photo
+import sashellPhoto from '../assets/Sashell-Cooper-Nevins.jpg'; // Adjust the filename as needed
+
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('story');
 
   const milestones = [
     {
-      year: '2018',
+      year: '2022',
       title: 'Foundation',
       description: 'Nevloh Limited was founded with a vision to revolutionize fuel delivery in Jamaica',
       icon: Fuel,
       color: 'blue'
     },
     {
-      year: '2019',
+      year: '2023',
       title: 'Market Expansion',
       description: 'Expanded services across Saint Catherine Parish and neighboring areas',
       icon: Globe,
       color: 'green'
     },
     {
-      year: '2021',
+      year: '2024',
       title: 'Technology Integration',
       description: 'Implemented advanced logistics and customer management systems',
       icon: Lightbulb,
       color: 'purple'
     },
     {
-      year: '2023',
+      year: '2025',
       title: 'Energy Diversification',
       description: 'Strategic pivot towards comprehensive energy solutions beyond traditional fuels',
       icon: Zap,
       color: 'yellow'
-    },
-    {
-      year: '2024',
-      title: 'Renewable Energy Entry',
-      description: 'Launched solar energy consultancy and battery storage solutions',
-      icon: Sun,
-      color: 'orange'
-    },
-    {
-      year: '2025',
-      title: 'Electric Future',
-      description: 'Pioneering electricity distribution and smart grid solutions',
-      icon: Battery,
-      color: 'indigo'
     }
   ];
 
@@ -126,7 +115,6 @@ const AboutPage = () => {
   ];
 
   const achievements = [
-    { number: '5000+', label: 'Satisfied Customers', icon: Users },
     { number: '50,000+', label: 'Gallons Delivered', icon: Fuel },
     { number: '14', label: 'Parishes Served', icon: MapPin },
     { number: '99.8%', label: 'Delivery Success Rate', icon: Award }
@@ -142,9 +130,9 @@ const AboutPage = () => {
             {/* Content */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-800">
+                <h1 className="text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
                   Powering Jamaica's
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block">
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block leading-normal pb-2">
                     Energy Future
                   </span>
                 </h1>
@@ -176,9 +164,22 @@ const AboutPage = () => {
               <div className="bg-white rounded-3xl p-8 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full opacity-20"></div>
                 <div className="relative">
-                  {/* Profile Image Placeholder */}
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-6 flex items-center justify-center">
-                    <User size={48} className="text-blue-600" />
+                  {/* Profile Image */}
+                  <div className="w-32 h-32 rounded-full mx-auto mb-6 overflow-hidden shadow-lg">
+                    <img
+                      src={sashellPhoto}
+                      alt="Sashell Cooper-Nevins, Managing Director & Founder of Nevloh Limited"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback placeholder (hidden by default) */}
+                    <div className="w-32 h-32 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full flex items-center justify-center" style={{ display: 'none' }}>
+                      <User size={48} className="text-blue-600" />
+                    </div>
                   </div>
 
                   <div className="text-center space-y-4">
@@ -194,16 +195,8 @@ const AboutPage = () => {
 
                     <div className="flex justify-center space-x-4 pt-4">
                       <div className="text-center">
-                        <div className="text-lg font-bold text-gray-800">7+</div>
+                        <div className="text-lg font-bold text-gray-800">3+</div>
                         <div className="text-xs text-gray-600">Years Experience</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-gray-800">MBA</div>
-                        <div className="text-xs text-gray-600">Business Leadership</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-gray-800">Award</div>
-                        <div className="text-xs text-gray-600">Industry Recognition</div>
                       </div>
                     </div>
                   </div>
@@ -329,8 +322,21 @@ const AboutPage = () => {
               {/* Leadership Message */}
               <div className="bg-white rounded-3xl p-8 shadow-lg">
                 <div className="max-w-4xl mx-auto text-center space-y-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mx-auto flex items-center justify-center">
-                    <User size={32} className="text-blue-600" />
+                  <div className="w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4 overflow-hidden shadow-lg">
+                    <img
+                      src={sashellPhoto}
+                      alt="Sashell Cooper-Nevins"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        // Fallback to placeholder if image fails to load
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                    {/* Fallback placeholder (hidden by default) */}
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center" style={{ display: 'none' }}>
+                      <User size={32} className="text-blue-600" />
+                    </div>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800">A Message from Our Managing Director</h3>
                   <blockquote className="text-lg text-gray-600 italic leading-relaxed">
@@ -466,7 +472,7 @@ const AboutPage = () => {
       {/* Bottom Stats Section */}
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {achievements.map((stat, index) => {
               const IconComponent = stat.icon;
               return (

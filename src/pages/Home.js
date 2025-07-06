@@ -108,11 +108,11 @@ export default function Home() {
       "image": "https://nevloh.com/images/nevloh-logo.jpg",
       "description": "Jamaica's leading Ultra Low Sulphur Diesel (ULSD) supplier and fuel delivery service across all 14 parishes.",
       "url": "https://nevloh.com",
-      "telephone": "+1-876-123-4567",
+      "telephone": "+1-876-449-5172",
       "email": "info@nevloh.com",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Spanish Town",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine Parish",
         "addressCountry": "JM"
@@ -206,11 +206,11 @@ export default function Home() {
       "founder": {
         "@type": "Person",
         "name": "Sashell Cooper-Nevins",
-        "jobTitle": "Managing Director & Founder"
+        "jobTitle": "Managing Director"
       },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+1-876-123-4567",
+        "telephone": "+1-876-449-5172",
         "contactType": "customer service",
         "email": "info@nevloh.com",
         "availableLanguage": "English",

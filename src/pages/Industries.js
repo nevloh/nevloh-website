@@ -453,7 +453,7 @@ const IndustriesPage = () => {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center">
                     <Phone size={16} className="text-blue-600 mr-2" />
-                    <span className="text-gray-700">(876) 123-4567</span>
+                    <span className="text-gray-700">(876) 449-5172</span>
                   </div>
                   <div className="flex items-center">
                     <Clock size={16} className="text-green-600 mr-2" />

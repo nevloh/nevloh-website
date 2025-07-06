@@ -1,3 +1,4 @@
+// ContactPage.js
 import React, { useState } from 'react';
 import {
   Phone,
@@ -13,8 +14,12 @@ import {
   Star,
   Shield,
   Zap,
-  Heart
+  Heart,
+  AlertCircle
 } from 'lucide-react';
+
+// Import Firebase service
+import { submitCustomerForm } from '../firebaseServices';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -53,6 +58,8 @@ const ContactPage = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [customerId, setCustomerId] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,35 +78,93 @@ const ContactPage = () => {
     }));
   };
 
+  const validateForm = () => {
+    const required = ['firstName', 'lastName', 'email', 'phone'];
+    const missing = required.filter(field => !formData[field].trim());
+
+    if (missing.length > 0) {
+      setSubmitError(`Please fill in the following required fields: ${missing.join(', ')}`);
+      return false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setSubmitError('Please enter a valid email address.');
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
+    setSubmitError(null);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      console.log('Submitting form with data:', formData);
 
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+      // Submit to Firebase
+      const result = await submitCustomerForm(formData);
+
+      if (result.success) {
+        setCustomerId(result.id);
+        setIsSubmitted(true);
+        console.log('Form submitted successfully with ID:', result.id);
+
+        // Optional: Send confirmation email using EmailJS or similar service
+        // await sendConfirmationEmail(formData.email, formData.firstName);
+
+      } else {
+        setSubmitError(result.error || 'Submission failed. Please try again.');
+        console.error('Form submission failed:', result.error);
+      }
+    } catch (error) {
+      setSubmitError('Network error. Please check your connection and try again.');
+      console.error('Submit error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetForm = () => {
+    setIsSubmitted(false);
+    setFormData({
+      firstName: '', lastName: '', email: '', phone: '', whatsapp: '',
+      companyName: '', position: '', businessType: '',
+      fuelTypes: [], deliveryFrequency: '', averageVolume: '', preferredDeliveryTime: '',
+      address: '', parish: '', preferredContact: '',
+      newsletter: true, whatsappUpdates: true, smsAlerts: false,
+      message: '', hearAboutUs: ''
+    });
+    setCustomerId(null);
+    setSubmitError(null);
   };
 
   const contactInfo = [
     {
       icon: Phone,
       title: "Call Us",
-      details: ["+1 (876) 123-4567", "+1 (876) 765-4321"],
-      action: "tel:+18761234567"
+      details: ["+1 (876) 449-5172", "+1 (876) 616-1186"],
+      action: "tel:+18764495172"
     },
     {
       icon: MessageSquare,
       title: "WhatsApp",
-      details: ["+1 (876) 123-4567"],
-      action: "https://wa.me/18761234567"
+      details: ["+1 (876) 449-5172"],
+      action: "https://wa.me/18764495172"
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["info@nevloh.com", "orders@nevloh.com"],
-      action: "mailto:info@nevloh.com"
+      details: ["shamar@nevloh.com"],
+      action: "mailto:shamar@nevloh.com"
     },
     {
       icon: MapPin,
@@ -137,22 +202,54 @@ const ContactPage = () => {
             </div>
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Thank You!</h2>
             <p className="text-lg text-gray-600 mb-6">
-              Welcome to the Nevloh Limited family! Your information has been received and you've been subscribed to our newsletter.
+              Welcome to the Nevloh Limited family! Your information has been saved to our database and you've been subscribed to our newsletter.
             </p>
+
             <div className="bg-blue-50 rounded-lg p-6 mb-6">
               <h3 className="font-semibold text-blue-800 mb-2">What's Next?</h3>
               <ul className="text-sm text-blue-700 space-y-1">
                 <li>• You'll receive our welcome newsletter within 24 hours</li>
                 <li>• Our team will contact you within 1 business day</li>
                 <li>• Get exclusive offers and fuel delivery updates</li>
+                <li>• Your information is securely stored in our system</li>
               </ul>
             </div>
-            <button
-              onClick={() => setIsSubmitted(false)}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Submit Another Form
-            </button>
+
+            {customerId && (
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <p className="text-sm text-gray-600">
+                  <strong>Customer Reference ID:</strong> {customerId}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Save this ID for your records and future reference
+                </p>
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={resetForm}
+                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Submit Another Form
+              </button>
+              <a
+                href="tel:+18764495172"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center"
+              >
+                <Phone size={16} className="mr-2" />
+                Call Us Now
+              </a>
+              <a
+                href="https://wa.me/18764495172"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center"
+              >
+                <MessageSquare size={16} className="mr-2" />
+                WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -246,6 +343,16 @@ const ContactPage = () => {
                 <Send size={28} className="text-blue-600 mr-3" />
                 <h3 className="text-3xl font-bold text-gray-800">Join Our Newsletter</h3>
               </div>
+
+              {/* Error Message */}
+              {submitError && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                  <div className="flex items-center">
+                    <AlertCircle size={20} className="text-red-600 mr-3" />
+                    <p className="text-red-700">{submitError}</p>
+                  </div>
+                </div>
+              )}
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Personal Information */}
@@ -540,19 +647,19 @@ const ContactPage = () => {
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
-                        Subscribing...
+                        Saving to Database...
                       </div>
                     ) : (
                       <div className="flex items-center justify-center">
                         <Send size={20} className="mr-3" />
-                        Subscribe & Get Newsletter
+                        Subscribe & Save Information
                       </div>
                     )}
                   </button>
 
                   <p className="text-center text-sm text-gray-500 mt-4">
                     By subscribing, you agree to receive marketing communications from Nevloh Limited.
-                    You can unsubscribe at any time.
+                    You can unsubscribe at any time. Your information is stored securely in our database.
                   </p>
                 </div>
               </form>
