@@ -53,7 +53,7 @@ export default function Home() {
 
     // Primary Meta Tags
     setMetaTag('description', 'Jamaica\'s leading Ultra Low Sulphur Diesel (ULSD) supplier and fuel delivery service. Reliable fuel delivery across all 14 parishes with 24/7 emergency service, competitive prices, and eco-friendly solutions.');
-    setMetaTag('keywords', 'fuel delivery Jamaica, ULSD supplier, diesel delivery, ultra low sulphur diesel, fuel services Jamaica, Nevloh Limited, emergency fuel delivery, commercial fuel supplier, Kingston fuel delivery, Spanish Town fuel, Saint Catherine fuel services');
+    setMetaTag('keywords', 'refuel, diesel refuel, diesel, fuel delivery Jamaica, Nevloh, ULSD supplier, diesel delivery, ultra low sulphur diesel, fuel services Jamaica, Nevloh Limited, emergency fuel delivery, commercial fuel supplier, Kingston fuel delivery, Spanish Town fuel, Saint Catherine fuel services');
     setMetaTag('author', 'Nevloh Limited');
     setMetaTag('robots', 'index, follow');
     setMetaTag('language', 'English');
