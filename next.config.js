@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // swcMinify: true, // ❌ REMOVED - SWC minification is enabled by default in newer Next.js versions
 
   // Image optimization for Nevloh Limited
   images: {
@@ -31,7 +30,7 @@ const nextConfig = {
     } : false,
   },
 
-  // Server components external packages (moved from experimental)
+  // Server components external packages
   serverExternalPackages: [
     'firebase',
     'firebase-admin',
@@ -60,11 +59,6 @@ const nextConfig = {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
           },
-          // Performance headers
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains',
-          },
         ],
       },
       // Font optimization
@@ -90,7 +84,7 @@ const nextConfig = {
     ];
   },
 
-  // URL rewrites for clean URLs and API routes
+  // URL rewrites for clean URLs
   async rewrites() {
     return [
       // Example: Rewrite for cleaner URLs
@@ -125,7 +119,6 @@ const nextConfig = {
     // Modern optimizations
     optimizeCss: true,
     esmExternals: true,
-    // ❌ REMOVED: serverComponentsExternalPackages - moved to top-level serverExternalPackages
   },
 
   // Remove powered by header for security
