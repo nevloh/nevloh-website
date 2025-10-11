@@ -154,10 +154,21 @@ export default function Services() {
 
         <meta property="og:title" content="Professional Fuel Delivery Services | Nevloh Limited" />
         <meta property="og:description" content="Complete range of fuel delivery services across Jamaica. Professional, reliable, 24/7 service." />
-        <meta property="og:url" content="https://nevloh.com/services" />
-        <meta property="og:image" content="https://nevloh.com/images/services-overview.webp" />
+        <meta property="og:url" content="# *
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /admin
+Disallow: /api
 
-        <link rel="canonical" href="https://nevloh.com/services" />
+# Host
+Host: https://www.nevloh.com
+
+https://www.nevloh.com/services" />
+        <meta property="og:image" content="
+https://www.nevloh.com/images/services-overview.webp" />
+
+        <link rel="canonical" href="https://www.nevloh.com/services" />
       </Head>
 
       <Script

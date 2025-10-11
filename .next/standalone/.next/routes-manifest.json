@@ -115,6 +115,12 @@
       "namedRegex": "^/login(?:/)?$"
     },
     {
+      "page": "/privacy",
+      "regex": "^/privacy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy(?:/)?$"
+    },
+    {
       "page": "/services",
       "regex": "^/services(?:/)?$",
       "routeKeys": {},
@@ -175,6 +181,12 @@
       "namedRegex": "^/sustainability(?:/)?$"
     },
     {
+      "page": "/terms",
+      "regex": "^/terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms(?:/)?$"
+    },
+    {
       "page": "/unauthorizedPage",
       "regex": "^/unauthorizedPage(?:/)?$",
       "routeKeys": {},
@@ -184,19 +196,19 @@
   "dataRoutes": [
     {
       "page": "/",
-      "dataRouteRegex": "^/_next/data/QVw0nONQ9hYK1snFs2Zvv/index\\.json$"
+      "dataRouteRegex": "^/_next/data/EkTfpCLlHTPVWGdcIKNTm/index\\.json$"
     },
     {
       "page": "/industries",
-      "dataRouteRegex": "^/_next/data/QVw0nONQ9hYK1snFs2Zvv/industries\\.json$"
+      "dataRouteRegex": "^/_next/data/EkTfpCLlHTPVWGdcIKNTm/industries\\.json$"
     },
     {
       "page": "/sustainability",
-      "dataRouteRegex": "^/_next/data/QVw0nONQ9hYK1snFs2Zvv/sustainability\\.json$"
+      "dataRouteRegex": "^/_next/data/EkTfpCLlHTPVWGdcIKNTm/sustainability\\.json$"
     },
     {
       "page": "/unauthorizedPage",
-      "dataRouteRegex": "^/_next/data/QVw0nONQ9hYK1snFs2Zvv/unauthorizedPage\\.json$"
+      "dataRouteRegex": "^/_next/data/EkTfpCLlHTPVWGdcIKNTm/unauthorizedPage\\.json$"
     }
   ],
   "rsc": {

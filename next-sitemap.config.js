@@ -1,80 +1,128 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://www.nevloh.com', // Your actual domain
+  siteUrl: 'https://www.nevloh.com',
   generateRobotsTxt: true,
-  generateIndexSitemap: false, // This prevents separate sitemap files
+  generateIndexSitemap: false,
 
-  // Sitemap configuration
-  changefreq: 'daily',
+  // CRITICAL: Enable automatic lastmod
+  autoLastmod: true,
+
+  // Default values
+  changefreq: 'weekly',
   priority: 0.7,
-  sitemapSize: 7000, // Increased to ensure single sitemap
+  sitemapSize: 7000,
 
-  // Exclude pages you don't want in sitemap
+  // Exclude pages
   exclude: [
     '/login',
     '/signupPage',
     '/unauthorizedPage',
     '/admin/*',
-    '/api/*'
+    '/api/*',
+    '/404',
+    '/500',
+    '/_*',
   ],
 
-  // Custom transformation for specific pages
+  // Transform function
   transform: async (config, path) => {
-    // Custom priority and changefreq for different pages
+    // Homepage
     if (path === '/') {
       return {
         loc: path,
         changefreq: 'daily',
         priority: 1.0,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-      }
+        lastmod: new Date().toISOString(),
+      };
     }
 
+    // Services pages
     if (path.startsWith('/services')) {
       return {
         loc: path,
         changefreq: 'weekly',
         priority: 0.9,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-      }
+        lastmod: new Date().toISOString(),
+      };
     }
 
-    if (path.startsWith('/blog')) {
+    // About, Contact, Blog
+    if (['/about', '/contact', '/blog'].some(p => path === p)) {
       return {
         loc: path,
         changefreq: 'weekly',
         priority: 0.8,
-        lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-      }
+        lastmod: new Date().toISOString(),
+      };
     }
 
-    // Default transformation
+    // Industries, Sustainability
+    if (['/industries', '/sustainability'].some(p => path === p)) {
+      return {
+        loc: path,
+        changefreq: 'monthly',
+        priority: 0.7,
+        lastmod: new Date().toISOString(),
+      };
+    }
+
+    // Legal pages
+    if (['/privacy', '/terms'].some(p => path === p)) {
+      return {
+        loc: path,
+        changefreq: 'monthly',
+        priority: 0.5,
+        lastmod: new Date().toISOString(),
+      };
+    }
+
+    // Default for any other pages
     return {
       loc: path,
-      changefreq: config.changefreq,
-      priority: config.priority,
-      lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
-    }
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date().toISOString(),
+    };
   },
 
-  // Additional paths (if you have dynamic routes not covered by pages)
-  additionalPaths: async (config) => [
-    // Add any additional paths here if needed
-    // await config.transform(config, '/additional-page'),
-  ],
+  // CRITICAL: Explicitly add all your pages
+  additionalPaths: async (config) => {
+    const paths = [
+      // Main pages
+      '/about',
+      '/services',
+      '/industries',
+      '/sustainability',
+      '/contact',
+      '/blog',
+      '/privacy',
+      '/terms',
 
-  // Robots.txt configuration
+      // Service sub-pages
+      '/services/fleet-refuelling',
+      '/services/generator-refuelling',
+      '/services/on-site-fuel-delivery',
+      '/services/bulk-fuel',
+      '/services/haulage',
+      '/services/ulsd',
+    ];
+
+    return paths.map(path => ({
+      loc: path,
+      changefreq: path.startsWith('/services') ? 'weekly' : 'monthly',
+      priority: path.startsWith('/services') ? 0.9 : 0.7,
+      lastmod: new Date().toISOString(),
+    }));
+  },
+
+  // Robots.txt options
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/login', '/admin', '/api'],
+        disallow: ['/login', '/admin', '/api', '/signupPage', '/unauthorizedPage'],
       },
     ],
-    additionalSitemaps: [
-      // Add additional sitemaps if needed
-      // 'https://nevloh-website.onrender.com/my-custom-sitemap.xml',
-    ],
   },
-}
+};

@@ -4,6 +4,8 @@ Allow: /
 Disallow: /login
 Disallow: /admin
 Disallow: /api
+Disallow: /signupPage
+Disallow: /unauthorizedPage
 
 # Host
 Host: https://www.nevloh.com

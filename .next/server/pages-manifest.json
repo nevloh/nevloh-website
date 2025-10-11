@@ -1,24 +1,7 @@
 {
-  "/404": "pages/404.js",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/about": "pages/about.js",
-  "/blog/[id]": "pages/blog/[id].js",
-  "/blog": "pages/blog.js",
-  "/services": "pages/services.js",
-  "/login": "pages/login.js",
-  "/services/bulk-fuel": "pages/services/bulk-fuel.js",
-  "/contact": "pages/contact.js",
-  "/services/fleet-refuelling": "pages/services/fleet-refuelling.js",
-  "/services/generator-refuelling": "pages/services/generator-refuelling.js",
-  "/services/services": "pages/services/services.js",
-  "/services/on-site-fuel-delivery": "pages/services/on-site-fuel-delivery.js",
-  "/services/haulage": "pages/services/haulage.js",
-  "/signupPage": "pages/signupPage.js",
-  "/services/ulsd": "pages/services/ulsd.js",
-  "/unauthorizedPage": "pages/unauthorizedPage.js",
-  "/sustainability": "pages/sustainability.js",
   "/": "pages/index.js",
-  "/industries": "pages/industries.js"
+  "/404": "pages/404.js"
 }

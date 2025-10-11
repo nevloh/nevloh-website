@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/QVw0nONQ9hYK1snFs2Zvv/_buildManifest.js",
-    "static/QVw0nONQ9hYK1snFs2Zvv/_ssgManifest.js"
+    "static/EkTfpCLlHTPVWGdcIKNTm/_buildManifest.js",
+    "static/EkTfpCLlHTPVWGdcIKNTm/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "rootMainFilesTree": {},
@@ -27,7 +27,7 @@
       "static/chunks/webpack-95ebd58db2dbd914.js",
       "static/chunks/framework-306aa0968ce8efc5.js",
       "static/chunks/main-b0b9325017f319fa.js",
-      "static/css/98db4b0887099586.css",
+      "static/css/f1cb63f1219383b8.css",
       "static/chunks/pages/_app-d098c313d998c1d8.js"
     ],
     "/_error": [
@@ -75,11 +75,17 @@
       "static/chunks/main-b0b9325017f319fa.js",
       "static/chunks/pages/login-33cd2cae59f2da38.js"
     ],
+    "/privacy": [
+      "static/chunks/webpack-95ebd58db2dbd914.js",
+      "static/chunks/framework-306aa0968ce8efc5.js",
+      "static/chunks/main-b0b9325017f319fa.js",
+      "static/chunks/pages/privacy-85e2071c2c50846f.js"
+    ],
     "/services": [
       "static/chunks/webpack-95ebd58db2dbd914.js",
       "static/chunks/framework-306aa0968ce8efc5.js",
       "static/chunks/main-b0b9325017f319fa.js",
-      "static/chunks/pages/services-8daea02fbae34e4a.js"
+      "static/chunks/pages/services-33d14c068212a100.js"
     ],
     "/services/bulk-fuel": [
       "static/chunks/webpack-95ebd58db2dbd914.js",
@@ -97,7 +103,7 @@
       "static/chunks/webpack-95ebd58db2dbd914.js",
       "static/chunks/framework-306aa0968ce8efc5.js",
       "static/chunks/main-b0b9325017f319fa.js",
-      "static/chunks/pages/services/generator-refuelling-08b02d7778724fe3.js"
+      "static/chunks/pages/services/generator-refuelling-2a8efd7785772941.js"
     ],
     "/services/haulage": [
       "static/chunks/webpack-95ebd58db2dbd914.js",
@@ -121,7 +127,7 @@
       "static/chunks/webpack-95ebd58db2dbd914.js",
       "static/chunks/framework-306aa0968ce8efc5.js",
       "static/chunks/main-b0b9325017f319fa.js",
-      "static/chunks/pages/services/ulsd-663adf212b588a5b.js"
+      "static/chunks/pages/services/ulsd-d0296ce31c4a227f.js"
     ],
     "/signupPage": [
       "static/chunks/webpack-95ebd58db2dbd914.js",
@@ -133,7 +139,13 @@
       "static/chunks/webpack-95ebd58db2dbd914.js",
       "static/chunks/framework-306aa0968ce8efc5.js",
       "static/chunks/main-b0b9325017f319fa.js",
-      "static/chunks/pages/sustainability-bc22e406d3645266.js"
+      "static/chunks/pages/sustainability-3a0437e0e325a525.js"
+    ],
+    "/terms": [
+      "static/chunks/webpack-95ebd58db2dbd914.js",
+      "static/chunks/framework-306aa0968ce8efc5.js",
+      "static/chunks/main-b0b9325017f319fa.js",
+      "static/chunks/pages/terms-10b5fd4ddfef4c93.js"
     ],
     "/unauthorizedPage": [
       "static/chunks/webpack-95ebd58db2dbd914.js",

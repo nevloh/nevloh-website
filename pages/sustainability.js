@@ -1,8 +1,7 @@
-// pages/sustainability.js or app/sustainability/page.js (depending on your Next.js version)
+// pages/sustainability.js
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import Image from 'next/image';
 import {
   Leaf,
   Recycle,
@@ -21,34 +20,46 @@ import {
   CheckCircle,
   ArrowRight,
   Zap,
-  Fuel,
-  Phone,
   Calendar,
-  BarChart3,
-  Clock,
   Building2,
-  Fish,
   Truck
 } from 'lucide-react';
 
-// SEO and Structured Data
+// Color utility functions for Tailwind - CRITICAL FIX
+const getIconColorClass = (color) => {
+  const colors = {
+    green: 'text-green-600',
+    blue: 'text-blue-600',
+    purple: 'text-purple-600',
+    orange: 'text-orange-600'
+  };
+  return colors[color] || 'text-gray-600';
+};
+
+const getBgColorClass = (color) => {
+  const colors = {
+    green: 'bg-green-100',
+    blue: 'bg-blue-100',
+    purple: 'bg-purple-100',
+    orange: 'bg-orange-100'
+  };
+  return colors[color] || 'bg-gray-100';
+};
+
+// SEO and Structured Data - FIXED URLs
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Nevloh Limited",
   "description": "Leading Jamaica's transition to sustainable energy with clean fuel solutions and renewable energy services",
-  "url": "https://nevloh.com/sustainability",
-  "logo": "https://nevloh.com/logo.png",
+  "url": "https://www.nevloh.com/sustainability",
+  "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
   "address": {
     "@type": "PostalAddress",
     "addressCountry": "JM",
     "addressRegion": "Saint Catherine Parish",
     "addressLocality": "Spanish Town"
   },
-  "sameAs": [
-    "https://www.facebook.com/nevloh",
-    "https://www.linkedin.com/company/nevloh"
-  ],
   "sustainabilityInitiative": [
     {
       "@type": "Thing",
@@ -251,6 +262,10 @@ const SustainabilityPage = () => {
     return colors[status] || "bg-gray-100 text-gray-800";
   };
 
+  // FIXED: Get active pillar safely
+  const activePillar = sustainabilityPillars[activeCommitment];
+  const ActiveIcon = activePillar.icon;
+
   return (
     <>
       <Head>
@@ -264,48 +279,40 @@ const SustainabilityPage = () => {
           content="sustainability Jamaica, clean energy, ULSD diesel, solar energy, carbon neutral, environmental protection, renewable energy Jamaica, sustainable fuel"
         />
 
-        {/* Open Graph / Facebook */}
+        {/* FIXED: Added googlebot meta */}
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="author" content="Nevloh Limited" />
+
+        {/* FIXED: All URLs now have www */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/sustainability" />
+        <meta property="og:url" content="https://www.nevloh.com/sustainability" />
         <meta property="og:title" content="Sustainability Commitments | Nevloh Limited - Clean Energy Jamaica" />
         <meta property="og:description" content="Leading Jamaica's transition to sustainable energy with clean fuel solutions and renewable energy services. 90% emission reduction with ULSD." />
-        <meta property="og:image" content="https://nevloh.com/sustainability-og-image.jpg" />
         <meta property="og:site_name" content="Nevloh Limited" />
         <meta property="og:locale" content="en_JM" />
 
-        {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://nevloh.com/sustainability" />
+        <meta property="twitter:url" content="https://www.nevloh.com/sustainability" />
         <meta property="twitter:title" content="Sustainability Commitments | Nevloh Limited" />
         <meta property="twitter:description" content="Leading Jamaica's transition to sustainable energy with 90% emission reduction and carbon neutrality by 2030." />
-        <meta property="twitter:image" content="https://nevloh.com/sustainability-twitter-image.jpg" />
 
-        {/* Additional SEO Meta Tags */}
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-        <meta name="author" content="Nevloh Limited" />
+        {/* FIXED: Consistent comma separators */}
         <meta name="geo.region" content="JM-13" />
         <meta name="geo.placename" content="Spanish Town, Saint Catherine Parish" />
-        <meta name="geo.position" content="17.9909;-76.9564" />
-        <meta name="ICBM" content="17.9909, -76.9564" />
+        <meta name="geo.position" content="17.9909,-76.9564" />
+        <meta name="ICBM" content="17.9909,-76.9564" />
 
-        {/* Canonical URL */}
-        <link rel="canonical" href="https://nevloh.com/sustainability" />
+        {/* FIXED: Canonical with www */}
+        <link rel="canonical" href="https://www.nevloh.com/sustainability" />
 
-        {/* Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        {/* Preload critical resources */}
-        <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-
-        {/* Favicons */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
@@ -328,14 +335,14 @@ const SustainabilityPage = () => {
                 </p>
               </div>
 
-              {/* Environmental Impact Stats */}
+              {/* Environmental Impact Stats - FIXED COLOR CLASSES */}
               <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
                 {environmentalImpact.map((impact, index) => {
                   const IconComponent = impact.icon;
                   return (
                     <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                      <div className={`w-12 h-12 bg-${impact.color}-100 rounded-lg flex items-center justify-center mx-auto mb-3`}>
-                        <IconComponent size={24} className={`text-${impact.color}-600`} />
+                      <div className={`w-12 h-12 ${getBgColorClass(impact.color)} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+                        <IconComponent size={24} className={getIconColorClass(impact.color)} />
                       </div>
                       <div className="text-2xl font-bold text-gray-800">{impact.metric}</div>
                       <div className="text-sm text-gray-600 text-center">{impact.description}</div>
@@ -347,7 +354,7 @@ const SustainabilityPage = () => {
           </div>
         </section>
 
-        {/* Sustainability Pillars */}
+        {/* Sustainability Pillars - FIXED COLOR CLASSES */}
         <section className="py-16 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
@@ -361,7 +368,6 @@ const SustainabilityPage = () => {
             </div>
 
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Pillar Navigation */}
               <div className="space-y-4">
                 {sustainabilityPillars.map((pillar, index) => {
                   const IconComponent = pillar.icon;
@@ -376,8 +382,8 @@ const SustainabilityPage = () => {
                       }`}
                     >
                       <div className="flex items-center space-x-4">
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center bg-${pillar.color}-100`}>
-                          <IconComponent size={24} className={`text-${pillar.color}-600`} />
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${getBgColorClass(pillar.color)}`}>
+                          <IconComponent size={24} className={getIconColorClass(pillar.color)} />
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-800">{pillar.title}</h3>
@@ -390,27 +396,24 @@ const SustainabilityPage = () => {
                 })}
               </div>
 
-              {/* Pillar Details */}
+              {/* FIXED: React.createElement replaced with proper JSX */}
               <div className="bg-white rounded-3xl p-8 shadow-xl">
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3">
-                    {React.createElement(sustainabilityPillars[activeCommitment].icon, {
-                      size: 32,
-                      className: `text-${sustainabilityPillars[activeCommitment].color}-600`
-                    })}
+                    <ActiveIcon size={32} className={getIconColorClass(activePillar.color)} />
                     <h3 className="text-2xl font-bold text-gray-800">
-                      {sustainabilityPillars[activeCommitment].title}
+                      {activePillar.title}
                     </h3>
                   </div>
 
                   <p className="text-lg text-gray-600 leading-relaxed">
-                    {sustainabilityPillars[activeCommitment].description}
+                    {activePillar.description}
                   </p>
 
                   <div className="space-y-3">
                     <h4 className="font-semibold text-gray-800">Key Initiatives:</h4>
-                    {sustainabilityPillars[activeCommitment].initiatives.map((initiative, index) => (
-                      <div key={index} className="flex items-center space-x-3">
+                    {activePillar.initiatives.map((initiative, idx) => (
+                      <div key={idx} className="flex items-center space-x-3">
                         <CheckCircle size={20} className="text-green-500 flex-shrink-0" />
                         <span className="text-gray-700">{initiative}</span>
                       </div>
@@ -436,15 +439,15 @@ const SustainabilityPage = () => {
             </div>
 
             <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-green-300 to-blue-300"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-green-300 to-blue-300 hidden lg:block"></div>
               <div className="space-y-12">
                 {futureInitiatives.map((initiative, index) => {
                   const IconComponent = initiative.icon;
                   const isEven = index % 2 === 0;
 
                   return (
-                    <div key={index} className={`flex items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                      <div className={`lg:w-1/2 ${isEven ? 'lg:pr-12' : 'lg:pl-12'}`}>
+                    <div key={index} className={`flex flex-col lg:flex-row items-center ${isEven ? '' : 'lg:flex-row-reverse'}`}>
+                      <div className={`w-full lg:w-1/2 ${isEven ? 'lg:pr-12' : 'lg:pl-12'}`}>
                         <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
                           <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center space-x-3">
@@ -464,7 +467,7 @@ const SustainabilityPage = () => {
                         </div>
                       </div>
 
-                      <div className="lg:w-1/2 flex justify-center">
+                      <div className="hidden lg:flex lg:w-1/2 justify-center my-4 lg:my-0">
                         <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg z-10">
                           <IconComponent size={28} className="text-white" />
                         </div>
@@ -603,7 +606,7 @@ const SustainabilityPage = () => {
                 Schedule Consultation
               </Link>
             </div>
-            <div className="flex justify-center items-center space-x-6 text-sm text-gray-600">
+            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600">
               <div className="flex items-center">
                 <Shield size={16} className="mr-1" />
                 Environmental Compliance
@@ -624,12 +627,10 @@ const SustainabilityPage = () => {
   );
 };
 
-// Next.js Static Props for SEO (if using pages directory)
+// Next.js Static Props for SEO
 export async function getStaticProps() {
   return {
-    props: {
-      // Add any static props here
-    },
+    props: {},
     revalidate: 86400, // Revalidate once per day
   };
 }
