@@ -172,7 +172,7 @@ export default function Home() {
         <meta name="description" content="Professional Ultra Low Sulphur Diesel delivery across Jamaica. 24/7 emergency service, commercial bulk supply, construction refueling. 90% cleaner emissions, 25% longer engine life. Call +1-876-449-5172" />
 
         {/* Refined Keywords - Focus on High-Value Terms */}
-        <meta name="keywords" content="fuel delivery Jamaica, diesel delivery Jamaica, ULSD supplier, emergency fuel delivery, commercial diesel supply, Kingston fuel delivery, Spanish Town fuel service, construction fuel delivery, 24/7 fuel service, Nevloh Limited" />
+        <meta name="keywords" content="fuel delivery Jamaica, diesel delivery Jamaica, ULSD supplier, emergency fuel delivery, commercial diesel supply, Kingston fuel delivery, Spanish Town fuel service, construction fuel delivery, 24/7 fuel service, Nevloh Limited, rapid onsite, generator refuelling, bulk fuel, diesel" />
 
         {/* Essential Meta Tags */}
         <meta name="robots" content="index, follow, max-image-preview:large" />
