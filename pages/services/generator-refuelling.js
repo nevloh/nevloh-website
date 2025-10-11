@@ -163,15 +163,15 @@ export default function GeneratorRefuelling() {
         {/* Open Graph */}
         <meta property="og:title" content="Generator Refuelling Services | 24/7 Emergency Power Support" />
         <meta property="og:description" content="Ensure uninterrupted power with professional generator refuelling services. Perfect for hospitals, data centers, and critical facilities across Jamaica." />
-        <meta property="og:url" content="https://nevloh.com/services/generator-refuelling" />
-        <meta property="og:image" content="https://nevloh.com/images/generator-refuelling-service.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/generator-refuelling" />
+        <meta property="og:image" content="https://www.nevloh.com/images/generator-refuelling-service.webp" />
 
         {/* Twitter */}
         <meta name="twitter:title" content="Generator Refuelling Services | 24/7 Emergency Power Support" />
         <meta name="twitter:description" content="Professional generator fuel delivery for critical facilities. 24/7 emergency service across Jamaica." />
-        <meta name="twitter:image" content="https://nevloh.com/images/generator-refuelling-service.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/generator-refuelling-service.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/generator-refuelling" />
+        <link rel="canonical" href="https://www.nevloh.com/services/generator-refuelling" />
       </Head>
 
       <Script

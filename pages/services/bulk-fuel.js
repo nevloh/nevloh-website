@@ -215,15 +215,15 @@ export default function BulkFuelSupply() {
         {/* Open Graph */}
         <meta property="og:title" content="Bulk Fuel Supply | Industrial Volume Fuel Delivery Jamaica" />
         <meta property="og:description" content="Large volume fuel supply for industrial operations. Competitive bulk pricing, reliable delivery, and professional service across Jamaica." />
-        <meta property="og:url" content="https://nevloh.com/services/bulk-fuel" />
-        <meta property="og:image" content="https://nevloh.com/images/bulk-fuel-supply.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/bulk-fuel" />
+        <meta property="og:image" content="https://www.nevloh.com/images/bulk-fuel-supply.webp" />
 
         {/* Twitter */}
         <meta name="twitter:title" content="Bulk Fuel Supply | Industrial Volume Fuel Delivery Jamaica" />
         <meta name="twitter:description" content="Large volume fuel supply with competitive bulk pricing and reliable delivery across Jamaica." />
-        <meta name="twitter:image" content="https://nevloh.com/images/bulk-fuel-supply.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/bulk-fuel-supply.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/bulk-fuel" />
+        <link rel="canonical" href="https://www.nevloh.com/services/bulk-fuel" />
       </Head>
 
       <Script

@@ -67,8 +67,8 @@ export default function Document() {
               "name": "Nevloh Limited",
               "alternateName": "Nevloh Ltd",
               "description": "Jamaica's premier energy solutions company specializing in Ultra Low Sulphur Diesel delivery, solar energy systems, and comprehensive energy storage solutions.",
-              "url": "https://nevloh.com",
-              "logo": "https://nevloh.com/images/nevloh-logo.webp",
+              "url": "https://www.nevloh.com",
+              "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
               "foundingDate": "2022",
               "founder": {
                 "@type": "Person",

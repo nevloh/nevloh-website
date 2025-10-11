@@ -238,7 +238,7 @@ const SignupPage = () => {
 
         {/* Open Graph Tags (for internal sharing) */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/signup" />
+        <meta property="og:url" content="https://www.nevloh.com/signup" />
         <meta property="og:title" content="Join Nevloh Limited - Professional Fuel Delivery Jamaica" />
         <meta property="og:description" content="Create your account to access Jamaica's premier fuel delivery platform. Professional ULSD services across all 14 parishes." />
         <meta property="og:site_name" content="Nevloh Limited" />
@@ -248,7 +248,7 @@ const SignupPage = () => {
         <meta name="msapplication-TileColor" content="#2563eb" />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://nevloh.com/signup" />
+        <link rel="canonical" href="https://www.nevloh.com/signup" />
 
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

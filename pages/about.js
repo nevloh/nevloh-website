@@ -131,8 +131,8 @@ const AboutPage = () => {
       "@type": "Organization",
       "name": "Nevloh Limited",
       "description": "Jamaica's premier energy solutions company specializing in Ultra Low Sulphur Diesel delivery, solar energy systems, and comprehensive energy storage solutions across all 14 parishes.",
-      "url": "https://nevloh.com",
-      "logo": "https://nevloh.com/images/nevloh-logo.webp",
+      "url": "https://www.nevloh.com",
+      "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
       "foundingDate": "2022",
       "founder": {
         "@type": "Person",
@@ -211,7 +211,7 @@ const AboutPage = () => {
     "worksFor": {
       "@type": "Organization",
       "name": "Nevloh Limited",
-      "url": "https://nevloh.com"
+      "url": "https://www.nevloh.com"
     },
     "description": "Visionary entrepreneur and energy industry leader transforming Jamaica's fuel delivery and renewable energy landscape through innovative solutions and sustainable practices.",
     "knowsAbout": [
@@ -246,24 +246,24 @@ const AboutPage = () => {
 
         {/* Open Graph Tags */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/about" />
+        <meta property="og:url" content="https://www.nevloh.com/about" />
         <meta property="og:title" content="About Nevloh Limited - Jamaica's Energy Innovation Leader" />
         <meta property="og:description" content="Discover how Sashell Cooper-Nevins founded Jamaica's premier energy solutions company in 2022. From ULSD fuel delivery pioneers to comprehensive renewable energy systems across all parishes." />
-        <meta property="og:image" content="https://nevloh.com/images/nevloh-about-og.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/nevloh-about-og.webp" />
         <meta property="og:site_name" content="Nevloh Limited" />
 
         {/* Twitter Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About Nevloh Limited - Jamaica's Energy Solutions Leader" />
         <meta name="twitter:description" content="Meet Sashell Cooper-Nevins and learn about Nevloh Limited's journey from fuel delivery pioneers to Jamaica's comprehensive energy solutions company since 2022." />
-        <meta name="twitter:image" content="https://nevloh.com/images/nevloh-about-twitter.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/nevloh-about-twitter.webp" />
 
         {/* Local SEO */}
         <meta name="geo.region" content="JM" />
         <meta name="geo.placename" content="Spanish Town, Saint Catherine, Jamaica" />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://nevloh.com/about" />
+        <link rel="canonical" href="https://www.nevloh.com/about" />
 
         {/* Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

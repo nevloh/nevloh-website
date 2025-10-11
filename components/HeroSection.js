@@ -29,8 +29,8 @@ export default function HeroSection() {
             "provider": {
               "@type": "Organization",
               "name": "Nevloh Limited",
-              "url": "https://nevloh.com",
-              "logo": "https://nevloh.com/logo.png"
+              "url": "https://www.nevloh.com",
+              "logo": "https://www.nevloh.com/logo.png"
             },
             "description": "Trusted partner for on-site fuel solutions in Jamaica - delivering fast, safe, and reliable energy where you need it most",
             "areaServed": {

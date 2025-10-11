@@ -219,12 +219,12 @@ const ContactPage = () => {
         <meta name="description" content="Contact Nevloh Limited for professional fuel delivery services across Jamaica. Get your quote today! Call +1-876-449-5172 or fill out our contact form." />
         <meta name="keywords" content="contact nevloh, fuel delivery quote jamaica, fuel service contact, diesel delivery contact" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://nevloh.com/contact" />
+        <link rel="canonical" href="https://www.nevloh.com/contact" />
 
         {/* Open Graph */}
         <meta property="og:title" content="Contact Nevloh Limited - Fuel Delivery Services Jamaica" />
         <meta property="og:description" content="Get in touch for professional fuel delivery across Jamaica. Fast quotes, reliable service." />
-        <meta property="og:url" content="https://nevloh.com/contact" />
+        <meta property="og:url" content="https://www.nevloh.com/contact" />
         <meta property="og:type" content="website" />
       </Head>
 

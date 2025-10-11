@@ -219,15 +219,15 @@ export default function HaulageServices() {
         {/* Open Graph */}
         <meta property="og:title" content="Licensed Petroleum Haulage Services | Professional Fuel Transportation" />
         <meta property="og:description" content="Professional petroleum haulage services for oil companies across Jamaica. Licensed contractor with full compliance and safety certifications." />
-        <meta property="og:url" content="https://nevloh.com/services/haulage" />
-        <meta property="og:image" content="https://nevloh.com/images/petroleum-haulage-services.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/haulage" />
+        <meta property="og:image" content="https://www.nevloh.com/images/petroleum-haulage-services.webp" />
 
         {/* Twitter */}
         <meta name="twitter:title" content="Licensed Petroleum Haulage Services | Professional Fuel Transportation" />
         <meta name="twitter:description" content="Professional petroleum haulage services across Jamaica. Licensed, compliant, and safety-certified." />
-        <meta name="twitter:image" content="https://nevloh.com/images/petroleum-haulage-services.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/petroleum-haulage-services.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/haulage" />
+        <link rel="canonical" href="https://www.nevloh.com/services/haulage" />
       </Head>
 
       <Script

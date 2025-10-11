@@ -8,11 +8,11 @@ Write-Host ""
 # Ask for confirmation
 $confirmation = Read-Host "Do you want to proceed? (Y/N)"
 if ($confirmation -ne 'Y' -and $confirmation -ne 'y') {
-    Write-Host "❌ Cancelled" -ForegroundColor Red
+    Write-Host "Cancelled" -ForegroundColor Red
     exit
 }
 
-Write-Host "`n🔍 Scanning files..." -ForegroundColor Cyan
+Write-Host "`nScanning files..." -ForegroundColor Cyan
 
 # Define patterns to search and replace
 $patterns = @(
@@ -78,11 +78,11 @@ $totalChanges = 0
 
 foreach ($file in $filesToProcess) {
     if (Test-Path $file) {
-        Write-Host "`n📄 Processing: $file" -ForegroundColor Yellow
+        Write-Host "`nProcessing: $file" -ForegroundColor Yellow
 
         $content = Get-Content $file -Raw -ErrorAction SilentlyContinue
         if ($null -eq $content) {
-            Write-Host "  ⚠️  Could not read file" -ForegroundColor Red
+            Write-Host "  Could not read file" -ForegroundColor Red
             continue
         }
 
@@ -95,7 +95,7 @@ foreach ($file in $filesToProcess) {
             if ($foundMatches.Count -gt 0) {
                 $content = $content -replace $pattern.Search, $pattern.Replace
                 $changesInFile += $foundMatches.Count
-                Write-Host "  ✅ $($pattern.Description): $($foundMatches.Count) changes" -ForegroundColor Green
+                Write-Host "  $($pattern.Description): $($foundMatches.Count) changes" -ForegroundColor Green
             }
         }
 
@@ -104,17 +104,17 @@ foreach ($file in $filesToProcess) {
             Set-Content -Path $file -Value $content -NoNewline
             $filesModified++
             $totalChanges += $changesInFile
-            Write-Host "  💾 Saved $changesInFile changes" -ForegroundColor Cyan
+            Write-Host "  Saved $changesInFile changes" -ForegroundColor Cyan
         } else {
-            Write-Host "  ℹ️  No changes needed" -ForegroundColor Gray
+            Write-Host "  No changes needed" -ForegroundColor Gray
         }
     } else {
-        Write-Host "  ⚠️  File not found: $file" -ForegroundColor DarkGray
+        Write-Host "  File not found: $file" -ForegroundColor DarkGray
     }
 }
 
 # Process ALL .js and .jsx files in pages and components directories recursively
-Write-Host "`n🔍 Scanning all .js/.jsx files recursively..." -ForegroundColor Cyan
+Write-Host "`nScanning all .js/.jsx files recursively..." -ForegroundColor Cyan
 
 $directories = @('pages', 'components', 'src')
 foreach ($dir in $directories) {
@@ -151,7 +151,7 @@ foreach ($dir in $directories) {
                 Set-Content -Path $file.FullName -Value $content -NoNewline
                 $filesModified++
                 $totalChanges += $changesInFile
-                Write-Host "  ✅ $relativePath - $changesInFile changes" -ForegroundColor Green
+                Write-Host "  $relativePath - $changesInFile changes" -ForegroundColor Green
             }
         }
     }
@@ -159,18 +159,18 @@ foreach ($dir in $directories) {
 
 # Summary
 Write-Host "`n=== SUMMARY ===" -ForegroundColor Magenta
-Write-Host "✅ Files modified: $filesModified" -ForegroundColor Green
-Write-Host "✅ Total changes: $totalChanges" -ForegroundColor Green
+Write-Host "Files modified: $filesModified" -ForegroundColor Green
+Write-Host "Total changes: $totalChanges" -ForegroundColor Green
 Write-Host ""
 
 if ($totalChanges -gt 0) {
-    Write-Host "🎉 URL consistency fixed!" -ForegroundColor Green
+    Write-Host "URL consistency fixed!" -ForegroundColor Green
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Yellow
     Write-Host "1. Review changes: git diff" -ForegroundColor White
     Write-Host "2. Clean build: Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue" -ForegroundColor White
     Write-Host "3. Rebuild: npm run build" -ForegroundColor White
-    Write-Host "4. Commit changes: git add . && git commit -m 'Fix: Add www to all URLs for consistency'" -ForegroundColor White
+    Write-Host "4. Commit: git add . && git commit -m 'Fix: Add www to all URLs for consistency'" -ForegroundColor White
 } else {
-    Write-Host "ℹ️  No changes were needed - URLs are already consistent!" -ForegroundColor Cyan
+    Write-Host "No changes were needed - URLs are already consistent!" -ForegroundColor Cyan
 }

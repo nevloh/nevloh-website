@@ -309,8 +309,8 @@ const IndustriesPage = () => {
         <meta property="og:title" content={`${currentIndustry.name} Fuel Solutions | Nevloh Limited`} />
         <meta property="og:description" content={currentIndustry.longDescription.substring(0, 155) + '...'} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://nevloh.com${router.pathname}`} />
-        <meta property="og:image" content={`https://nevloh.com/industry-${currentIndustry.id}.jpg`} />
+        <meta property="og:url" content={`https://www.nevloh.com${router.pathname}`} />
+        <meta property="og:image" content={`https://www.nevloh.com/industry-${currentIndustry.id}.jpg`} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -318,7 +318,7 @@ const IndustriesPage = () => {
         <meta name="twitter:description" content={currentIndustry.description} />
         
         {/* Canonical */}
-        <link rel="canonical" href={`https://nevloh.com${router.pathname}`} />
+        <link rel="canonical" href={`https://www.nevloh.com${router.pathname}`} />
         
         {/* Structured Data */}
         <script
@@ -332,8 +332,8 @@ const IndustriesPage = () => {
               "provider": {
                 "@type": "Organization",
                 "name": "Nevloh Limited",
-                "url": "https://nevloh.com",
-                "logo": "https://nevloh.com/logo.png",
+                "url": "https://www.nevloh.com",
+                "logo": "https://www.nevloh.com/logo.png",
                 "contactPoint": {
                   "@type": "ContactPoint",
                   "telephone": "+1-876-449-5172",

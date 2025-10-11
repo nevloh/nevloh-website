@@ -78,7 +78,7 @@ const UnauthorizedPage = () => {
         <meta property="og:title" content="Access Denied | Nevloh Limited" />
         <meta property="og:description" content="Unauthorized access - insufficient permissions to view this page." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/unauthorized" />
+        <meta property="og:url" content="https://www.nevloh.com/unauthorized" />
         <meta property="og:site_name" content="Nevloh Limited" />
 
         {/* Twitter */}
@@ -87,7 +87,7 @@ const UnauthorizedPage = () => {
         <meta name="twitter:description" content="Unauthorized access - insufficient permissions." />
 
         {/* Canonical */}
-        <link rel="canonical" href="https://nevloh.com/unauthorized" />
+        <link rel="canonical" href="https://www.nevloh.com/unauthorized" />
 
         {/* Additional security headers via meta tags */}
         <meta httpEquiv="X-Frame-Options" content="DENY" />

@@ -1,67 +1,11 @@
 {
   "version": 4,
-  "routes": {
-    "/": {
-      "initialRevalidateSeconds": 86400,
-      "initialExpireSeconds": 31536000,
-      "srcRoute": null,
-      "dataRoute": "/_next/data/EkTfpCLlHTPVWGdcIKNTm/index.json",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/industries": {
-      "initialRevalidateSeconds": 86400,
-      "initialExpireSeconds": 31536000,
-      "srcRoute": null,
-      "dataRoute": "/_next/data/EkTfpCLlHTPVWGdcIKNTm/industries.json",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/sustainability": {
-      "initialRevalidateSeconds": 86400,
-      "initialExpireSeconds": 31536000,
-      "srcRoute": null,
-      "dataRoute": "/_next/data/EkTfpCLlHTPVWGdcIKNTm/sustainability.json",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/unauthorizedPage": {
-      "initialRevalidateSeconds": false,
-      "srcRoute": null,
-      "dataRoute": "/_next/data/EkTfpCLlHTPVWGdcIKNTm/unauthorizedPage.json",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    }
-  },
+  "routes": {},
   "dynamicRoutes": {},
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "c9517aed992cf34320bf75a177bc6802",
-    "previewModeSigningKey": "0f8f104571ef4504de85e16e8406da168048d1c04d31f4b8f9c947d6615f6d2e",
-    "previewModeEncryptionKey": "02a843c7df9c20a1655e05323c5d44c642a87b6b3bf7fcaa532a3340c69556fe"
+    "previewModeId": "c866019932c725346ee381f0ea644a24",
+    "previewModeSigningKey": "93f26fd105683bba1a7a59a854080a0281b818264738d6ca26b720b478b4e6e5",
+    "previewModeEncryptionKey": "7538cec9fa6f12f45b52a4bdd26dc7485d540f3105be2a2983139fdef1bc5ce0"
   }
 }

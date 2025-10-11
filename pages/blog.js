@@ -49,12 +49,12 @@ const BlogPage = () => {
     "@type": "Blog",
     "name": "Nevloh Limited Blog - Jamaica Energy Solutions",
     "description": "Expert insights on fuel delivery, energy solutions, and business efficiency from Jamaica's leading ULSD supplier serving all 14 parishes.",
-    "url": "https://nevloh.com/blog",
+    "url": "https://www.nevloh.com/blog",
     "publisher": {
       "@type": "Organization",
       "name": "Nevloh Limited",
-      "url": "https://nevloh.com",
-      "logo": "https://nevloh.com/images/nevloh-logo.png"
+      "url": "https://www.nevloh.com",
+      "logo": "https://www.nevloh.com/images/nevloh-logo.png"
     },
     "blogPost": blogPosts.map(post => ({
       "@type": "BlogPosting",
@@ -69,8 +69,8 @@ const BlogPage = () => {
         "@type": "Organization",
         "name": "Nevloh Limited"
       },
-      "url": `https://nevloh.com/blog/${post.id}`,
-      "image": `https://nevloh.com${post.image}`,
+      "url": `https://www.nevloh.com/blog/${post.id}`,
+      "image": `https://www.nevloh.com${post.image}`,
       "keywords": post.tags.join(", ")
     }))
   };
@@ -86,15 +86,15 @@ const BlogPage = () => {
         <meta property="og:title" content="Nevloh Limited Blog - Jamaica's Premier Fuel Delivery Insights" />
         <meta property="og:description" content="Expert insights on fuel delivery, energy solutions, and business efficiency from Jamaica's trusted ULSD supplier serving all parishes." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/blog" />
-        <meta property="og:image" content="https://nevloh.com/images/blog-og.jpg" />
+        <meta property="og:url" content="https://www.nevloh.com/blog" />
+        <meta property="og:image" content="https://www.nevloh.com/images/blog-og.jpg" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Nevloh Limited Blog - Expert Fuel Delivery Insights" />
         <meta name="twitter:description" content="Professional insights on ULSD, mobile refueling, and energy solutions across Jamaica's 14 parishes." />
         
-        <link rel="canonical" href="https://nevloh.com/blog" />
+        <link rel="canonical" href="https://www.nevloh.com/blog" />
       </Head>
 
       <Script

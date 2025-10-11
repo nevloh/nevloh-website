@@ -43,19 +43,19 @@ const Layout = ({ children, title, description, keywords, noIndex = false }) => 
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://nevloh.com${router.pathname}`} />
+        <meta property="og:url" content={`https://www.nevloh.com${router.pathname}`} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
-        <meta property="og:image" content="https://nevloh.com/og-image.jpg" />
+        <meta property="og:image" content="https://www.nevloh.com/og-image.jpg" />
         <meta property="og:site_name" content="Nevloh Limited" />
         <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://nevloh.com${router.pathname}`} />
+        <meta property="twitter:url" content={`https://www.nevloh.com${router.pathname}`} />
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content="https://nevloh.com/twitter-image.jpg" />
+        <meta property="twitter:image" content="https://www.nevloh.com/twitter-image.jpg" />
 
         {/* Additional Meta Tags */}
         <meta name="author" content="Nevloh Limited" />
@@ -70,7 +70,7 @@ const Layout = ({ children, title, description, keywords, noIndex = false }) => 
         <meta name="ICBM" content="17.9909, -76.9564" />
         
         {/* Canonical URL */}
-        <link rel="canonical" href={`https://nevloh.com${router.pathname}`} />
+        <link rel="canonical" href={`https://www.nevloh.com${router.pathname}`} />
         
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" />
@@ -99,8 +99,8 @@ const Layout = ({ children, title, description, keywords, noIndex = false }) => 
               "@type": "Organization",
               "name": "Nevloh Limited",
               "description": "Premium fuel delivery services across Jamaica",
-              "url": "https://nevloh.com",
-              "logo": "https://nevloh.com/logo.png",
+              "url": "https://www.nevloh.com",
+              "logo": "https://www.nevloh.com/logo.png",
               "foundingDate": "2022",
               "address": {
                 "@type": "PostalAddress",

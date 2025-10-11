@@ -176,7 +176,7 @@ const LoginPage = () => {
 
         {/* Open Graph Tags (for internal sharing) */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nevloh.com/login" />
+        <meta property="og:url" content="https://www.nevloh.com/login" />
         <meta property="og:title" content="Nevloh Limited - Secure Login Portal" />
         <meta property="og:description" content="Secure access to Nevloh Limited's fuel delivery management system. Professional dashboard for administrators, customers, and drivers." />
         <meta property="og:site_name" content="Nevloh Limited" />
@@ -186,7 +186,7 @@ const LoginPage = () => {
         <meta name="msapplication-TileColor" content="#2563eb" />
 
         {/* Canonical URL */}
-        <link rel="canonical" href="https://nevloh.com/login" />
+        <link rel="canonical" href="https://www.nevloh.com/login" />
 
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

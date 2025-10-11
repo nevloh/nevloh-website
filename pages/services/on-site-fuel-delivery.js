@@ -198,15 +198,15 @@ export default function OnSiteFuelDelivery() {
         {/* Open Graph */}
         <meta property="og:title" content="On-Site Fuel Delivery | Direct Fuel Service Anywhere in Jamaica" />
         <meta property="og:description" content="Direct fuel delivery to construction sites, farms, and remote locations across Jamaica. Professional, safe, and reliable service." />
-        <meta property="og:url" content="https://nevloh.com/services/on-site-fuel-delivery" />
-        <meta property="og:image" content="https://nevloh.com/images/on-site-fuel-delivery.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/on-site-fuel-delivery" />
+        <meta property="og:image" content="https://www.nevloh.com/images/on-site-fuel-delivery.webp" />
 
         {/* Twitter */}
         <meta name="twitter:title" content="On-Site Fuel Delivery | Direct Fuel Service Anywhere in Jamaica" />
         <meta name="twitter:description" content="Professional fuel delivery to construction sites, farms, and remote locations across Jamaica." />
-        <meta name="twitter:image" content="https://nevloh.com/images/on-site-fuel-delivery.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/on-site-fuel-delivery.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/on-site-fuel-delivery" />
+        <link rel="canonical" href="https://www.nevloh.com/services/on-site-fuel-delivery" />
       </Head>
 
       <Script

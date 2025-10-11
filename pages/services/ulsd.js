@@ -209,14 +209,14 @@ export default function ULSDService() {
 
         <meta property="og:title" content="Ultra Low Sulphur Diesel Supply | Premium Clean Fuel Jamaica" />
         <meta property="og:description" content="Premium ULSD supply across Jamaica. 90% cleaner emissions, 25% longer engine life. Professional delivery with quality guaranteed." />
-        <meta property="og:url" content="https://nevloh.com/services/ulsd" />
-        <meta property="og:image" content="https://nevloh.com/images/ulsd-service.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/ulsd" />
+        <meta property="og:image" content="https://www.nevloh.com/images/ulsd-service.webp" />
 
         <meta name="twitter:title" content="Ultra Low Sulphur Diesel Supply | Premium Clean Fuel Jamaica" />
         <meta name="twitter:description" content="Premium ULSD supply across Jamaica. 90% cleaner emissions, 25% longer engine life." />
-        <meta name="twitter:image" content="https://nevloh.com/images/ulsd-service.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/ulsd-service.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/ulsd" />
+        <link rel="canonical" href="https://www.nevloh.com/services/ulsd" />
       </Head>
 
       <Script

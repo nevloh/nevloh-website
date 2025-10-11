@@ -148,15 +148,15 @@ export default function FleetRefuelling() {
         {/* Open Graph */}
         <meta property="og:title" content="Fleet Refuelling Services | Professional On-Site Fuel Delivery" />
         <meta property="og:description" content="Keep your fleet running with our professional on-site refuelling services. Scheduled deliveries, emergency service, and comprehensive fleet management across Jamaica." />
-        <meta property="og:url" content="https://nevloh.com/services/fleet-refuelling" />
-        <meta property="og:image" content="https://nevloh.com/images/fleet-refuelling-service.webp" />
+        <meta property="og:url" content="https://www.nevloh.com/services/fleet-refuelling" />
+        <meta property="og:image" content="https://www.nevloh.com/images/fleet-refuelling-service.webp" />
 
         {/* Twitter */}
         <meta name="twitter:title" content="Fleet Refuelling Services | Professional On-Site Fuel Delivery" />
         <meta name="twitter:description" content="Professional fleet refuelling across Jamaica. Scheduled deliveries, emergency service, fuel management." />
-        <meta name="twitter:image" content="https://nevloh.com/images/fleet-refuelling-service.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/fleet-refuelling-service.webp" />
 
-        <link rel="canonical" href="https://nevloh.com/services/fleet-refuelling" />
+        <link rel="canonical" href="https://www.nevloh.com/services/fleet-refuelling" />
       </Head>
 
       <Script

@@ -510,7 +510,7 @@ const PrivacyPage = () => {
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
                   <Mail size={32} className="mx-auto mb-3" />
                   <h3 className="font-semibold mb-2">Email</h3>
-                  <a href="mailto:info@nevloh.com" className="hover:underline">
+                  <a href="mailto:shamar@nevloh.com" className="hover:underline">
                     info@nevloh.com
                   </a>
                 </div>

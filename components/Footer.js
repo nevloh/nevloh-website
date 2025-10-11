@@ -33,8 +33,8 @@ export default function Footer() {
             "@type": "Organization",
             "name": "Nevloh Limited",
             "description": "Delivering excellence in fuel solutions across Jamaica, ensuring reliable, on-site energy for business operations",
-            "url": "https://nevloh.com",
-            "logo": "https://nevloh.com/logo.png",
+            "url": "https://www.nevloh.com",
+            "logo": "https://www.nevloh.com/logo.png",
             "foundingDate": "2022",
             "address": {
               "@type": "PostalAddress",

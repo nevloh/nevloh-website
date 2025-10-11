@@ -146,7 +146,7 @@ function MyApp({ Component, pageProps }) {
         {isBlogPage() && (
           <>
             <meta property="og:site_name" content="Nevloh Limited" />
-            <meta property="article:publisher" content="https://nevloh.com" />
+            <meta property="article:publisher" content="https://www.nevloh.com" />
             <meta name="twitter:site" content="@nevlohltd" />
             <meta name="twitter:creator" content="@nevlohltd" />
           </>

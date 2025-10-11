@@ -226,7 +226,7 @@ export default function CallToAction() {
             "provider": {
               "@type": "Organization",
               "name": "Nevloh Limited",
-              "url": "https://nevloh.com",
+              "url": "https://www.nevloh.com",
               "telephone": "+1-876-449-5172"
             },
             "description": "Professional fuel management and delivery services for businesses in Jamaica",

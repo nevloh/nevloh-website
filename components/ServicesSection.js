@@ -126,7 +126,7 @@ export default function ServicesSection() {
             "provider": {
               "@type": "Organization",
               "name": "Nevloh Limited",
-              "url": "https://nevloh.com"
+              "url": "https://www.nevloh.com"
             },
             "serviceType": "Fuel Delivery Services",
             "areaServed": {
@@ -143,7 +143,7 @@ export default function ServicesSection() {
                   "@type": "Service",
                   "name": service.title,
                   "description": service.description,
-                  "url": `https://nevloh.com${service.href}`
+                  "url": `https://www.nevloh.com${service.href}`
                 }
               }))
             }
