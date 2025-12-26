@@ -1,32 +1,90 @@
+// pages/services/bulk-fuel.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Building2, TrendingDown, Shield, CheckCircle, ArrowRight, BarChart3, Truck, Calculator, Clock } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function BulkFuelSupply() {
+  // Enhanced Service Schema
   const bulkFuelSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Bulk Fuel Supply Services",
+    "@id": "https://www.nevloh.com/services/bulk-fuel#service",
+    "name": "Bulk Fuel Supply Services Jamaica",
+    "serviceType": "Bulk Fuel Supply",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
       "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
     "description": "Large volume fuel supply for industrial operations, commercial businesses, and bulk fuel requirements across Jamaica with competitive pricing and reliable delivery",
-    "serviceType": "Bulk Fuel Supply",
-    "areaServed": "Jamaica",
-    "offers": {
-      "@type": "Offer",
-      "description": "High volume fuel supply with competitive bulk pricing, custom delivery schedules, and industrial-grade service"
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Bulk Fuel Pricing Tiers",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Standard Bulk",
+          "description": "500-999 gallons with 5% discount"
+        },
+        {
+          "@type": "Offer",
+          "name": "High Volume",
+          "description": "1,000-4,999 gallons with 10% discount"
+        },
+        {
+          "@type": "Offer",
+          "name": "Industrial Scale",
+          "description": "5,000+ gallons with 15%+ discount"
+        }
+      ]
     }
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the minimum order for bulk fuel in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The minimum order for bulk fuel delivery from Nevloh Limited is 500 gallons. Orders of 500-999 gallons qualify for a 5% discount, with larger discounts available for higher volumes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I save with bulk fuel pricing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nevloh Limited offers volume-based discounts up to 15% off standard pricing. Standard Bulk (500-999 gallons) saves 5%, High Volume (1,000-4,999 gallons) saves 10%, and Industrial Scale (5,000+ gallons) saves 15% or more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What industries does Nevloh supply bulk fuel to?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We supply bulk fuel to manufacturing, transportation & logistics, construction, agriculture, government agencies, and other industries across all 14 parishes in Jamaica."
+        }
+      }
+    ]
   };
 
   const services = [
@@ -209,23 +267,37 @@ export default function BulkFuelSupply() {
     <>
       <Head>
         <title>Bulk Fuel Supply Jamaica | Industrial Volume Diesel Delivery | Nevloh Limited</title>
-        <meta name="description" content="Large volume fuel supply for industrial operations across Jamaica. Competitive bulk pricing, reliable delivery, custom schedules. Save up to 15% with volume discounts." />
-        <meta name="keywords" content="bulk fuel supply Jamaica, industrial fuel delivery, commercial bulk diesel, high volume fuel, bulk fuel pricing, industrial fuel supply, large scale fuel delivery" />
+        <meta name="description" content="Large volume fuel supply for industrial operations across Jamaica. Competitive bulk pricing with up to 15% discount, reliable delivery, custom schedules. Minimum 500 gallons. Call +1-876-449-5172" />
+        <meta name="keywords" content="bulk fuel supply Jamaica, industrial fuel delivery, commercial bulk diesel, high volume fuel, bulk fuel pricing, industrial fuel supply, large scale fuel delivery, wholesale diesel Jamaica" />
+
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Bulk Fuel Supply | Industrial Volume Fuel Delivery Jamaica" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Bulk Fuel Supply Jamaica | Save Up to 15% | Nevloh Limited" />
         <meta property="og:description" content="Large volume fuel supply for industrial operations. Competitive bulk pricing, reliable delivery, and professional service across Jamaica." />
         <meta property="og:url" content="https://www.nevloh.com/services/bulk-fuel" />
-        <meta property="og:image" content="https://www.nevloh.com/images/bulk-fuel-supply.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
-        <meta name="twitter:title" content="Bulk Fuel Supply | Industrial Volume Fuel Delivery Jamaica" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Bulk Fuel Supply Jamaica | Save Up to 15% | Nevloh Limited" />
         <meta name="twitter:description" content="Large volume fuel supply with competitive bulk pricing and reliable delivery across Jamaica." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/bulk-fuel-supply.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services/bulk-fuel" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="bulk-fuel-schema"
         type="application/ld+json"
@@ -235,20 +307,29 @@ export default function BulkFuelSupply() {
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="bulk-fuel-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Properly wrapped with container and padding */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.bulkFuel} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="mb-6">
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    ← Back to Services
-                  </Link>
-                </div>
+                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
 
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
                   Bulk Fuel Supply
@@ -269,7 +350,7 @@ export default function BulkFuelSupply() {
                     href="/contact"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                   >
-                    Get Bulk Quote <ArrowRight className="ml-2" size={20} />
+                    Get Bulk Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                   </Link>
                   <a
                     href="tel:+18764495172"
@@ -282,23 +363,23 @@ export default function BulkFuelSupply() {
 
               <div className="relative">
                 <div className="bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl p-8 shadow-2xl">
-                  <Building2 className="text-white mb-4" size={64} />
-                  <h3 className="text-2xl font-bold text-white mb-4">Industrial-Scale Supply</h3>
+                  <Building2 className="text-white mb-4" size={64} aria-hidden="true" />
+                  <h2 className="text-2xl font-bold text-white mb-4">Industrial-Scale Supply</h2>
                   <ul className="text-orange-100 space-y-2">
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Volume Discounts up to 15%</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Custom Delivery Schedules</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Industrial-Grade Quality</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Dedicated Account Management</span>
                     </li>
                   </ul>
@@ -322,12 +403,12 @@ export default function BulkFuelSupply() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {services.map((service, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <service.icon className="text-blue-600" size={24} />
+                    <service.icon className="text-blue-600" size={24} aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
@@ -342,7 +423,7 @@ export default function BulkFuelSupply() {
                     <ul className="space-y-1">
                       {service.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center text-gray-600">
-                          <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={14} />
+                          <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={14} aria-hidden="true" />
                           <span className="text-sm">{feature}</span>
                         </li>
                       ))}
@@ -362,7 +443,7 @@ export default function BulkFuelSupply() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -406,7 +487,7 @@ export default function BulkFuelSupply() {
                   <ul className="space-y-2 mb-6">
                     {tier.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
@@ -418,7 +499,7 @@ export default function BulkFuelSupply() {
                       href="/contact"
                       className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all duration-300"
                     >
-                      Get Quote <ArrowRight className="ml-2" size={16} />
+                      Get Quote <ArrowRight className="ml-2" size={16} aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -446,7 +527,7 @@ export default function BulkFuelSupply() {
                   className="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="text-orange-600" size={28} />
+                    <benefit.icon className="text-orange-600" size={28} aria-hidden="true" />
                   </div>
                   <div className="text-3xl font-bold text-orange-600 mb-2">{benefit.stat}</div>
                   <div className="text-sm text-gray-500 uppercase tracking-wide mb-3">{benefit.statLabel}</div>
@@ -480,7 +561,7 @@ export default function BulkFuelSupply() {
                   <p className="text-gray-600">{step.description}</p>
                   {index < process.length - 1 && (
                     <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-orange-300 mx-auto" size={24} />
+                      <ArrowRight className="text-orange-300 mx-auto" size={24} aria-hidden="true" />
                     </div>
                   )}
                 </div>
@@ -503,7 +584,7 @@ export default function BulkFuelSupply() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {industries.map((industry, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
@@ -528,7 +609,7 @@ export default function BulkFuelSupply() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -538,7 +619,7 @@ export default function BulkFuelSupply() {
         <section className="py-16">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl p-8 md:p-12 text-white text-center">
-              <Calculator className="mx-auto mb-6 text-white" size={64} />
+              <Calculator className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Calculate Your Bulk Savings
               </h2>
@@ -569,7 +650,7 @@ export default function BulkFuelSupply() {
                   href="/contact"
                   className="inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                 >
-                  Get Custom Bulk Quote <ArrowRight className="ml-2" size={20} />
+                  Get Custom Bulk Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                 </Link>
                 <a
                   href="tel:+18764495172"
@@ -598,7 +679,7 @@ export default function BulkFuelSupply() {
                 href="/contact"
                 className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                Start Bulk Program <ArrowRight className="ml-2" size={20} />
+                Start Bulk Program <ArrowRight className="ml-2" size={20} aria-hidden="true" />
               </Link>
               <a
                 href="tel:+18764495172"

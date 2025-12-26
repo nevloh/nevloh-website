@@ -1,32 +1,121 @@
+// pages/services/on-site-fuel-delivery.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { MapPin, Clock, Fuel, CheckCircle, ArrowRight, Construction, Tractor, Mountain, Building } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function OnSiteFuelDelivery() {
+  // Enhanced Service Schema
   const onSiteFuelSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "On-Site Fuel Delivery Services",
+    "@id": "https://www.nevloh.com/services/on-site-fuel-delivery#service",
+    "name": "On-Site Fuel Delivery Services Jamaica",
+    "serviceType": "On-Site Fuel Delivery",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
       "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
-    "description": "Professional on-site fuel delivery services to construction sites, farms, remote locations, and anywhere across Jamaica where traditional fuel stations aren't accessible",
-    "serviceType": "On-Site Fuel Delivery",
-    "areaServed": "Jamaica",
-    "offers": {
-      "@type": "Offer",
-      "description": "Direct fuel delivery to any location across Jamaica with flexible scheduling and emergency service options"
+    "description": "Professional on-site fuel delivery services to construction sites, farms, remote locations, and anywhere across Jamaica where traditional fuel stations aren't accessible. 24/7 emergency service available.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "On-Site Fuel Delivery Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Construction Site Fuel Delivery",
+            "description": "Heavy machinery and equipment refuelling at job sites"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Agricultural Fuel Delivery",
+            "description": "Farm equipment refuelling with seasonal delivery programs"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Remote Location Fuel Delivery",
+            "description": "Off-road delivery capability to the most challenging locations"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Fuel Delivery",
+            "description": "24/7 emergency fuel supply for critical situations"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "156",
+      "bestRating": "5"
     }
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you deliver fuel to construction sites in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited provides professional on-site fuel delivery to construction sites across all 14 parishes in Jamaica. We refuel heavy machinery and equipment directly at your job site with flexible scheduling and safety-compliant procedures."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you deliver fuel to remote locations in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. Our fleet has off-road delivery capability to reach the most challenging locations across Jamaica. We use GPS tracking and navigation to access remote farms, mining sites, forestry operations, and other hard-to-reach areas."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What industries do you provide on-site fuel delivery for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve construction & infrastructure, agriculture & farming, mining operations, forestry & logging, emergency services, event management, transportation hubs, and telecommunications tower sites across Jamaica."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is emergency on-site fuel delivery available?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited offers 24/7 emergency on-site fuel delivery across Jamaica. Call +1-876-449-5172 for immediate assistance with urgent fuel requirements at any location."
+        }
+      }
+    ]
   };
 
   const locations = [
@@ -192,23 +281,37 @@ export default function OnSiteFuelDelivery() {
     <>
       <Head>
         <title>On-Site Fuel Delivery Jamaica | Construction & Remote Location Fuel | Nevloh Limited</title>
-        <meta name="description" content="Professional on-site fuel delivery across Jamaica. Construction sites, farms, remote locations - we deliver anywhere. Flexible scheduling, premium ULSD, safety-certified service." />
-        <meta name="keywords" content="on-site fuel delivery Jamaica, construction fuel delivery, remote fuel delivery, agricultural fuel service, site fuel delivery, mobile fuel service, equipment refuelling" />
+        <meta name="description" content="Professional on-site fuel delivery across Jamaica. Construction sites, farms, remote locations - we deliver anywhere in all 14 parishes. 24/7 emergency service, premium ULSD, safety-certified. Call +1-876-449-5172" />
+        <meta name="keywords" content="on-site fuel delivery Jamaica, construction fuel delivery, remote fuel delivery, agricultural fuel service, site fuel delivery, mobile fuel service, equipment refuelling, farm fuel delivery Jamaica" />
+
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="On-Site Fuel Delivery | Direct Fuel Service Anywhere in Jamaica" />
-        <meta property="og:description" content="Direct fuel delivery to construction sites, farms, and remote locations across Jamaica. Professional, safe, and reliable service." />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="On-Site Fuel Delivery Jamaica | We Deliver Anywhere" />
+        <meta property="og:description" content="Direct fuel delivery to construction sites, farms, and remote locations across Jamaica. Professional, safe, and reliable service with 24/7 emergency support." />
         <meta property="og:url" content="https://www.nevloh.com/services/on-site-fuel-delivery" />
-        <meta property="og:image" content="https://www.nevloh.com/images/on-site-fuel-delivery.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
-        <meta name="twitter:title" content="On-Site Fuel Delivery | Direct Fuel Service Anywhere in Jamaica" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="On-Site Fuel Delivery Jamaica | We Deliver Anywhere" />
         <meta name="twitter:description" content="Professional fuel delivery to construction sites, farms, and remote locations across Jamaica." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/on-site-fuel-delivery.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services/on-site-fuel-delivery" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="onsite-fuel-schema"
         type="application/ld+json"
@@ -218,20 +321,29 @@ export default function OnSiteFuelDelivery() {
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="onsite-fuel-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Properly wrapped with container and padding */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.onSiteFuelDelivery} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="mb-6">
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    ← Back to Services
-                  </Link>
-                </div>
+                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
 
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
                   On-Site Fuel Delivery
@@ -243,7 +355,7 @@ export default function OnSiteFuelDelivery() {
                 </p>
 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                  <h3 className="font-semibold text-green-800 mb-2">Delivery Coverage</h3>
+                  <h2 className="font-semibold text-green-800 mb-2">Delivery Coverage</h2>
                   <p className="text-green-700">All 14 parishes • Urban to remote locations • Emergency service available</p>
                 </div>
 
@@ -252,7 +364,7 @@ export default function OnSiteFuelDelivery() {
                     href="/contact"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                   >
-                    Schedule Delivery <ArrowRight className="ml-2" size={20} />
+                    Schedule Delivery <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                   </Link>
                   <a
                     href="tel:+18764495172"
@@ -265,23 +377,23 @@ export default function OnSiteFuelDelivery() {
 
               <div className="relative">
                 <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 shadow-2xl">
-                  <MapPin className="text-white mb-4" size={64} />
-                  <h3 className="text-2xl font-bold text-white mb-4">We Deliver Anywhere</h3>
+                  <MapPin className="text-white mb-4" size={64} aria-hidden="true" />
+                  <h2 className="text-2xl font-bold text-white mb-4">We Deliver Anywhere</h2>
                   <ul className="text-green-100 space-y-2">
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Construction & Job Sites</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Agricultural Operations</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Remote Locations</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Emergency Situations</span>
                     </li>
                   </ul>
@@ -305,12 +417,12 @@ export default function OnSiteFuelDelivery() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {locations.map((location, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <location.icon className="text-blue-600" size={24} />
+                    <location.icon className="text-blue-600" size={24} aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{location.title}</h3>
                   <p className="text-gray-600 mb-4">{location.description}</p>
@@ -321,7 +433,7 @@ export default function OnSiteFuelDelivery() {
                       <ul className="space-y-1">
                         {location.features.map((feature, featureIndex) => (
                           <li key={featureIndex} className="flex items-center text-gray-600">
-                            <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={14} />
+                            <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={14} aria-hidden="true" />
                             <span className="text-sm">{feature}</span>
                           </li>
                         ))}
@@ -333,14 +445,14 @@ export default function OnSiteFuelDelivery() {
                       <ul className="space-y-1">
                         {location.benefits.map((benefit, benefitIndex) => (
                           <li key={benefitIndex} className="flex items-center text-gray-600">
-                            <CheckCircle className="text-blue-500 mr-2 flex-shrink-0" size={14} />
+                            <CheckCircle className="text-blue-500 mr-2 flex-shrink-0" size={14} aria-hidden="true" />
                             <span className="text-sm">{benefit}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -365,7 +477,7 @@ export default function OnSiteFuelDelivery() {
                   className="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="text-blue-600" size={28} />
+                    <feature.icon className="text-blue-600" size={28} aria-hidden="true" />
                   </div>
                   <div className="text-3xl font-bold text-blue-600 mb-2">{feature.stat}</div>
                   <div className="text-sm text-gray-500 uppercase tracking-wide mb-3">{feature.statLabel}</div>
@@ -399,7 +511,7 @@ export default function OnSiteFuelDelivery() {
                   <p className="text-gray-600">{step.description}</p>
                   {index < deliveryProcess.length - 1 && (
                     <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-green-300 mx-auto" size={24} />
+                      <ArrowRight className="text-green-300 mx-auto" size={24} aria-hidden="true" />
                     </div>
                   )}
                 </div>
@@ -422,13 +534,13 @@ export default function OnSiteFuelDelivery() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {industries.map((industry, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <h3 className="font-semibold text-gray-800 mb-2">{industry.name}</h3>
                   <p className="text-gray-600 text-sm">{industry.description}</p>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -448,19 +560,19 @@ export default function OnSiteFuelDelivery() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {benefits.map((benefit, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex items-start"
                 >
                   <div className="bg-green-100 rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
-                    <CheckCircle className="text-green-600" size={24} />
+                    <CheckCircle className="text-green-600" size={24} aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">{benefit.title}</h3>
                     <p className="text-gray-600 mb-2">{benefit.description}</p>
                     <div className="text-sm font-medium text-green-600">{benefit.impact}</div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -469,7 +581,7 @@ export default function OnSiteFuelDelivery() {
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-br from-green-600 to-green-800">
           <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <Fuel className="mx-auto mb-6 text-white" size={64} />
+            <Fuel className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready for Convenient Fuel Delivery?
             </h2>
@@ -482,7 +594,7 @@ export default function OnSiteFuelDelivery() {
                 href="/contact"
                 className="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                Schedule First Delivery <ArrowRight className="ml-2" size={20} />
+                Schedule First Delivery <ArrowRight className="ml-2" size={20} aria-hidden="true" />
               </Link>
               <a
                 href="tel:+18764495172"

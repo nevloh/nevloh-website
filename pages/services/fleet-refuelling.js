@@ -1,33 +1,110 @@
+// pages/services/fleet-refuelling.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Truck, Clock, Shield, CheckCircle, ArrowRight, Calendar, MapPin, Fuel, BarChart3 } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function FleetRefuelling() {
+  // Enhanced Service Schema
   const fleetRefuellingSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Fleet Refuelling Services",
+    "@id": "https://www.nevloh.com/services/fleet-refuelling#service",
+    "name": "Fleet Refuelling Services Jamaica",
+    "serviceType": "On-Site Fleet Refuelling",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
       "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
-    "description": "Professional on-site fleet refuelling services for commercial vehicles, delivery trucks, and transportation companies across Jamaica",
-    "serviceType": "Fleet Refuelling",
-    "areaServed": "Jamaica",
-    "offers": {
-      "@type": "Offer",
-      "description": "Comprehensive fleet refuelling solutions including scheduled deliveries, emergency service, and fuel management systems"
+    "description": "Professional on-site fleet refuelling services for commercial vehicles, delivery trucks, and transportation companies across Jamaica. 24/7 emergency service available.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fleet Refuelling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Scheduled Fleet Refuelling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Fleet Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fleet Fuel Management"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127",
+      "bestRating": "5"
     }
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does fleet refuelling work in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nevloh Limited provides on-site fleet refuelling where our certified technicians come directly to your fleet location. We assess your fuel consumption patterns, set up scheduled deliveries, and deliver premium ULSD diesel directly to your vehicles, eliminating trips to gas stations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer 24/7 emergency fleet refuelling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited provides 24/7 emergency fleet refuelling services across all 14 parishes in Jamaica. Call +1-876-449-5172 for immediate assistance to prevent costly fleet downtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What industries do you provide fleet refuelling for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve transportation & logistics companies, construction companies, delivery services, government fleet operations, emergency services, tour & travel companies, agricultural operations, and mining & heavy industry across Jamaica."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I save with fleet refuelling services?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our clients typically save 15% on fuel costs through competitive bulk pricing, plus save 80% of time previously spent on gas station trips. We also provide fuel management reports to help optimize consumption and reduce waste."
+        }
+      }
+    ]
   };
 
   const services = [
@@ -142,23 +219,37 @@ export default function FleetRefuelling() {
     <>
       <Head>
         <title>Fleet Refuelling Services Jamaica | On-Site Fuel Delivery | Nevloh Limited</title>
-        <meta name="description" content="Professional fleet refuelling services across Jamaica. Scheduled on-site fuel delivery, 24/7 emergency service, and fuel management for commercial fleets. Save time and reduce costs." />
-        <meta name="keywords" content="fleet refuelling Jamaica, on-site fuel delivery, commercial fleet fuel, scheduled fuel delivery, emergency fleet service, fleet fuel management, transportation fuel delivery" />
+        <meta name="description" content="Professional fleet refuelling services across Jamaica. Scheduled on-site fuel delivery, 24/7 emergency service, and fuel management for commercial fleets. Save 15% on fuel costs. Call +1-876-449-5172" />
+        <meta name="keywords" content="fleet refuelling Jamaica, on-site fuel delivery, commercial fleet fuel, scheduled fuel delivery, emergency fleet service, fleet fuel management, transportation fuel delivery, mobile refuelling Jamaica" />
+
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Fleet Refuelling Services | Professional On-Site Fuel Delivery" />
-        <meta property="og:description" content="Keep your fleet running with our professional on-site refuelling services. Scheduled deliveries, emergency service, and comprehensive fleet management across Jamaica." />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Fleet Refuelling Services Jamaica | 24/7 On-Site Fuel Delivery" />
+        <meta property="og:description" content="Keep your fleet running with professional on-site refuelling services. Scheduled deliveries, emergency service, and comprehensive fleet management across Jamaica." />
         <meta property="og:url" content="https://www.nevloh.com/services/fleet-refuelling" />
-        <meta property="og:image" content="https://www.nevloh.com/images/fleet-refuelling-service.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
-        <meta name="twitter:title" content="Fleet Refuelling Services | Professional On-Site Fuel Delivery" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Fleet Refuelling Services Jamaica | 24/7 On-Site Delivery" />
         <meta name="twitter:description" content="Professional fleet refuelling across Jamaica. Scheduled deliveries, emergency service, fuel management." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/fleet-refuelling-service.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services/fleet-refuelling" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="fleet-refuelling-schema"
         type="application/ld+json"
@@ -168,20 +259,29 @@ export default function FleetRefuelling() {
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="fleet-refuelling-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Properly wrapped with container and padding */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.fleetRefuelling} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="mb-6">
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    ← Back to Services
-                  </Link>
-                </div>
+                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
 
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
                   Fleet Refuelling Services
@@ -197,7 +297,7 @@ export default function FleetRefuelling() {
                     href="/contact"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                   >
-                    Get Fleet Quote <ArrowRight className="ml-2" size={20} />
+                    Get Fleet Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                   </Link>
                   <a
                     href="tel:+18764495172"
@@ -210,23 +310,23 @@ export default function FleetRefuelling() {
 
               <div className="relative">
                 <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 shadow-2xl">
-                  <Truck className="text-white mb-4" size={64} />
-                  <h3 className="text-2xl font-bold text-white mb-4">Professional Fleet Solutions</h3>
+                  <Truck className="text-white mb-4" size={64} aria-hidden="true" />
+                  <h2 className="text-2xl font-bold text-white mb-4">Professional Fleet Solutions</h2>
                   <ul className="text-blue-100 space-y-2">
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Scheduled & Emergency Service</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Real-time Fuel Management</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Cost Optimization Reports</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>24/7 Emergency Response</span>
                     </li>
                   </ul>
@@ -250,24 +350,24 @@ export default function FleetRefuelling() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {services.map((service, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <service.icon className="text-blue-600" size={24} />
+                    <service.icon className="text-blue-600" size={24} aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -323,7 +423,7 @@ export default function FleetRefuelling() {
                   <p className="text-gray-600">{step.description}</p>
                   {index < process.length - 1 && (
                     <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-blue-300 mx-auto" size={24} />
+                      <ArrowRight className="text-blue-300 mx-auto" size={24} aria-hidden="true" />
                     </div>
                   )}
                 </div>
@@ -372,7 +472,7 @@ export default function FleetRefuelling() {
                 href="/contact"
                 className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                Get Free Fleet Assessment <ArrowRight className="ml-2" size={20} />
+                Get Free Fleet Assessment <ArrowRight className="ml-2" size={20} aria-hidden="true" />
               </Link>
               <a
                 href="tel:+18764495172"

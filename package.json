@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "critters": "^0.0.25",
+    "dotenv": "^17.2.3",
     "firebase": "^12.0.0",
     "lucide-react": "^0.445.0",
     "next": "^15.4.5",

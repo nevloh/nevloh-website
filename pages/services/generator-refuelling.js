@@ -1,32 +1,117 @@
+// pages/services/generator-refuelling.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Zap, Shield, Clock, AlertTriangle, CheckCircle, ArrowRight, Activity, Battery, Settings, Phone } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function GeneratorRefuelling() {
+  // Enhanced Service Schema
   const generatorRefuellingSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Generator Refuelling Services",
+    "@id": "https://www.nevloh.com/services/generator-refuelling#service",
+    "name": "Generator Refuelling Services Jamaica",
+    "serviceType": "Generator Refuelling",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
       "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
-    "description": "Professional generator refuelling services for backup power systems, critical facilities, hospitals, data centers, and emergency power infrastructure across Jamaica",
-    "serviceType": "Generator Refuelling",
-    "areaServed": "Jamaica",
-    "offers": {
-      "@type": "Offer",
-      "description": "24/7 generator fuel delivery, monitoring, and maintenance services for uninterrupted power backup"
+    "description": "Professional generator refuelling services for backup power systems, critical facilities, hospitals, data centers, and emergency power infrastructure across Jamaica. 24/7 emergency response with 2-hour guarantee.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Generator Refuelling Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Scheduled Maintenance Refills"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Response Service"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Remote Monitoring Systems"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Critical Facility Support"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "89",
+      "bestRating": "5"
     }
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How quickly can you respond to emergency generator refuelling in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nevloh Limited guarantees a 2-hour maximum response time for emergency generator refuelling across all 14 parishes in Jamaica. Our 24/7 emergency hotline is +1-876-449-5172."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of generators do you refuel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We refuel all types of diesel generators from small backup units to large industrial generators. We specialize in critical facility generators for hospitals, data centers, banks, manufacturing facilities, and other mission-critical operations."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer generator fuel monitoring services?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited offers advanced remote monitoring systems that provide real-time fuel level tracking, automated alert systems, performance monitoring, and predictive maintenance scheduling to ensure your generators are always ready."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What critical facilities do you serve in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide specialized generator refuelling services for hospitals and medical centers, data centers and IT facilities, banking and financial services, manufacturing facilities, government buildings, and other critical infrastructure across Jamaica."
+        }
+      }
+    ]
   };
 
   const services = [
@@ -157,23 +242,37 @@ export default function GeneratorRefuelling() {
     <>
       <Head>
         <title>Generator Refuelling Services Jamaica | 24/7 Emergency Power Support | Nevloh Limited</title>
-        <meta name="description" content="Professional generator refuelling services for hospitals, data centers, and critical facilities across Jamaica. 24/7 emergency fuel delivery, remote monitoring, and maintenance support." />
-        <meta name="keywords" content="generator refuelling Jamaica, emergency fuel delivery, hospital generator fuel, data center power backup, critical facility fuel service, 24/7 generator support, backup power fuel" />
+        <meta name="description" content="Professional generator refuelling services for hospitals, data centers, and critical facilities across Jamaica. 24/7 emergency fuel delivery with 2-hour response guarantee, remote monitoring, and maintenance support. Call +1-876-449-5172" />
+        <meta name="keywords" content="generator refuelling Jamaica, emergency fuel delivery, hospital generator fuel, data center power backup, critical facility fuel service, 24/7 generator support, backup power fuel, generator monitoring Jamaica" />
+
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Generator Refuelling Services | 24/7 Emergency Power Support" />
-        <meta property="og:description" content="Ensure uninterrupted power with professional generator refuelling services. Perfect for hospitals, data centers, and critical facilities across Jamaica." />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Generator Refuelling Services Jamaica | 24/7 Emergency Power Support" />
+        <meta property="og:description" content="Ensure uninterrupted power with professional generator refuelling services. 2-hour emergency response for hospitals, data centers, and critical facilities across Jamaica." />
         <meta property="og:url" content="https://www.nevloh.com/services/generator-refuelling" />
-        <meta property="og:image" content="https://www.nevloh.com/images/generator-refuelling-service.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
-        <meta name="twitter:title" content="Generator Refuelling Services | 24/7 Emergency Power Support" />
-        <meta name="twitter:description" content="Professional generator fuel delivery for critical facilities. 24/7 emergency service across Jamaica." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/generator-refuelling-service.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Generator Refuelling Services Jamaica | 24/7 Emergency Support" />
+        <meta name="twitter:description" content="Professional generator fuel delivery for critical facilities. 24/7 emergency service with 2-hour response across Jamaica." />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services/generator-refuelling" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="generator-refuelling-schema"
         type="application/ld+json"
@@ -183,20 +282,29 @@ export default function GeneratorRefuelling() {
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="generator-refuelling-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Properly wrapped with container and padding */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.generatorRefuelling} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="mb-6">
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    ← Back to Services
-                  </Link>
-                </div>
+                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
 
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
                   Generator Refuelling Services
@@ -209,9 +317,9 @@ export default function GeneratorRefuelling() {
 
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
                   <div className="flex items-center">
-                    <AlertTriangle className="text-red-600 mr-3" size={24} />
+                    <AlertTriangle className="text-red-600 mr-3 flex-shrink-0" size={24} aria-hidden="true" />
                     <div>
-                      <h3 className="font-semibold text-red-800">Emergency Hotline</h3>
+                      <h2 className="font-semibold text-red-800">Emergency Hotline</h2>
                       <p className="text-red-600">24/7 Emergency Generator Fuel: (876) 449-5172</p>
                     </div>
                   </div>
@@ -222,13 +330,13 @@ export default function GeneratorRefuelling() {
                     href="/contact"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                   >
-                    Setup Monitoring <ArrowRight className="ml-2" size={20} />
+                    Setup Monitoring <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                   </Link>
                   <a
                     href="tel:+18764495172"
                     className="inline-flex items-center bg-red-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-700 transition-all duration-300 shadow-lg"
                   >
-                    <Phone className="mr-2" size={20} />
+                    <Phone className="mr-2" size={20} aria-hidden="true" />
                     Emergency Fuel
                   </a>
                 </div>
@@ -236,23 +344,23 @@ export default function GeneratorRefuelling() {
 
               <div className="relative">
                 <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 shadow-2xl">
-                  <Zap className="text-white mb-4" size={64} />
-                  <h3 className="text-2xl font-bold text-white mb-4">Critical Power Protection</h3>
+                  <Zap className="text-white mb-4" size={64} aria-hidden="true" />
+                  <h2 className="text-2xl font-bold text-white mb-4">Critical Power Protection</h2>
                   <ul className="text-blue-100 space-y-2">
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>24/7 Emergency Response</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Real-time Fuel Monitoring</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Automated Alert Systems</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>2-Hour Response Guarantee</span>
                     </li>
                   </ul>
@@ -276,24 +384,24 @@ export default function GeneratorRefuelling() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {services.map((service, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <service.icon className="text-blue-600" size={24} />
+                    <service.icon className="text-blue-600" size={24} aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -313,22 +421,22 @@ export default function GeneratorRefuelling() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {criticalFacilities.map((facility, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <div className="text-4xl mb-4">{facility.icon}</div>
+                  <div className="text-4xl mb-4" role="img" aria-label={facility.title}>{facility.icon}</div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{facility.title}</h3>
                   <p className="text-gray-600 mb-4">{facility.description}</p>
                   <ul className="space-y-2">
                     {facility.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-blue-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-blue-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -384,7 +492,7 @@ export default function GeneratorRefuelling() {
                   <p className="text-gray-600">{step.description}</p>
                   {index < process.length - 1 && (
                     <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-blue-300 mx-auto" size={24} />
+                      <ArrowRight className="text-blue-300 mx-auto" size={24} aria-hidden="true" />
                     </div>
                   )}
                 </div>
@@ -396,7 +504,7 @@ export default function GeneratorRefuelling() {
         {/* Emergency Response */}
         <section className="py-16 bg-gradient-to-br from-red-600 to-red-800">
           <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <AlertTriangle className="mx-auto mb-6 text-white" size={64} />
+            <AlertTriangle className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               24/7 Emergency Generator Fuel Service
             </h2>
@@ -427,7 +535,7 @@ export default function GeneratorRefuelling() {
                 href="tel:+18764495172"
                 className="inline-flex items-center bg-white text-red-600 px-8 py-4 rounded-full font-semibold hover:bg-red-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                <Phone className="mr-2" size={20} />
+                <Phone className="mr-2" size={20} aria-hidden="true" />
                 Emergency: (876) 449-5172
               </a>
               <Link
@@ -443,7 +551,7 @@ export default function GeneratorRefuelling() {
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800">
           <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <Battery className="mx-auto mb-6 text-white" size={64} />
+            <Battery className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Protect Your Critical Operations
             </h2>
@@ -456,7 +564,7 @@ export default function GeneratorRefuelling() {
                 href="/contact"
                 className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                Get System Assessment <ArrowRight className="ml-2" size={20} />
+                Get System Assessment <ArrowRight className="ml-2" size={20} aria-hidden="true" />
               </Link>
               <a
                 href="tel:+18764495172"

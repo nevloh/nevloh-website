@@ -1,28 +1,123 @@
+// pages/services.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Truck, Fuel, Clock, Shield, Zap, Building2, ArrowRight, CheckCircle, MapPin, Users, Phone, Star, TrendingUp, Award, Leaf } from 'lucide-react';
+import { Truck, Clock, Shield, Zap, Building2, ArrowRight, CheckCircle, MapPin, Users, Phone, Star, TrendingUp, Award, Leaf } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../components/Breadcrumbs';
 
 export default function Services() {
+  // Enhanced Service schema with BreadcrumbList
   const servicesSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
+    "@id": "https://www.nevloh.com/services#service",
     "name": "Professional Fuel Delivery Services",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
+      "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
     "description": "Comprehensive fuel delivery services including fleet refuelling, generator services, on-site delivery, and bulk fuel supply across Jamaica",
     "serviceType": "Fuel Delivery",
-    "areaServed": "Jamaica"
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fuel Delivery Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fleet Refuelling",
+            "url": "https://www.nevloh.com/services/fleet-refuelling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Generator Refuelling",
+            "url": "https://www.nevloh.com/services/generator-refuelling"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "On-Site Fuel Delivery",
+            "url": "https://www.nevloh.com/services/on-site-fuel-delivery"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bulk Fuel Supply",
+            "url": "https://www.nevloh.com/services/bulk-fuel"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Haulage Services",
+            "url": "https://www.nevloh.com/services/haulage"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Ultra Low Sulphur Diesel",
+            "url": "https://www.nevloh.com/services/ulsd"
+          }
+        }
+      ]
+    }
+  };
+
+  // FAQ Schema for Services page
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What fuel delivery services does Nevloh Limited offer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nevloh Limited offers fleet refuelling, generator refuelling, on-site fuel delivery, bulk fuel supply, petroleum haulage services, and Ultra Low Sulphur Diesel (ULSD) delivery across all 14 parishes in Jamaica."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you offer 24/7 emergency fuel delivery in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited provides 24/7 emergency fuel delivery services across Jamaica. Call +1-876-449-5172 for immediate assistance with urgent fuel needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas in Jamaica do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We provide fuel delivery services to all 14 parishes in Jamaica including Kingston, Saint Andrew, Saint Catherine, Clarendon, Manchester, Saint Elizabeth, Westmoreland, Hanover, Saint James, Trelawny, Saint Ann, Saint Mary, Portland, and Saint Thomas."
+        }
+      }
+    ]
   };
 
   const services = [
@@ -148,29 +243,39 @@ export default function Services() {
   return (
     <>
       <Head>
-        <title>Professional Fuel Delivery Services | Nevloh Limited Jamaica</title>
-        <meta name="description" content="Jamaica's premier fuel delivery services. Fleet refuelling, generator services, on-site delivery, bulk fuel supply, haulage, and ULSD. 24/7 emergency service across all 14 parishes." />
-        <meta name="keywords" content="fuel delivery services Jamaica, fleet refuelling, generator fuel delivery, on-site fuel delivery, bulk fuel supply, diesel delivery services, ULSD Jamaica" />
+        <title>Professional Fuel Delivery Services Jamaica | Fleet, Generator, Bulk | Nevloh Limited</title>
+        <meta name="description" content="Jamaica's premier fuel delivery services. Fleet refuelling, generator services, on-site delivery, bulk fuel supply, haulage, and ULSD. 24/7 emergency service across all 14 parishes. Call +1-876-449-5172" />
+        <meta name="keywords" content="fuel delivery services Jamaica, fleet refuelling, generator fuel delivery, on-site fuel delivery, bulk fuel supply, diesel delivery services, ULSD Jamaica, emergency fuel delivery" />
 
-        <meta property="og:title" content="Professional Fuel Delivery Services | Nevloh Limited" />
-        <meta property="og:description" content="Complete range of fuel delivery services across Jamaica. Professional, reliable, 24/7 service." />
-        <meta property="og:url" content="# *
-User-agent: *
-Allow: /
-Disallow: /login
-Disallow: /admin
-Disallow: /api
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
 
-# Host
-Host: https://www.nevloh.com
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
-https://www.nevloh.com/services" />
-        <meta property="og:image" content="
-https://www.nevloh.com/images/services-overview.webp" />
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Professional Fuel Delivery Services | Nevloh Limited Jamaica" />
+        <meta property="og:description" content="Complete range of fuel delivery services across Jamaica. Fleet refuelling, generator services, bulk supply, and 24/7 emergency delivery." />
+        <meta property="og:url" content="https://www.nevloh.com/services" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Professional Fuel Delivery Services | Nevloh Limited" />
+        <meta name="twitter:description" content="Complete range of fuel delivery services across Jamaica. 24/7 emergency service available." />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="services-schema"
         type="application/ld+json"
@@ -180,9 +285,25 @@ https://www.nevloh.com/images/services-overview.webp" />
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="services-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Placed at top of content area */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.services} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-20 px-4 relative overflow-hidden">
+        <section className="py-16 px-4 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-green-600/10"></div>
           <div className="relative max-w-7xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold text-blue-900 mb-6">
@@ -277,18 +398,18 @@ https://www.nevloh.com/images/services-overview.webp" />
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
+              {services.map((service) => {
                 const IconComponent = service.icon;
                 const gradientClass = getColorClasses(service.color);
 
                 return (
-                  <div key={service.id} className="group relative">
+                  <article key={service.id} className="group relative">
                     <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                       {/* Header */}
                       <div className={`bg-gradient-to-r ${gradientClass} p-8 text-white relative overflow-hidden`}>
                         <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-8 -translate-y-8"></div>
                         <div className="relative z-10">
-                          <IconComponent size={48} className="mb-4" />
+                          <IconComponent size={48} className="mb-4" aria-hidden="true" />
                           <h3 className="text-2xl font-bold mb-2">{service.title}</h3>
                           <div className="text-sm bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block">
                             {service.stats}
@@ -300,24 +421,25 @@ https://www.nevloh.com/images/services-overview.webp" />
                       <div className="p-8">
                         <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
 
-                        <div className="space-y-3 mb-8">
+                        <ul className="space-y-3 mb-8">
                           {service.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center text-sm text-gray-700">
-                              <CheckCircle className="text-green-500 mr-3 flex-shrink-0" size={16} />
+                            <li key={idx} className="flex items-center text-sm text-gray-700">
+                              <CheckCircle className="text-green-500 mr-3 flex-shrink-0" size={16} aria-hidden="true" />
                               <span>{feature}</span>
-                            </div>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
 
                         <Link
                           href={service.href}
                           className={`inline-flex items-center bg-gradient-to-r ${gradientClass} text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 w-full justify-center group-hover:scale-105`}
+                          aria-label={`Learn more about ${service.title}`}
                         >
-                          Learn More <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" size={18} />
+                          Learn More <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" size={18} aria-hidden="true" />
                         </Link>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 );
               })}
             </div>
@@ -360,7 +482,7 @@ https://www.nevloh.com/images/services-overview.webp" />
         <section className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-12 text-white text-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/images/jamaica-pattern.svg')] opacity-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/5 via-green-500/5 to-black/5"></div>
               <div className="relative z-10">
                 <h2 className="text-4xl md:text-5xl font-bold mb-6">
                   Island-Wide Fuel Delivery Coverage
@@ -421,18 +543,18 @@ https://www.nevloh.com/images/services-overview.webp" />
               </a>
             </div>
 
-            <div className="flex items-center justify-center space-x-8 text-gray-500 text-sm">
+            <div className="flex flex-wrap items-center justify-center gap-8 text-gray-500 text-sm">
               <div className="flex items-center">
-                <Clock className="mr-2" size={16} />
-                24/7 Emergency Service
+                <Clock className="mr-2" size={16} aria-hidden="true" />
+                <span>24/7 Emergency Service</span>
               </div>
               <div className="flex items-center">
-                <Shield className="mr-2" size={16} />
-                Licensed & Insured
+                <Shield className="mr-2" size={16} aria-hidden="true" />
+                <span>Licensed & Insured</span>
               </div>
               <div className="flex items-center">
-                <Star className="mr-2" size={16} />
-                5-Star Rated Service
+                <Star className="mr-2" size={16} aria-hidden="true" />
+                <span>5-Star Rated Service</span>
               </div>
             </div>
           </div>

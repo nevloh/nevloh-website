@@ -10,9 +10,5 @@
     "files": [
       "static/chunks/_pages-dir-browser_node_modules_next_dist_pages__error_js.js"
     ]
-  },
-  "utils\\firebase.js -> firebase/firestore": {
-    "id": "utils\\firebase.js -> firebase/firestore",
-    "files": []
   }
 }

@@ -1,32 +1,113 @@
+// pages/services/haulage.js
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import { Truck, Shield, Clock, CheckCircle, ArrowRight, Award, Route, FileCheck, Users, BarChart3, MapPin, Phone } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function HaulageServices() {
+  // Enhanced Service Schema
   const haulageSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Licensed Petroleum Haulage Services",
+    "@id": "https://www.nevloh.com/services/haulage#service",
+    "name": "Licensed Petroleum Haulage Services Jamaica",
+    "serviceType": "Petroleum Haulage",
     "provider": {
       "@type": "LocalBusiness",
+      "@id": "https://www.nevloh.com/#organization",
       "name": "Nevloh Limited",
       "telephone": "+1-876-449-5172",
       "email": "shamar@nevloh.com",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Caymanas Bay",
         "addressLocality": "Spanish Town",
         "addressRegion": "Saint Catherine",
-        "addressCountry": "Jamaica"
+        "addressCountry": "JM"
       }
     },
-    "description": "Licensed petroleum haulage contractor providing professional fuel transportation services for petroleum companies across Jamaica. Fully compliant, insured, and safety-certified operations.",
-    "serviceType": "Petroleum Haulage",
-    "areaServed": "Jamaica",
-    "offers": {
-      "@type": "Offer",
-      "description": "Professional petroleum haulage services including bulk fuel transportation, terminal-to-station delivery, and specialized petroleum logistics"
+    "description": "Licensed petroleum haulage contractor providing professional fuel transportation services for petroleum companies across Jamaica. Fully compliant, insured, and safety-certified operations with fleet capacity up to 45,000L per trip.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Petroleum Haulage Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Bulk Petroleum Transportation",
+            "description": "Terminal-to-station delivery up to 45,000L per trip"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Scheduled Route Services",
+            "description": "Fixed route scheduling with multi-location deliveries"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Haulage Support",
+            "description": "24/7 emergency transportation services"
+          }
+        }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "64",
+      "bestRating": "5"
     }
+  };
+
+  // FAQ Schema for better search visibility
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Nevloh Limited a licensed petroleum haulage contractor in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited is a fully licensed petroleum haulage contractor in Jamaica. We are government certified, fully insured with cargo, equipment and liability coverage, and maintain all required safety certifications for petroleum transportation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the maximum fuel capacity per trip?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our heavy duty tankers can transport up to 45,000 litres per trip. We also operate medium tankers (20,000-30,000L) for regional distribution and specialized units (10,000-25,000L) for premium product transportation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you provide 24/7 emergency petroleum haulage services?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh Limited provides 24/7 emergency haulage support for urgent petroleum supply requirements across all 14 parishes in Jamaica. Our rapid deployment capability ensures immediate response when needed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What types of clients do you serve for petroleum haulage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We serve oil marketing companies, independent distributors, industrial clients, and government agencies. Our services include terminal deliveries, station supply, bulk transportation, and emergency services tailored to each client type."
+        }
+      }
+    ]
   };
 
   const services = [
@@ -213,23 +294,37 @@ export default function HaulageServices() {
     <>
       <Head>
         <title>Licensed Petroleum Haulage Services Jamaica | Professional Fuel Transportation | Nevloh Limited</title>
-        <meta name="description" content="Licensed petroleum haulage contractor providing professional fuel transportation services across Jamaica. Fully compliant, insured, and safety-certified operations for petroleum companies." />
-        <meta name="keywords" content="petroleum haulage Jamaica, licensed haulage contractor, fuel transportation, petroleum logistics, bulk fuel transport, terminal delivery, oil haulage services" />
+        <meta name="description" content="Licensed petroleum haulage contractor providing professional fuel transportation services across Jamaica. Up to 45,000L capacity, fully compliant, insured, and safety-certified. Call +1-876-449-5172" />
+        <meta name="keywords" content="petroleum haulage Jamaica, licensed haulage contractor, fuel transportation, petroleum logistics, bulk fuel transport, terminal delivery, oil haulage services, tanker truck Jamaica" />
+
+        {/* Robots and indexing */}
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
+        {/* Geographic targeting */}
+        <meta name="geo.region" content="JM" />
+        <meta name="geo.placename" content="Jamaica" />
+        <meta name="geo.position" content="17.9909;-76.9571" />
+        <meta name="ICBM" content="17.9909, -76.9571" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Licensed Petroleum Haulage Services | Professional Fuel Transportation" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Licensed Petroleum Haulage Services Jamaica | Nevloh Limited" />
         <meta property="og:description" content="Professional petroleum haulage services for oil companies across Jamaica. Licensed contractor with full compliance and safety certifications." />
         <meta property="og:url" content="https://www.nevloh.com/services/haulage" />
-        <meta property="og:image" content="https://www.nevloh.com/images/petroleum-haulage-services.webp" />
+        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
+        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:locale" content="en_JM" />
 
         {/* Twitter */}
-        <meta name="twitter:title" content="Licensed Petroleum Haulage Services | Professional Fuel Transportation" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Licensed Petroleum Haulage Services Jamaica | Nevloh Limited" />
         <meta name="twitter:description" content="Professional petroleum haulage services across Jamaica. Licensed, compliant, and safety-certified." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/petroleum-haulage-services.webp" />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
 
         <link rel="canonical" href="https://www.nevloh.com/services/haulage" />
       </Head>
 
+      {/* Service Schema */}
       <Script
         id="haulage-schema"
         type="application/ld+json"
@@ -239,20 +334,29 @@ export default function HaulageServices() {
         }}
       />
 
+      {/* FAQ Schema */}
+      <Script
+        id="haulage-faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqSchema)
+        }}
+      />
+
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+
+        {/* Breadcrumbs - Properly wrapped with container and padding */}
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <Breadcrumbs items={breadcrumbConfigs.haulage} />
+        </div>
+
         {/* Hero Section */}
-        <section className="py-16">
+        <section className="py-12">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="mb-6">
-                  <Link
-                    href="/services"
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
-                  >
-                    ← Back to Services
-                  </Link>
-                </div>
+                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
 
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
                   Licensed Petroleum Haulage Services
@@ -264,7 +368,7 @@ export default function HaulageServices() {
                 </p>
 
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                  <h3 className="font-semibold text-green-800 mb-2">Licensed & Certified</h3>
+                  <h2 className="font-semibold text-green-800 mb-2">Licensed & Certified</h2>
                   <p className="text-green-700">Government licensed haulage contractor • Fully insured • Safety certified</p>
                 </div>
 
@@ -273,13 +377,13 @@ export default function HaulageServices() {
                     href="/contact"
                     className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
                   >
-                    Request Partnership <ArrowRight className="ml-2" size={20} />
+                    Request Partnership <ArrowRight className="ml-2" size={20} aria-hidden="true" />
                   </Link>
                   <a
                     href="tel:+18764495172"
                     className="inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg border border-blue-200"
                   >
-                    <Phone className="mr-2" size={20} />
+                    <Phone className="mr-2" size={20} aria-hidden="true" />
                     Call (876) 449-5172
                   </a>
                 </div>
@@ -287,23 +391,23 @@ export default function HaulageServices() {
 
               <div className="relative">
                 <div className="bg-gradient-to-br from-slate-600 to-slate-800 rounded-2xl p-8 shadow-2xl">
-                  <Truck className="text-white mb-4" size={64} />
-                  <h3 className="text-2xl font-bold text-white mb-4">Professional Haulage Solutions</h3>
+                  <Truck className="text-white mb-4" size={64} aria-hidden="true" />
+                  <h2 className="text-2xl font-bold text-white mb-4">Professional Haulage Solutions</h2>
                   <ul className="text-slate-100 space-y-2">
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Licensed Haulage Contractor</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Fully Compliant Operations</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>24/7 Emergency Service</span>
                     </li>
                     <li className="flex items-center">
-                      <CheckCircle className="mr-2" size={16} />
+                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                       <span>Island-Wide Coverage</span>
                     </li>
                   </ul>
@@ -327,12 +431,12 @@ export default function HaulageServices() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {services.map((service, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="bg-slate-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <service.icon className="text-slate-600" size={24} />
+                    <service.icon className="text-slate-600" size={24} aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.description}</p>
@@ -351,12 +455,12 @@ export default function HaulageServices() {
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -381,14 +485,14 @@ export default function HaulageServices() {
                   className="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="bg-slate-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <cert.icon className="text-slate-600" size={28} />
+                    <cert.icon className="text-slate-600" size={28} aria-hidden="true" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">{cert.title}</h3>
                   <p className="text-gray-600 text-sm mb-4">{cert.description}</p>
                   <ul className="text-xs text-gray-500 space-y-1">
                     {cert.details.map((detail, detailIndex) => (
                       <li key={detailIndex} className="flex items-center justify-center">
-                        <CheckCircle className="text-green-500 mr-1" size={12} />
+                        <CheckCircle className="text-green-500 mr-1 flex-shrink-0" size={12} aria-hidden="true" />
                         <span>{detail}</span>
                       </li>
                     ))}
@@ -413,7 +517,7 @@ export default function HaulageServices() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {fleet.map((vehicle, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
@@ -423,7 +527,7 @@ export default function HaulageServices() {
                   <ul className="space-y-2 mb-4">
                     {vehicle.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} />
+                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
                         <span className="text-sm">{feature}</span>
                       </li>
                     ))}
@@ -433,7 +537,7 @@ export default function HaulageServices() {
                     <div className="text-xs font-medium text-gray-500 mb-1">Best Suited For:</div>
                     <div className="text-sm text-gray-700">{vehicle.suitable}</div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -458,7 +562,7 @@ export default function HaulageServices() {
                   className="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="bg-slate-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="text-slate-600" size={28} />
+                    <benefit.icon className="text-slate-600" size={28} aria-hidden="true" />
                   </div>
                   <div className="text-3xl font-bold text-slate-600 mb-2">{benefit.stat}</div>
                   <div className="text-sm text-gray-500 uppercase tracking-wide mb-3">{benefit.statLabel}</div>
@@ -492,7 +596,7 @@ export default function HaulageServices() {
                   <p className="text-gray-600">{step.description}</p>
                   {index < process.length - 1 && (
                     <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-slate-300 mx-auto" size={24} />
+                      <ArrowRight className="text-slate-300 mx-auto" size={24} aria-hidden="true" />
                     </div>
                   )}
                 </div>
@@ -515,7 +619,7 @@ export default function HaulageServices() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {clientTypes.map((client, index) => (
-                <div
+                <article
                   key={index}
                   className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
@@ -535,7 +639,7 @@ export default function HaulageServices() {
                       ))}
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
@@ -544,7 +648,7 @@ export default function HaulageServices() {
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-br from-slate-600 to-slate-800">
           <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <Users className="mx-auto mb-6 text-white" size={64} />
+            <Users className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Ready to Partner With Us?
             </h2>
@@ -576,13 +680,13 @@ export default function HaulageServices() {
                 href="/contact"
                 className="inline-flex items-center bg-white text-slate-600 px-8 py-4 rounded-full font-semibold hover:bg-slate-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
               >
-                Request Partnership Meeting <ArrowRight className="ml-2" size={20} />
+                Request Partnership Meeting <ArrowRight className="ml-2" size={20} aria-hidden="true" />
               </Link>
               <a
                 href="tel:+18764495172"
                 className="inline-flex items-center bg-transparent text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 border-2 border-white"
               >
-                <Phone className="mr-2" size={20} />
+                <Phone className="mr-2" size={20} aria-hidden="true" />
                 Call (876) 449-5172
               </a>
             </div>

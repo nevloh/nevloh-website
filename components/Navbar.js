@@ -29,7 +29,8 @@ export default function Navbar() {
       if (isMobileMenuOpen && !event.target.closest('nav')) {
         setIsMobileMenuOpen(false);
       }
-      if (isServicesOpen && !event.target.closest('.services-dropdown')) {
+      // Check for both desktop and mobile dropdown containers
+      if (isServicesOpen && !event.target.closest('.services-dropdown') && !event.target.closest('.mobile-services-dropdown')) {
         setIsServicesOpen(false);
       }
     };
@@ -307,7 +308,7 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Mobile Navigation Menu - FIXED */}
       {isMobileMenuOpen && (
         <div
           id="mobile-menu"
@@ -319,72 +320,92 @@ export default function Navbar() {
             {navigationItems.map((item) => (
               <li key={item.href} role="none">
                 <div>
-                  <Link
-                    href={item.href}
-                    className={`flex items-center justify-between font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      isActiveRoute(item.href)
-                        ? 'text-blue-600 bg-blue-100'
-                        : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
-                    }`}
-                    onClick={() => {
-                      handleNavClick(item.label);
-                      if (!item.hasDropdown) {
-                        setIsMobileMenuOpen(false);
-                      }
-                    }}
-                    role="menuitem"
-                  >
-                    <span>{item.label}</span>
-                    {item.hasDropdown && (
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setIsServicesOpen(!isServicesOpen);
-                        }}
-                        className="ml-2 p-1 rounded hover:bg-blue-200 transition-colors duration-200"
-                        aria-label="Toggle services menu"
-                      >
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-200 ${
-                            isServicesOpen ? 'rotate-180' : ''
+                  {/* FIXED: Separate button for dropdown toggle in mobile */}
+                  {item.hasDropdown ? (
+                    <div className="mobile-services-dropdown">
+                      <div className="flex items-center justify-between">
+                        <Link
+                          href={item.href}
+                          className={`flex-1 font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                            isActiveRoute(item.href)
+                              ? 'text-blue-600 bg-blue-100'
+                              : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
                           }`}
-                        />
-                      </button>
-                    )}
-                  </Link>
+                          onClick={() => {
+                            handleNavClick(item.label);
+                            setIsMobileMenuOpen(false);
+                          }}
+                          role="menuitem"
+                        >
+                          {item.label}
+                        </Link>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsServicesOpen(!isServicesOpen);
+                          }}
+                          className="ml-2 p-2 rounded hover:bg-blue-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          aria-label="Toggle services menu"
+                          aria-expanded={isServicesOpen}
+                        >
+                          <ChevronDown
+                            size={20}
+                            className={`transition-transform duration-200 text-blue-800 ${
+                              isServicesOpen ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </button>
+                      </div>
 
-                  {/* Mobile dropdown items */}
-                  {item.hasDropdown && isServicesOpen && (
-                    <ul className="ml-2 mt-3 space-y-2 animate-fade-in bg-white rounded-lg p-3 shadow-lg border border-blue-200">
-                      {item.dropdownItems.map((dropdownItem) => {
-                        const IconComponent = dropdownItem.icon;
-                        return (
-                          <li key={dropdownItem.href} role="none">
-                            <Link
-                              href={dropdownItem.href}
-                              className="flex items-center text-sm text-gray-600 hover:text-blue-600 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors duration-200 group"
-                              onClick={() => {
-                                handleNavClick(dropdownItem.label);
-                                setIsMobileMenuOpen(false);
-                                setIsServicesOpen(false);
-                              }}
-                              role="menuitem"
-                            >
-                              <div className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center mr-3 group-hover:bg-blue-100 transition-colors duration-200`}>
-                                <IconComponent size={16} className={dropdownItem.color} />
-                              </div>
-                              <div className="flex-1">
-                                <div className="font-medium">{dropdownItem.label}</div>
-                                <div className="text-xs text-gray-500 mt-0.5">
-                                  {dropdownItem.description}
-                                </div>
-                              </div>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                      {/* Mobile dropdown items */}
+                      {isServicesOpen && (
+                        <ul className="ml-2 mt-3 space-y-2 animate-fade-in bg-white rounded-lg p-3 shadow-lg border border-blue-200">
+                          {item.dropdownItems.map((dropdownItem) => {
+                            const IconComponent = dropdownItem.icon;
+                            return (
+                              <li key={dropdownItem.href} role="none">
+                                <Link
+                                  href={dropdownItem.href}
+                                  className="flex items-center text-sm text-gray-600 hover:text-blue-600 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors duration-200 group"
+                                  onClick={() => {
+                                    handleNavClick(dropdownItem.label);
+                                    setIsMobileMenuOpen(false);
+                                    setIsServicesOpen(false);
+                                  }}
+                                  role="menuitem"
+                                >
+                                  <div className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center mr-3 group-hover:bg-blue-100 transition-colors duration-200`}>
+                                    <IconComponent size={16} className={dropdownItem.color} />
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="font-medium">{dropdownItem.label}</div>
+                                    <div className="text-xs text-gray-500 mt-0.5">
+                                      {dropdownItem.description}
+                                    </div>
+                                  </div>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className={`flex items-center justify-between font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isActiveRoute(item.href)
+                          ? 'text-blue-600 bg-blue-100'
+                          : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
+                      }`}
+                      onClick={() => {
+                        handleNavClick(item.label);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      role="menuitem"
+                    >
+                      <span>{item.label}</span>
+                    </Link>
                   )}
                 </div>
               </li>

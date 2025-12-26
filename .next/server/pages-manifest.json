@@ -2,7 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/contact": "pages/contact.js",
+  "/services/bulk-fuel": "pages/services/bulk-fuel.js",
+  "/industries": "pages/industries.js",
   "/": "pages/index.js",
-  "/services": "pages/services.js"
+  "/blog": "pages/blog.js",
+  "/404": "pages/404.js"
 }

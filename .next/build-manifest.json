@@ -33,20 +33,20 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/contact": [
+    "/blog": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/contact.js"
+      "static/chunks/pages/blog.js"
     ],
-    "/privacy": [
+    "/industries": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/privacy.js"
+      "static/chunks/pages/industries.js"
     ],
-    "/services": [
+    "/services/bulk-fuel": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/services.js"
+      "static/chunks/pages/services/bulk-fuel.js"
     ]
   },
   "ampFirstPages": []
