@@ -6,13 +6,14 @@ import { Truck, Shield, Clock, CheckCircle, ArrowRight, Award, Route, FileCheck,
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function HaulageServices() {
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const haulageSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/haulage#service",
     "name": "Licensed Petroleum Haulage Services Jamaica",
     "serviceType": "Petroleum Haulage",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -32,36 +33,8 @@ export default function HaulageServices() {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Petroleum Haulage Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Bulk Petroleum Transportation",
-            "description": "Terminal-to-station delivery up to 45,000L per trip"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Scheduled Route Services",
-            "description": "Fixed route scheduling with multi-location deliveries"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Haulage Support",
-            "description": "24/7 emergency transportation services"
-          }
-        }
-      ]
-    },
+    "serviceOutput": "Petroleum transportation and haulage",
+    "termsOfService": "https://www.nevloh.com/terms",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",

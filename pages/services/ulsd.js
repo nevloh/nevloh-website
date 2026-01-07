@@ -28,13 +28,14 @@ import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 export default function ULSDService() {
   const [activeFeature, setActiveFeature] = useState(0);
 
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const ulsdSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/ulsd#service",
     "name": "Ultra Low Sulphur Diesel (ULSD) Supply Jamaica",
     "serviceType": "Ultra Low Sulphur Diesel Supply",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -54,36 +55,8 @@ export default function ULSDService() {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "ULSD Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "ULSD Delivery",
-            "description": "On-time premium fuel delivery across all 14 Jamaican parishes"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "24/7 Emergency ULSD Service",
-            "description": "Round-the-clock premium fuel support with 2-hour priority response"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "ULSD Quality Assurance",
-            "description": "Laboratory tested fuel meeting international standards"
-          }
-        }
-      ]
-    },
+    "serviceOutput": "Ultra Low Sulphur Diesel fuel delivery",
+    "termsOfService": "https://www.nevloh.com/terms",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
@@ -128,35 +101,6 @@ export default function ULSDService() {
           "@type": "Answer",
           "text": "ULSD is used across many industries in Jamaica including transportation and logistics fleets, construction for heavy machinery and generators, agriculture for tractors and irrigation systems, power generation for backup generators, marine operations for fishing vessels and cargo ships, and mining for equipment and transport vehicles."
         }
-      }
-    ]
-  };
-
-  // Product Schema for ULSD specifications
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Ultra Low Sulphur Diesel (ULSD)",
-    "description": "Premium Ultra Low Sulphur Diesel with ≤15 ppm sulphur content, meeting ASTM D975 and EN 590 international standards",
-    "brand": {
-      "@type": "Brand",
-      "name": "Nevloh Limited"
-    },
-    "offers": {
-      "@type": "Offer",
-      "availability": "https://schema.org/InStock",
-      "areaServed": "Jamaica"
-    },
-    "additionalProperty": [
-      {
-        "@type": "PropertyValue",
-        "name": "Sulfur Content",
-        "value": "≤ 15 ppm"
-      },
-      {
-        "@type": "PropertyValue",
-        "name": "Cetane Number",
-        "value": "≥ 51"
       }
     ]
   };
@@ -358,16 +302,6 @@ export default function ULSDService() {
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqSchema)
-        }}
-      />
-
-      {/* Product Schema */}
-      <Script
-        id="ulsd-product-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productSchema)
         }}
       />
 

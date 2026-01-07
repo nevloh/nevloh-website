@@ -6,13 +6,14 @@ import { Building2, TrendingDown, Shield, CheckCircle, ArrowRight, BarChart3, Tr
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function BulkFuelSupply() {
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const bulkFuelSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/bulk-fuel#service",
     "name": "Bulk Fuel Supply Services Jamaica",
     "serviceType": "Bulk Fuel Supply",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -27,32 +28,13 @@ export default function BulkFuelSupply() {
         "addressCountry": "JM"
       }
     },
-    "description": "Large volume fuel supply for industrial operations, commercial businesses, and bulk fuel requirements across Jamaica with competitive pricing and reliable delivery",
+    "description": "Large volume fuel supply for industrial operations, commercial businesses, and bulk fuel requirements across Jamaica. Volume discounts: 5% (500-999 gal), 10% (1,000-4,999 gal), 15%+ (5,000+ gal).",
     "areaServed": {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Bulk Fuel Pricing Tiers",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "name": "Standard Bulk",
-          "description": "500-999 gallons with 5% discount"
-        },
-        {
-          "@type": "Offer",
-          "name": "High Volume",
-          "description": "1,000-4,999 gallons with 10% discount"
-        },
-        {
-          "@type": "Offer",
-          "name": "Industrial Scale",
-          "description": "5,000+ gallons with 15%+ discount"
-        }
-      ]
-    }
+    "serviceOutput": "Bulk diesel fuel delivery",
+    "termsOfService": "https://www.nevloh.com/terms"
   };
 
   // FAQ Schema for better search visibility

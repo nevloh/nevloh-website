@@ -6,13 +6,14 @@ import { MapPin, Clock, Fuel, CheckCircle, ArrowRight, Construction, Tractor, Mo
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function OnSiteFuelDelivery() {
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const onSiteFuelSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/on-site-fuel-delivery#service",
     "name": "On-Site Fuel Delivery Services Jamaica",
     "serviceType": "On-Site Fuel Delivery",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -32,44 +33,8 @@ export default function OnSiteFuelDelivery() {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "On-Site Fuel Delivery Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Construction Site Fuel Delivery",
-            "description": "Heavy machinery and equipment refuelling at job sites"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Agricultural Fuel Delivery",
-            "description": "Farm equipment refuelling with seasonal delivery programs"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Remote Location Fuel Delivery",
-            "description": "Off-road delivery capability to the most challenging locations"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Fuel Delivery",
-            "description": "24/7 emergency fuel supply for critical situations"
-          }
-        }
-      ]
-    },
+    "serviceOutput": "On-site fuel delivery to any location",
+    "termsOfService": "https://www.nevloh.com/terms",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",

@@ -6,13 +6,14 @@ import { Truck, Clock, Shield, CheckCircle, ArrowRight, Calendar, MapPin, Fuel, 
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function FleetRefuelling() {
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const fleetRefuellingSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/fleet-refuelling#service",
     "name": "Fleet Refuelling Services Jamaica",
     "serviceType": "On-Site Fleet Refuelling",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -32,33 +33,8 @@ export default function FleetRefuelling() {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Fleet Refuelling Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Scheduled Fleet Refuelling"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Fleet Service"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Fleet Fuel Management"
-          }
-        }
-      ]
-    },
+    "serviceOutput": "On-site fleet fuel delivery",
+    "termsOfService": "https://www.nevloh.com/terms",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",

@@ -6,13 +6,14 @@ import { Zap, Shield, Clock, AlertTriangle, CheckCircle, ArrowRight, Activity, B
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 export default function GeneratorRefuelling() {
-  // Enhanced Service Schema
+  // Enhanced Service Schema - Fixed structure for Google validation
   const generatorRefuellingSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/generator-refuelling#service",
     "name": "Generator Refuelling Services Jamaica",
     "serviceType": "Generator Refuelling",
+    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
       "@type": "LocalBusiness",
       "@id": "https://www.nevloh.com/#organization",
@@ -32,39 +33,24 @@ export default function GeneratorRefuelling() {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Generator Refuelling Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Scheduled Maintenance Refills"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Emergency Response Service"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Remote Monitoring Systems"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Critical Facility Support"
-          }
+    "serviceOutput": "Generator fuel delivery and monitoring",
+    "termsOfService": "https://www.nevloh.com/terms",
+    "availableChannel": {
+      "@type": "ServiceChannel",
+      "serviceType": "Emergency Response",
+      "availableLanguage": "English",
+      "servicePhone": {
+        "@type": "ContactPoint",
+        "telephone": "+1-876-449-5172",
+        "contactType": "customer service",
+        "availableLanguage": "English",
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
         }
-      ]
+      }
     },
     "aggregateRating": {
       "@type": "AggregateRating",
