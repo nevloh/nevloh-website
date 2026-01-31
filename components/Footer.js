@@ -159,6 +159,12 @@ export default function Footer() {
                   <span className="group-hover:translate-x-1 transition-transform">About Us</span>
                 </Link>
                 <Link
+                  href="/international-trade"
+                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform">International Trade</span>
+                </Link>
+                <Link
                   href="/blog"
                   className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
                 >
@@ -169,12 +175,6 @@ export default function Footer() {
                   className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   <span className="group-hover:translate-x-1 transition-transform">Sustainability</span>
-                </Link>
-                <Link
-                  href="/industries"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Industries</span>
                 </Link>
                 <Link
                   href="/contact"
@@ -255,6 +255,22 @@ export default function Footer() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* International Trade Disclaimer */}
+      <div className="bg-slate-100 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <p className="text-xs text-slate-500 text-center leading-relaxed">
+            <span className="font-medium text-slate-600">International Trade Disclosure:</span>{' '}
+            International commodities trading is conducted through affiliated entities within the Nevloh Group.
+            The specific legal contracting entity is disclosed per transaction. Regional fuel delivery services
+            in Jamaica are provided by Nevloh Limited. International trade activities are conducted through
+            Nevloh LLC (Wyoming, USA).{' '}
+            <Link href="/international-trade" className="text-blue-600 hover:underline">
+              Learn more
+            </Link>
+          </p>
         </div>
       </div>
 

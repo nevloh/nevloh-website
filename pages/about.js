@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   User,
   Zap,
@@ -783,6 +784,73 @@ const AboutPage = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* International Trade Expansion Section */}
+        <section className="py-16 px-4 bg-gradient-to-br from-slate-800 to-slate-900">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                  <Globe size={16} className="mr-2" />
+                  Global Expansion
+                </div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+                  Expanding Beyond Jamaica's Borders
+                </h2>
+                <p className="text-lg text-slate-300 mb-6 leading-relaxed">
+                  Building on our success in Jamaica, the Nevloh Group has established <strong className="text-white">Nevloh LLC</strong>,
+                  a Wyoming (USA) registered entity, to support cross-border supply of essential energy and agricultural
+                  inputs to the Caribbean Basin and emerging markets.
+                </p>
+                <p className="text-slate-400 mb-8 leading-relaxed">
+                  Our international trading activities are conducted through structured, bank-controlled settlement
+                  mechanisms including irrevocable Letters of Credit and independent inspection protocols. This
+                  ensures secure, compliant transactions for qualified counterparties seeking reliable supply
+                  of EN590 diesel fuel and agricultural fertilizers.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/international-trade"
+                    className="inline-flex items-center justify-center bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300"
+                  >
+                    Learn About International Trade
+                    <ChevronRight size={20} className="ml-2" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="bg-slate-700/50 rounded-2xl p-8 border border-slate-600">
+                <h3 className="text-xl font-bold text-white mb-6">Nevloh Group Structure</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <MapPin size={24} className="text-green-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">Nevloh Limited</h4>
+                      <p className="text-slate-400 text-sm">Jamaica — Regional fuel delivery and distribution services across all 14 parishes</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                      <Globe size={24} className="text-blue-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-white">Nevloh LLC</h4>
+                      <p className="text-slate-400 text-sm">Wyoming, USA — International commodities trading under bank-controlled structures</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 pt-6 border-t border-slate-600">
+                  <p className="text-xs text-slate-500">
+                    International trade activities are conducted through Nevloh LLC with the specific contracting
+                    entity disclosed per transaction.
+                  </p>
                 </div>
               </div>
             </div>

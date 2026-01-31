@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
+import Link from 'next/link';
+import { Globe, X } from 'lucide-react';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import ProcessSection from '../components/ProcessSection';
 import CallToAction from '../components/CallToAction';
 
 export default function Home() {
+  const [showBanner, setShowBanner] = useState(true);
+
   // Define structured data as constants for better performance
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -252,6 +257,39 @@ export default function Home() {
 
       {/* Main Content with Semantic HTML */}
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800 font-inter antialiased">
+        {/* International Trade Announcement Banner */}
+        {showBanner && (
+          <div className="bg-gradient-to-r from-slate-800 to-slate-900 text-white relative">
+            <div className="max-w-7xl mx-auto px-4 py-2.5 sm:py-3">
+              <div className="flex items-center justify-center text-center">
+                <Link
+                  href="/international-trade"
+                  className="flex items-center text-xs sm:text-sm hover:text-blue-300 transition-colors group"
+                >
+                  <Globe size={16} className="mr-2 flex-shrink-0 text-blue-400" aria-hidden="true" />
+                  <span className="mr-1">
+                    <span className="font-medium">New:</span>
+                    <span className="hidden sm:inline"> International Commodities Trading</span>
+                    <span className="sm:hidden"> Int'l Trade</span>
+                  </span>
+                  <span className="text-blue-400 group-hover:text-blue-300">
+                    — Diesel & Fertilizer Supply via Nevloh LLC
+                    <span className="hidden sm:inline"> (Wyoming, USA)</span>
+                  </span>
+                  <span className="ml-2 text-blue-400 group-hover:translate-x-1 transition-transform inline-block">→</span>
+                </Link>
+                <button
+                  onClick={() => setShowBanner(false)}
+                  className="absolute right-2 sm:right-4 p-1 hover:bg-slate-700 rounded transition-colors"
+                  aria-label="Dismiss announcement"
+                >
+                  <X size={16} className="text-slate-400 hover:text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <main role="main" itemScope itemType="https://schema.org/LocalBusiness">
           {/* Hidden semantic content for accessibility and SEO context */}
           <div className="sr-only">

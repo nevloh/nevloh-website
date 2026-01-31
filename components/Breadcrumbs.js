@@ -1,27 +1,89 @@
 // components/Breadcrumbs.js
-// Ready-to-use breadcrumb component with Schema.org structured data
-// for improved Google search display
-
 import Link from 'next/link';
-import Head from 'next/head';
+import Script from 'next/script';
 import { ChevronRight, Home } from 'lucide-react';
 
-/**
- * Breadcrumbs Component
- *
- * Usage:
- * <Breadcrumbs items={[
- *   { name: "Home", url: "/" },
- *   { name: "Services", url: "/services" },
- *   { name: "Fleet Refuelling" }  // Current page - no URL
- * ]} />
- *
- * Props:
- * @param {Array} items - Array of breadcrumb items with name and optional url
- * @param {string} className - Optional additional CSS classes
- */
-export default function Breadcrumbs({ items, className = '' }) {
-  // Generate BreadcrumbList schema for Google
+// Breadcrumb configurations for all pages
+export const breadcrumbConfigs = {
+  // Main pages
+  about: [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' }
+  ],
+  services: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' }
+  ],
+  contact: [
+    { name: 'Home', href: '/' },
+    { name: 'Contact', href: '/contact' }
+  ],
+  blog: [
+    { name: 'Home', href: '/' },
+    { name: 'Blog', href: '/blog' }
+  ],
+  sustainability: [
+    { name: 'Home', href: '/' },
+    { name: 'Sustainability', href: '/sustainability' }
+  ],
+  industries: [
+    { name: 'Home', href: '/' },
+    { name: 'Industries', href: '/industries' }
+  ],
+  privacy: [
+    { name: 'Home', href: '/' },
+    { name: 'Privacy Policy', href: '/privacy' }
+  ],
+  terms: [
+    { name: 'Home', href: '/' },
+    { name: 'Terms of Service', href: '/terms' }
+  ],
+
+  // International Trade
+  internationalTrade: [
+    { name: 'Home', href: '/' },
+    { name: 'International Trade', href: '/international-trade' }
+  ],
+
+  // Service pages
+  fleetRefuelling: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Fleet Refuelling', href: '/services/fleet-refuelling' }
+  ],
+  generatorRefuelling: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Generator Refuelling', href: '/services/generator-refuelling' }
+  ],
+  onSiteFuelDelivery: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'On-Site Fuel Delivery', href: '/services/on-site-fuel-delivery' }
+  ],
+  bulkFuel: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Bulk Fuel Supply', href: '/services/bulk-fuel' }
+  ],
+  haulage: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Haulage Services', href: '/services/haulage' }
+  ],
+  ulsd: [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Ultra Low Sulphur Diesel', href: '/services/ulsd' }
+  ]
+};
+
+export default function Breadcrumbs({ items = [] }) {
+  if (!items || items.length === 0) {
+    return null;
+  }
+
+  // Generate structured data for breadcrumbs
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -29,167 +91,74 @@ export default function Breadcrumbs({ items, className = '' }) {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      // Only add item URL if it's not the current page
-      ...(item.url && index < items.length - 1 && {
-        "item": `https://www.nevloh.com${item.url}`
-      })
+      "item": `https://www.nevloh.com${item.href}`
     }))
   };
 
   return (
     <>
-      {/* Structured Data for Google Rich Results */}
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        />
-      </Head>
+      {/* Breadcrumb Schema */}
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+      />
 
-      {/* Visual Breadcrumbs with Microdata */}
-      <nav
-        aria-label="Breadcrumb"
-        className={`py-4 ${className}`}
-      >
-        <ol
-          className="flex items-center flex-wrap gap-1 text-sm"
-          itemScope
-          itemType="https://schema.org/BreadcrumbList"
-        >
-          {items.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-center"
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-            >
-              {/* Separator (not for first item) */}
-              {index > 0 && (
-                <ChevronRight
-                  className="w-4 h-4 text-gray-400 mx-1 flex-shrink-0"
-                  aria-hidden="true"
-                />
-              )}
+      {/* Breadcrumb Navigation */}
+      <nav aria-label="Breadcrumb" className="py-2">
+        <ol className="flex flex-wrap items-center text-sm text-gray-600" itemScope itemType="https://schema.org/BreadcrumbList">
+          {items.map((item, index) => {
+            const isLast = index === items.length - 1;
+            const isFirst = index === 0;
 
-              {/* Home icon for first item */}
-              {index === 0 && (
-                <Home
-                  className="w-4 h-4 mr-1 text-gray-500 flex-shrink-0"
-                  aria-hidden="true"
-                />
-              )}
+            return (
+              <li
+                key={item.href}
+                className="flex items-center"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                {!isFirst && (
+                  <ChevronRight
+                    size={16}
+                    className="mx-2 text-gray-400 flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                )}
 
-              {/* Link or text based on whether it's current page */}
-              {item.url && index < items.length - 1 ? (
-                <Link
-                  href={item.url}
-                  itemProp="item"
-                  className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
-                >
-                  <span itemProp="name">{item.name}</span>
-                </Link>
-              ) : (
-                <span
-                  itemProp="name"
-                  className="text-gray-700 font-medium"
-                  aria-current={index === items.length - 1 ? "page" : undefined}
-                >
-                  {item.name}
-                </span>
-              )}
-
-              {/* Position metadata for structured data */}
-              <meta itemProp="position" content={String(index + 1)} />
-            </li>
-          ))}
+                {isLast ? (
+                  <span
+                    className="text-blue-600 font-medium"
+                    itemProp="name"
+                    aria-current="page"
+                  >
+                    {isFirst && (
+                      <Home size={14} className="inline mr-1 -mt-0.5" aria-hidden="true" />
+                    )}
+                    {item.name}
+                  </span>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="hover:text-blue-600 transition-colors flex items-center"
+                    itemProp="item"
+                  >
+                    {isFirst && (
+                      <Home size={14} className="mr-1 -mt-0.5" aria-hidden="true" />
+                    )}
+                    <span itemProp="name">{item.name}</span>
+                  </Link>
+                )}
+                <meta itemProp="position" content={String(index + 1)} />
+              </li>
+            );
+          })}
         </ol>
       </nav>
     </>
   );
-}
-
-/**
- * Pre-configured breadcrumb configurations for common pages
- * Import and use these for consistency across your site
- */
-export const breadcrumbConfigs = {
-  // Service pages
-  services: [
-    { name: "Home", url: "/" },
-    { name: "Services" }
-  ],
-  fleetRefuelling: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "Fleet Refuelling" }
-  ],
-  generatorRefuelling: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "Generator Refuelling" }
-  ],
-  onSiteFuelDelivery: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "On-Site Fuel Delivery" }
-  ],
-  bulkFuel: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "Bulk Fuel Supply" }
-  ],
-  haulage: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "Haulage Services" }
-  ],
-  ulsd: [
-    { name: "Home", url: "/" },
-    { name: "Services", url: "/services" },
-    { name: "ULSD Supply" }
-  ],
-
-  // Other pages
-  about: [
-    { name: "Home", url: "/" },
-    { name: "About Us" }
-  ],
-  blog: [
-    { name: "Home", url: "/" },
-    { name: "Blog" }
-  ],
-  contact: [
-    { name: "Home", url: "/" },
-    { name: "Contact" }
-  ],
-  industries: [
-    { name: "Home", url: "/" },
-    { name: "Industries" }
-  ],
-  sustainability: [
-    { name: "Home", url: "/" },
-    { name: "Sustainability" }
-  ],
-  privacy: [
-    { name: "Home", url: "/" },
-    { name: "Privacy Policy" }
-  ],
-  terms: [
-    { name: "Home", url: "/" },
-    { name: "Terms of Service" }
-  ]
-};
-
-/**
- * Helper function to create blog post breadcrumb
- * @param {string} postTitle - The title of the blog post
- * @returns {Array} Breadcrumb items array
- */
-export function getBlogPostBreadcrumb(postTitle) {
-  return [
-    { name: "Home", url: "/" },
-    { name: "Blog", url: "/blog" },
-    { name: postTitle }
-  ];
 }

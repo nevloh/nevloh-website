@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Menu, X, ChevronDown, Truck, Zap, MapPin, Building2, Users, Fuel } from 'lucide-react';
+import { Menu, X, ChevronDown, Truck, Zap, MapPin, Building2, Users, Fuel, Globe } from 'lucide-react';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -116,9 +116,14 @@ export default function Navbar() {
       hasDropdown: true,
       dropdownItems: servicesDropdownItems
     },
+    {
+      href: '/international-trade',
+      label: 'Int\'l Trade',
+      labelFull: 'International Trade',
+      icon: Globe
+    },
     { href: '/blog', label: 'Blog' },
-    { href: '/sustainability', label: 'Sustainability' },
-    { href: '/industries', label: 'Industries' }
+    { href: '/sustainability', label: 'Sustainability' }
   ];
 
   return (
@@ -268,15 +273,20 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={item.href}
-                  className={`font-semibold text-base transition-colors duration-200 py-2 px-3 lg:px-4 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`flex items-center font-semibold text-base transition-colors duration-200 py-2 px-3 lg:px-4 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                     isActiveRoute(item.href) 
                       ? 'text-blue-600 bg-blue-50' 
                       : 'text-blue-800 hover:text-blue-600'
                   }`}
-                  onClick={() => handleNavClick(item.label)}
+                  onClick={() => handleNavClick(item.labelFull || item.label)}
                   role="menuitem"
+                  title={item.labelFull || item.label}
                 >
-                  {item.label}
+                  {item.icon && (
+                    <item.icon size={16} className="mr-1.5 flex-shrink-0" aria-hidden="true" />
+                  )}
+                  <span className="hidden lg:inline">{item.labelFull || item.label}</span>
+                  <span className="lg:hidden">{item.label}</span>
                 </Link>
               )}
             </li>
@@ -393,18 +403,21 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={item.href}
-                      className={`flex items-center justify-between font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`flex items-center font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                         isActiveRoute(item.href)
                           ? 'text-blue-600 bg-blue-100'
                           : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
                       }`}
                       onClick={() => {
-                        handleNavClick(item.label);
+                        handleNavClick(item.labelFull || item.label);
                         setIsMobileMenuOpen(false);
                       }}
                       role="menuitem"
                     >
-                      <span>{item.label}</span>
+                      {item.icon && (
+                        <item.icon size={18} className="mr-2 flex-shrink-0" aria-hidden="true" />
+                      )}
+                      <span>{item.labelFull || item.label}</span>
                     </Link>
                   )}
                 </div>
