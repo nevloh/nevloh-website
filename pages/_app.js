@@ -167,15 +167,6 @@ function MyApp({ Component, pageProps }) {
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
 
-        {/* Preload critical resources - only if they exist */}
-        <link
-          rel="preload"
-          href="/fonts/inter-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-          onError={() => console.log('Inter font not found - using Google Fonts fallback')}
-        />
       </Head>
 
       {/* Google Analytics - only load if GA_TRACKING_ID exists */}

@@ -51,19 +51,65 @@ export default function ContactJamaica() {
     website: ''
   });
 
-  // Set up Turnstile callback
+  // Turnstile container ref
+  const turnstileRef = useRef(null);
+  const turnstileWidgetId = useRef(null);
+
+  // Reset form load time on mount
   useEffect(() => {
-    window.setTurnstileToken = (token) => {
-      setTurnstileToken(token);
+    formLoadTime.current = Date.now();
+  }, []);
+
+  // Explicit Turnstile rendering — mounts/unmounts cleanly with React
+  useEffect(() => {
+    // Wait for both the API script and the container div to be ready
+    const renderWidget = () => {
+      if (!turnstileRef.current) return;
+      if (typeof window === 'undefined' || !window.turnstile) return;
+
+      // Remove existing widget if any (prevents duplicates on step change)
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
+
+      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA',
+        theme: 'light',
+        callback: (token) => {
+          setTurnstileToken(token);
+        },
+        'error-callback': () => {
+          setTurnstileToken(null);
+        },
+        'expired-callback': () => {
+          setTurnstileToken(null);
+        }
+      });
     };
 
-    // Reset form load time when component mounts
-    formLoadTime.current = Date.now();
+    // Turnstile script may still be loading — poll briefly then render
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const interval = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(interval);
+          renderWidget();
+        }
+      }, 200);
+      // Stop polling after 10 seconds
+      const timeout = setTimeout(() => clearInterval(interval), 10000);
+      return () => { clearInterval(interval); clearTimeout(timeout); };
+    }
 
     return () => {
-      delete window.setTurnstileToken;
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
     };
-  }, []);
+  }, [step]); // Re-render widget when step changes
 
   // Schema - LocalBusiness focused
   const localBusinessSchema = {
@@ -381,7 +427,7 @@ export default function ContactJamaica() {
 
       {/* Cloudflare Turnstile */}
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         async={true}
         defer={true}
       />
@@ -612,23 +658,8 @@ export default function ContactJamaica() {
                           onChange={handleInputChange} tabIndex={-1} autoComplete="off" />
                       </div>
 
-                      {/* Cloudflare Turnstile Widget */}
-                      <div className="mt-6">
-                        <div
-                          className="cf-turnstile"
-                          data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
-                          data-callback="onTurnstileSuccess"
-                          data-theme="light"
-                        />
-                      </div>
-                      <script dangerouslySetInnerHTML={{
-                        __html: `window.onTurnstileSuccess = function(token) { 
-                          window.turnstileToken = token;
-                          if (typeof window.setTurnstileToken === 'function') {
-                            window.setTurnstileToken(token);
-                          }
-                        };`
-                      }} />
+                      {/* Cloudflare Turnstile — explicit render via ref */}
+                      <div className="mt-6" ref={turnstileRef} />
 
                       <div className="flex flex-col sm:flex-row gap-4 mt-10">
                         <button type="submit" disabled={isSubmitting}
@@ -751,15 +782,8 @@ export default function ContactJamaica() {
                           onChange={handleInputChange} tabIndex={-1} autoComplete="off" />
                       </div>
 
-                      {/* Cloudflare Turnstile Widget */}
-                      <div className="mt-6">
-                        <div
-                          className="cf-turnstile"
-                          data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
-                          data-callback="onTurnstileSuccess"
-                          data-theme="light"
-                        />
-                      </div>
+                      {/* Cloudflare Turnstile — explicit render via ref */}
+                      <div className="mt-6" ref={turnstileRef} />
 
                       <button type="submit" disabled={isSubmitting}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-2xl font-black text-sm uppercase tracking-wider transition-all flex items-center justify-center mt-10 disabled:opacity-50 shadow-lg shadow-blue-200 hover:shadow-xl hover:shadow-blue-200">

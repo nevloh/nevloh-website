@@ -1,13 +1,13 @@
 // components/Footer.js
+// Tier 1 Institutional — Nevloh Group Bilateral Footer
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, MapPin, Mail, Phone, ExternalLink } from 'lucide-react';
+import { Instagram, MapPin, Mail, Phone, ExternalLink, ShieldCheck } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Analytics tracking for external links
   const handleExternalLinkClick = (linkName) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'click', {
@@ -19,299 +19,245 @@ export default function Footer() {
   };
 
   return (
-    <footer
-      className="bg-gradient-to-br from-blue-50 to-blue-100 border-t border-blue-200"
-      role="contentinfo"
-      aria-label="Site footer"
-    >
-      {/* Structured Data for Organization */}
+    <footer className="bg-slate-950 text-slate-400 border-t border-slate-900" role="contentinfo" aria-label="Site footer">
+      {/* Institutional Schema — Nevloh Group (Bilateral) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Nevloh Limited",
-            "description": "Delivering excellence in fuel solutions across Jamaica, ensuring reliable, on-site energy for business operations",
+            "name": "Nevloh Group",
+            "description": "Bilateral energy group specializing in Jamaica fuel logistics (Nevloh Limited) and international commodities trade (Nevloh LLC).",
             "url": "https://www.nevloh.com",
-            "logo": "https://www.nevloh.com/logo.png",
+            "logo": "https://www.nevloh.com/images/logo.png",
             "foundingDate": "2022",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Spanish Town",
-              "addressRegion": "St. Catherine",
-              "addressCountry": "Jamaica"
-            },
+            "address": [
+              {
+                "@type": "PostalAddress",
+                "addressLocality": "Spanish Town",
+                "addressRegion": "St. Catherine",
+                "addressCountry": "Jamaica"
+              },
+              {
+                "@type": "PostalAddress",
+                "addressLocality": "Casper",
+                "addressRegion": "Wyoming",
+                "addressCountry": "USA"
+              }
+            ],
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+1-876-449-5172",
               "email": "shamar@nevloh.com",
               "contactType": "customer service",
-              "areaServed": "JM"
+              "areaServed": ["JM", "US"]
             },
             "sameAs": [
               "https://www.instagram.com/nevlohltd"
-            ],
-            "serviceArea": {
-              "@type": "Country",
-              "name": "Jamaica"
-            }
+            ]
           })
         }}
       />
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-
-          {/* Company Info */}
-          <div className="text-center md:text-left">
+      {/* ─── 1. TOP TIER: Newsletter & Global Brand ─── */}
+      <div className="border-b border-slate-900">
+        <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div className="text-center lg:text-left">
             <Link
               href="/"
-              className="group flex items-center justify-center md:justify-start mb-4 hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded-lg p-1"
-              aria-label="Go to Nevloh Limited homepage"
+              className="group inline-flex items-center mb-3 hover:opacity-90 transition-opacity"
+              aria-label="Go to Nevloh homepage"
             >
-              <div className="w-12 h-12 mr-2 relative">
+              <div className="w-10 h-10 mr-3 relative flex-shrink-0">
                 <Image
                   src="/images/logo.png"
-                  alt="Nevloh Limited Logo"
+                  alt="Nevloh Group Logo"
                   fill
-                  className="object-contain rounded-full shadow-md"
-                  sizes="48px"
-                  onError={(e) => {
-                    // Fallback to text-based logo if image fails
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling.style.display = 'flex';
-                  }}
+                  className="object-contain rounded-full"
+                  sizes="40px"
                 />
-                {/* Fallback logo */}
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl items-center justify-center text-white font-bold text-lg hidden">
-                  N
-                </div>
               </div>
-              <span className="text-lg md:text-xl font-bold text-blue-900 hidden sm:block group-hover:text-blue-600 transition-colors">
-                Nevloh Limited
-              </span>
+              <span className="text-white text-xl font-black tracking-tight">Nevloh Group</span>
             </Link>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              Delivering excellence in fuel solutions across Jamaica, ensuring reliable,
-              on-site energy for your business operations.
+            <p className="text-sm max-w-sm leading-relaxed">
+              Strategic energy solutions and commodities trade execution for the Caribbean Basin.
             </p>
-            <div className="flex items-center justify-center md:justify-start text-sm text-gray-500">
-              <span>Trusted fuel delivery since 2022</span>
-            </div>
           </div>
-
-          {/* Services */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Services</h4>
-            <nav aria-label="Services navigation">
-              <div className="space-y-2">
-                <Link
-                  href="/services/fleet-refuelling"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Fleet Refuelling</span>
-                </Link>
-                <Link
-                  href="/services/generator-refuelling"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Generator Refuelling</span>
-                </Link>
-                <Link
-                  href="/services/on-site-fuel-delivery"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">On-Site Fuel Delivery</span>
-                </Link>
-                <Link
-                  href="/services/bulk-fuel"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Bulk Fuel Supply</span>
-                </Link>
-                <Link
-                  href="/services/haulage"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Haulage Services</span>
-                </Link>
-                <Link
-                  href="/services/ulsd"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">ULSD Supply</span>
-                </Link>
-              </div>
-            </nav>
+          <div className="w-full lg:w-auto">
+            <form className="flex max-w-md mx-auto lg:mx-0" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="Industry Insights & Market Updates"
+                className="bg-slate-900 border border-slate-800 px-4 py-3 rounded-l-xl w-full focus:ring-1 focus:ring-blue-500 outline-none text-sm text-white placeholder-slate-600"
+                aria-label="Email address for newsletter"
+              />
+              <button className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-r-xl text-xs font-black uppercase tracking-wider transition-all flex-shrink-0">
+                Subscribe
+              </button>
+            </form>
           </div>
+        </div>
+      </div>
 
-          {/* Company */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Company</h4>
-            <nav aria-label="Company navigation">
-              <div className="space-y-2">
-                <Link
-                  href="/about"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">About Us</span>
-                </Link>
-                <Link
-                  href="/international-trade"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">International Trade</span>
-                </Link>
-                <Link
-                  href="/blog"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Blog</span>
-                </Link>
-                <Link
-                  href="/sustainability"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Sustainability</span>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="group flex items-center justify-center md:justify-start text-gray-600 hover:text-blue-600 transition-colors"
-                >
-                  <span className="group-hover:translate-x-1 transition-transform">Contact</span>
-                </Link>
-              </div>
-            </nav>
-          </div>
+      {/* ─── 2. MAIN FOOTER CONTENT ─── */}
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-          {/* Contact & Social */}
-          <div className="text-center md:text-left">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Get In Touch</h4>
-
-            {/* Contact Info */}
-            <address className="not-italic space-y-3 mb-6">
-              <div className="flex items-center justify-center md:justify-start text-gray-600">
-                <MapPin size={16} className="mr-2 text-blue-500 flex-shrink-0" aria-hidden="true" />
-                <span className="text-sm">Spanish Town, St. Catherine, Jamaica</span>
+          {/* Operational Hubs */}
+          <div>
+            <h4 className="text-white text-[10px] font-bold tracking-[0.2em] uppercase mb-6">Operational Hubs</h4>
+            <div className="space-y-6">
+              <div>
+                <p className="text-blue-400 text-[10px] font-bold uppercase mb-1 tracking-widest">Nevloh LLC</p>
+                <p className="text-white text-sm font-semibold mb-1">Casper, Wyoming</p>
+                <p className="text-xs opacity-50">Trade Desk &amp; Financial Settlement</p>
               </div>
-              <div className="flex items-center justify-center md:justify-start text-gray-600">
-                <Mail size={16} className="mr-2 text-blue-500 flex-shrink-0" aria-hidden="true" />
-                <a
-                  href="mailto:shamar@nevloh.com"
-                  className="text-sm hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded"
-                  aria-label="Send email to shamar@nevloh.com"
-                >
-                  shamar@nevloh.com
-                </a>
+              <div>
+                <p className="text-blue-400 text-[10px] font-bold uppercase mb-1 tracking-widest">Nevloh Limited</p>
+                <p className="text-white text-sm font-semibold mb-1">Spanish Town, JM</p>
+                <p className="text-xs opacity-50">Regional Logistics &amp; Fuel Delivery</p>
               </div>
-              <div className="flex items-center justify-center md:justify-start text-gray-600">
-                <Phone size={16} className="mr-2 text-blue-500 flex-shrink-0" aria-hidden="true" />
-                <a
-                  href="tel:+18764495172"
-                  className="text-sm hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded"
-                  aria-label="Call us at (876) 449-5172"
-                >
-                  (876) 449-5172
-                </a>
-              </div>
-            </address>
-
-            {/* Social Media */}
-            <div className="flex items-center justify-center md:justify-start space-x-4">
-              <a
-                href="https://www.instagram.com/nevlohltd?igsh=MW0xMTlpMDhmcXNqNA%3D%3D&utm_source=qr"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => handleExternalLinkClick('Instagram')}
-                className="group flex items-center bg-blue-500/10 backdrop-blur-sm rounded-lg px-3 py-2 shadow-sm hover:bg-blue-500/20 transition-all duration-300 border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                aria-label="Follow Nevloh Limited on Instagram (opens in new tab)"
-              >
-                <Instagram size={18} className="text-blue-600 mr-2 group-hover:scale-110 transition-transform" aria-hidden="true" />
-                <span className="text-sm text-gray-700 group-hover:text-blue-600">
-                  @nevlohltd
-                </span>
-                <ExternalLink size={12} className="ml-1 text-blue-500 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
-              </a>
             </div>
 
             {/* Business Hours */}
-            <div className="mt-6 p-3 bg-blue-500/10 rounded-lg backdrop-blur-sm border border-blue-200">
-              <h5 className="text-sm font-semibold text-gray-800 mb-2">Business Hours</h5>
-              <div className="text-xs text-gray-600 space-y-1">
+            <div className="mt-8 pt-6 border-t border-slate-800/50">
+              <h5 className="text-white text-[10px] font-bold tracking-[0.2em] uppercase mb-4">Hours of Operation</h5>
+              <div className="text-xs space-y-1.5">
                 <div className="flex justify-between">
-                  <span>Mon - Fri:</span>
-                  <span>8:00 AM - 6:00 PM</span>
+                  <span>Mon – Fri</span>
+                  <span className="text-slate-300 font-medium">8:00 AM – 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Saturday:</span>
-                  <span>8:00 AM - 4:00 PM</span>
+                  <span>Saturday</span>
+                  <span className="text-slate-300 font-medium">8:00 AM – 4:00 PM</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Sunday:</span>
-                  <span>Emergency Only</span>
+                  <span>Sunday</span>
+                  <span className="text-amber-400 font-bold">Emergency Only</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Energy Services */}
+          <div>
+            <h4 className="text-white text-[10px] font-bold tracking-[0.2em] uppercase mb-6">Energy Services</h4>
+            <nav aria-label="Services navigation" className="flex flex-col space-y-3 text-sm">
+              <Link href="/services/fleet-refuelling" className="hover:text-white transition-colors">
+                Fleet Refuelling
+              </Link>
+              <Link href="/services/generator-refuelling" className="hover:text-white transition-colors">
+                Generator Solutions
+              </Link>
+              <Link href="/services/on-site-fuel-delivery" className="hover:text-white transition-colors">
+                On-Site Fuel Delivery
+              </Link>
+              <Link href="/services/bulk-fuel" className="hover:text-white transition-colors">
+                Bulk Fuel Supply
+              </Link>
+              <Link href="/services/haulage" className="hover:text-white transition-colors">
+                Petroleum Haulage
+              </Link>
+              <Link href="/services/ulsd" className="hover:text-white transition-colors">
+                ULSD Supply
+              </Link>
+              <Link href="/international-trade" className="hover:text-white transition-colors">
+                International Trade
+              </Link>
+            </nav>
+          </div>
+
+          {/* Strategic Path */}
+          <div>
+            <h4 className="text-white text-[10px] font-bold tracking-[0.2em] uppercase mb-6">Strategic Path</h4>
+            <nav aria-label="Company navigation" className="flex flex-col space-y-3 text-sm">
+              <Link href="/about" className="hover:text-white transition-colors">
+                About the Group
+              </Link>
+              <Link href="/international-trade" className="hover:text-white transition-colors">
+                Trade Compliance
+              </Link>
+              <Link href="/sustainability" className="hover:text-white transition-colors">
+                Sustainability
+              </Link>
+              <Link href="/blog" className="hover:text-white transition-colors">
+                Market Blog
+              </Link>
+              <Link href="/contact" className="hover:text-white transition-colors">
+                Contact Gateway
+              </Link>
+            </nav>
+          </div>
+
+          {/* Group Inquiries */}
+          <div>
+            <h4 className="text-white text-[10px] font-bold tracking-[0.2em] uppercase mb-6">Group Inquiries</h4>
+            <address className="not-italic space-y-4 text-sm">
+              <a href="tel:+18764495172" className="flex items-center gap-3 hover:text-white transition-colors" aria-label="Call us at (876) 449-5172">
+                <Phone size={16} className="text-blue-400 flex-shrink-0" aria-hidden="true" />
+                +1 (876) 449-5172
+              </a>
+              <a href="mailto:shamar@nevloh.com" className="flex items-center gap-3 hover:text-white transition-colors" aria-label="Email shamar@nevloh.com">
+                <Mail size={16} className="text-blue-400 flex-shrink-0" aria-hidden="true" />
+                shamar@nevloh.com
+              </a>
+              <div className="flex items-start gap-3">
+                <MapPin size={16} className="text-blue-400 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                <span>Spanish Town, St. Catherine<br />Jamaica, W.I.</span>
+              </div>
+            </address>
+
+            {/* Social */}
+            <div className="mt-6">
+              <a
+                href="https://www.instagram.com/nevlohltd"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => handleExternalLinkClick('Instagram')}
+                className="inline-flex items-center bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-xl hover:bg-slate-800 transition-all gap-2"
+                aria-label="Follow Nevloh on Instagram (opens in new tab)"
+              >
+                <Instagram size={14} className="text-blue-400" aria-hidden="true" />
+                <span className="text-xs font-bold text-white">@nevlohltd</span>
+                <ExternalLink size={10} className="text-slate-500" aria-hidden="true" />
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* International Trade Disclaimer */}
-      <div className="bg-slate-100 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <p className="text-xs text-slate-500 text-center leading-relaxed">
-            <span className="font-medium text-slate-600">International Trade Disclosure:</span>{' '}
-            International commodities trading is conducted through affiliated entities within the Nevloh Group.
-            The specific legal contracting entity is disclosed per transaction. Regional fuel delivery services
-            in Jamaica are provided by Nevloh Limited. International trade activities are conducted through
-            Nevloh LLC (Wyoming, USA).{' '}
-            <Link href="/international-trade" className="text-blue-600 hover:underline">
-              Learn more
-            </Link>
-          </p>
-        </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="bg-blue-200/50 border-t border-blue-300">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
-            <div className="flex items-center mb-2 md:mb-0">
-              <span>© {currentYear} Nevloh Limited. All rights reserved.</span>
+      {/* ─── 3. LEGAL ENTITY DISCLOSURE ─── */}
+      <div className="bg-black/40 border-t border-slate-900">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col lg:flex-row gap-8 justify-between items-start lg:items-center">
+            <div className="max-w-3xl">
+              <p className="text-[10px] font-bold leading-relaxed opacity-50 uppercase tracking-[0.2em] mb-2">Legal Entity Disclosure</p>
+              <p className="text-xs leading-relaxed opacity-40">
+                International trade and commodities procurement are executed via <strong className="text-slate-300">Nevloh LLC</strong> (Wyoming, USA),
+                structured strictly under UCP 600 / ISBP 745 standards. Regional energy distribution and petroleum
+                haulage within Jamaica are provided by <strong className="text-slate-300">Nevloh Limited</strong>. Contracting entities are disclosed
+                per transaction. All settlements via irrevocable bank-secured instruments only.{' '}
+                <Link href="/international-trade" className="text-blue-400 hover:underline">
+                  Learn more
+                </Link>
+              </p>
             </div>
-            <nav aria-label="Legal and administrative links">
-              <div className="flex items-center space-x-4">
-                <Link
-                  href="/privacy"
-                  className="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded px-1"
-                >
-                  Privacy Policy
-                </Link>
-                <span className="text-gray-400" aria-hidden="true">•</span>
-                <Link
-                  href="/terms"
-                  className="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded px-1"
-                >
-                  Terms of Service
-                </Link>
-                <span className="text-gray-400" aria-hidden="true">•</span>
-                <Link
-                  href="/blog"
-                  className="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded px-1"
-                >
-                  Blog
-                </Link>
-                <span className="text-gray-400" aria-hidden="true">•</span>
-                <Link
-                  href="/login"
-                  className="hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 rounded px-1"
-                >
-                  Admin Login
-                </Link>
-              </div>
+            <nav aria-label="Legal links" className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] flex-shrink-0">
+              <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+              <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+              <Link href="/login" className="hover:text-white transition-colors">Admin</Link>
             </nav>
+          </div>
+
+          {/* Copyright Bar */}
+          <div className="mt-8 pt-8 border-t border-slate-900/50 flex flex-col sm:flex-row justify-between items-center gap-2 opacity-30 text-[10px]">
+            <span>&copy; {currentYear} Nevloh Group. All rights reserved.</span>
+            <div className="flex items-center gap-2">
+              <ShieldCheck size={12} />
+              <span className="uppercase tracking-widest font-bold">Secure Trade Platform</span>
+            </div>
           </div>
         </div>
       </div>

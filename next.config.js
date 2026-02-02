@@ -117,7 +117,7 @@ const nextConfig = {
   // Performance optimizations
   experimental: {
     // Modern optimizations
-    optimizeCss: true,
+
     esmExternals: true,
   },
 

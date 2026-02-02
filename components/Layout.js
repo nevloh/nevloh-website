@@ -80,16 +80,6 @@ const Layout = ({ children, title, description, keywords, noIndex = false }) => 
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1e40af" />
 
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Font optimization */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-
         {/* Structured Data for Organization */}
         <script
           type="application/ld+json"
@@ -258,7 +248,7 @@ export default function RootLayout({ children }) {
 //   <HomePage />
 // </Layout>
 
-// With custom meta data:
+// With custom metadata:
 // <Layout 
 //   title="About Us"
 //   description="Learn about Nevloh Limited's mission to provide premium fuel delivery services across Jamaica"

@@ -55,7 +55,7 @@ export default function HeroSection() {
         }}
       />
 
-      <section 
+      <section
         className="relative flex flex-col items-center justify-center py-20 px-4 sm:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-blue-100 overflow-hidden text-center"
         aria-labelledby="hero-heading"
       >
@@ -93,7 +93,7 @@ export default function HeroSection() {
         </div>
 
         {/* Main Heading */}
-        <h1 
+        <h1
           id="hero-heading"
           className="relative z-10 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-blue-900 drop-shadow-md mb-6 text-center"
         >
@@ -134,8 +134,8 @@ export default function HeroSection() {
           {/* Secondary CTA */}
           <div className="text-sm text-gray-600">
             <span>or call us directly at </span>
-            <a 
-              href="tel:+18764495172" 
+            <a
+              href="tel:+18764495172"
               className="font-semibold text-blue-800 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 rounded"
               aria-label="Call Nevloh Limited at (876) 449-5172"
             >

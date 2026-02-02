@@ -51,16 +51,60 @@ export default function ContactInternational() {
     website: ''
   });
 
-  // Set up Turnstile callback
+  // Turnstile container ref
+  const turnstileRef = useRef(null);
+  const turnstileWidgetId = useRef(null);
+
+  // Reset form load time on mount
   useEffect(() => {
-    window.setTurnstileToken = (token) => {
-      setTurnstileToken(token);
+    formLoadTime.current = Date.now();
+  }, []);
+
+  // Explicit Turnstile rendering — mounts/unmounts cleanly with React
+  useEffect(() => {
+    const renderWidget = () => {
+      if (!turnstileRef.current) return;
+      if (typeof window === 'undefined' || !window.turnstile) return;
+
+      // Remove existing widget if any
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
+
+      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA',
+        theme: 'dark',
+        callback: (token) => {
+          setTurnstileToken(token);
+        },
+        'error-callback': () => {
+          setTurnstileToken(null);
+        },
+        'expired-callback': () => {
+          setTurnstileToken(null);
+        }
+      });
     };
 
-    formLoadTime.current = Date.now();
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const interval = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(interval);
+          renderWidget();
+        }
+      }, 200);
+      const timeout = setTimeout(() => clearInterval(interval), 10000);
+      return () => { clearInterval(interval); clearTimeout(timeout); };
+    }
 
     return () => {
-      delete window.setTurnstileToken;
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
     };
   }, []);
 
@@ -396,7 +440,7 @@ International commodities trading via Nevloh LLC (Wyoming, USA).`
 
       {/* Cloudflare Turnstile */}
       <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
         async={true}
         defer={true}
       />
@@ -733,23 +777,8 @@ International commodities trading via Nevloh LLC (Wyoming, USA).`
                         onChange={handleInputChange} tabIndex={-1} autoComplete="off" />
                     </div>
 
-                    {/* Cloudflare Turnstile Widget */}
-                    <div>
-                      <div
-                        className="cf-turnstile"
-                        data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
-                        data-callback="onTurnstileSuccess"
-                        data-theme="dark"
-                      />
-                    </div>
-                    <script dangerouslySetInnerHTML={{
-                      __html: `window.onTurnstileSuccess = function(token) { 
-                        window.turnstileToken = token;
-                        if (typeof window.setTurnstileToken === 'function') {
-                          window.setTurnstileToken(token);
-                        }
-                      };`
-                    }} />
+                    {/* Cloudflare Turnstile — explicit render via ref */}
+                    <div ref={turnstileRef} />
 
                     {/* Qualification Notice */}
                     <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-5">

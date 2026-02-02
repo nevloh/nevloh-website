@@ -1,514 +1,473 @@
 // components/Navbar.js
-import React from 'react';
+// Tier 1 Institutional — Nevloh Group Bilateral Navigation
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Menu, X, ChevronDown, Truck, Zap, MapPin, Building2, Users, Fuel, Globe } from 'lucide-react';
+import {
+  Menu, X, ChevronDown, Truck, Zap, MapPin,
+  Building2, Users, Fuel, Globe, ShieldCheck, Phone
+} from 'lucide-react';
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isServicesOpen, setIsServicesOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
-  // Close mobile menu when route changes
-  React.useEffect(() => {
+  // Institutional scroll "thinning" — top bar collapses on scroll
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close menus on route change
+  useEffect(() => {
     const handleRouteChange = () => {
       setIsMobileMenuOpen(false);
       setIsServicesOpen(false);
     };
-
     router.events.on('routeChangeStart', handleRouteChange);
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
+    return () => router.events.off('routeChangeStart', handleRouteChange);
   }, [router.events]);
 
-  // Close mobile menu when clicking outside
-  React.useEffect(() => {
+  // Close menus on outside click
+  useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMobileMenuOpen && !event.target.closest('nav')) {
+      if (isMobileMenuOpen && !event.target.closest('nav') && !event.target.closest('.mobile-panel')) {
         setIsMobileMenuOpen(false);
       }
-      // Check for both desktop and mobile dropdown containers
       if (isServicesOpen && !event.target.closest('.services-dropdown') && !event.target.closest('.mobile-services-dropdown')) {
         setIsServicesOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen, isServicesOpen]);
 
-  // Analytics tracking for navigation clicks
-  const handleNavClick = (linkName) => {
+  // Analytics
+  const handleNavClick = (label) => {
     if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'click', {
-        event_category: 'Navigation',
-        event_label: linkName,
-        value: 1
-      });
+      window.gtag('event', 'click', { event_category: 'Navigation', event_label: label, value: 1 });
     }
   };
 
-  // Check if current route is active
+  // Active route check
   const isActiveRoute = (path) => {
-    if (path === '/') {
-      return router.pathname === '/';
-    }
+    if (path === '/') return router.pathname === '/';
     return router.pathname.startsWith(path);
   };
 
-  // Services dropdown items with icons and descriptions
+  // Full service list — all 6 items preserved
   const servicesDropdownItems = [
-    {
-      href: '/services/haulage',
-      label: 'Haulage Services',
-      description: 'Licensed petroleum transportation',
-      icon: Users,
-      color: 'text-slate-600'
-    },
-    {
-      href: '/services/fleet-refuelling',
-      label: 'Fleet Refuelling',
-      description: 'On-site fleet fuel management',
-      icon: Truck,
-      color: 'text-blue-600'
-    },
-    {
-      href: '/services/generator-refuelling',
-      label: 'Generator Refuelling',
-      description: '24/7 emergency power support',
-      icon: Zap,
-      color: 'text-green-600'
-    },
-    {
-      href: '/services/on-site-fuel-delivery',
-      label: 'On-Site Fuel Delivery',
-      description: 'Direct delivery anywhere in Jamaica',
-      icon: MapPin,
-      color: 'text-purple-600'
-    },
-    {
-      href: '/services/bulk-fuel',
-      label: 'Bulk Fuel Supply',
-      description: 'Industrial volume fuel supply',
-      icon: Building2,
-      color: 'text-orange-600'
-    },
-    {
-      href: '/services/ulsd',
-      label: 'Ultra Low Sulphur Diesel',
-      description: '90% cleaner emissions fuel',
-      icon: Fuel,
-      color: 'text-emerald-600'
-    },
-  ];
-
-  // Navigation items configuration
-  const navigationItems = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    {
-      href: '/services',
-      label: 'Services',
-      hasDropdown: true,
-      dropdownItems: servicesDropdownItems
-    },
-    {
-      href: '/international-trade',
-      label: 'Int\'l Trade',
-      labelFull: 'International Trade',
-      icon: Globe
-    },
-    { href: '/blog', label: 'Blog' },
-    { href: '/sustainability', label: 'Sustainability' }
+    { href: '/services/haulage', label: 'Haulage Services', description: 'Licensed petroleum transportation', icon: Users, color: 'text-slate-600' },
+    { href: '/services/fleet-refuelling', label: 'Fleet Refuelling', description: 'On-site fleet fuel management', icon: Truck, color: 'text-blue-600' },
+    { href: '/services/generator-refuelling', label: 'Generator Support', description: '24/7 emergency power supply', icon: Zap, color: 'text-green-600' },
+    { href: '/services/on-site-fuel-delivery', label: 'On-Site Delivery', description: 'Direct delivery anywhere in Jamaica', icon: MapPin, color: 'text-purple-600' },
+    { href: '/services/bulk-fuel', label: 'Bulk Fuel Supply', description: 'Industrial volume delivery', icon: Building2, color: 'text-orange-600' },
+    { href: '/services/ulsd', label: 'ULSD Supply', description: 'Ultra Low Sulphur Diesel', icon: Fuel, color: 'text-emerald-600' },
   ];
 
   return (
-    <nav
-      className="bg-white/95 backdrop-blur-sm shadow-lg py-3 px-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo and Company Name */}
-        <Link
-          href="/"
-          className="flex items-center space-x-2 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
-          onClick={() => handleNavClick('Logo')}
-          aria-label="Nevloh Limited - Go to homepage"
-        >
-          <div className="relative">
-            <Image
-              src="/images/logo.png"
-              alt="Nevloh Limited - Premium Fuel Delivery Services"
-              width={48}
-              height={48}
-              className="rounded-full shadow-md transition-transform duration-300 group-hover:scale-105"
-              priority
-              onError={(e) => {
-                e.currentTarget.src = '/favicon.ico';
-              }}
-            />
+    <div className="fixed top-0 left-0 right-0 z-50">
+
+      {/* ─── 1. INSTITUTIONAL TOP BAR — Collapses on scroll ─── */}
+      <div className={`bg-slate-900 text-white transition-all duration-500 overflow-hidden ${isScrolled ? 'h-0 opacity-0' : 'h-10 opacity-100'}`}>
+        <div className="max-w-7xl mx-auto px-6 h-full flex justify-between items-center">
+          <div className="flex items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em]">
+            <span className="flex items-center gap-2 text-blue-400">
+              <Globe size={12} /> Nevloh LLC: Casper, WY
+            </span>
+            <span className="flex items-center gap-2 text-emerald-400">
+              <MapPin size={12} /> Nevloh Limited: Kingston, JM
+            </span>
           </div>
-          <span className="text-lg md:text-xl font-bold text-blue-900 hidden sm:block group-hover:text-blue-700 transition-colors duration-200">
-            Nevloh Limited
-          </span>
-        </Link>
-
-        {/* Mobile menu button */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-2 transition-colors duration-200 hover:bg-blue-100"
-            aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="hidden md:flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+            <Link href="/glossary#ucp-600" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <ShieldCheck size={12} /> UCP 600 Compliant
+            </Link>
+            <a href="tel:+18764495172" className="text-white hover:text-blue-400 transition-colors flex items-center gap-1.5">
+              <Phone size={12} /> (876) 449-5172
+            </a>
+          </div>
         </div>
-
-        {/* Navigation links - Desktop */}
-        <ul className="hidden md:flex space-x-2 lg:space-x-4 items-center" role="menubar">
-          {navigationItems.map((item) => (
-            <li key={item.href} className="relative" role="none">
-              {item.hasDropdown ? (
-                <div className="relative services-dropdown">
-                  <Link
-                    href={item.href}
-                    className={`flex items-center font-semibold text-base transition-colors duration-200 py-2 px-3 lg:px-4 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      isActiveRoute(item.href) 
-                        ? 'text-blue-600 bg-blue-50' 
-                        : 'text-blue-800 hover:text-blue-600'
-                    }`}
-                    onClick={() => handleNavClick(item.label)}
-                    onMouseEnter={() => setIsServicesOpen(true)}
-                    role="menuitem"
-                    aria-haspopup="true"
-                    aria-expanded={isServicesOpen}
-                  >
-                    {item.label}
-                    <ChevronDown
-                      size={16}
-                      className={`ml-1 transition-transform duration-300 ${
-                        isServicesOpen ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </Link>
-
-                  {/* Invisible bridge to prevent dropdown from closing */}
-                  {isServicesOpen && (
-                    <div
-                      className="absolute top-full left-0 w-full h-2 bg-transparent"
-                      onMouseEnter={() => setIsServicesOpen(true)}
-                      onMouseLeave={() => setIsServicesOpen(false)}
-                    />
-                  )}
-
-                  {/* Dropdown Menu */}
-                  {isServicesOpen && (
-                    <div
-                      className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 py-3 z-50 animate-dropdown-in"
-                      onMouseEnter={() => setIsServicesOpen(true)}
-                      onMouseLeave={() => setIsServicesOpen(false)}
-                      style={{
-                        filter: 'drop-shadow(0 25px 25px rgb(0 0 0 / 0.15))',
-                        transform: 'translateX(-10px)'
-                      }}
-                    >
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <h3 className="text-sm font-semibold text-gray-800 uppercase tracking-wide">
-                          Our Services
-                        </h3>
-                      </div>
-
-                      {item.dropdownItems.map((dropdownItem, index) => {
-                        const IconComponent = dropdownItem.icon;
-                        return (
-                          <Link
-                            key={dropdownItem.href}
-                            href={dropdownItem.href}
-                            className="group flex items-start px-4 py-3 hover:bg-blue-50 transition-all duration-200 border-l-4 border-transparent hover:border-blue-500"
-                            onClick={() => handleNavClick(dropdownItem.label)}
-                            role="menuitem"
-                            style={{ animationDelay: `${index * 50}ms` }}
-                          >
-                            <div className={`flex-shrink-0 w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center mr-3 group-hover:bg-blue-100 transition-colors duration-200`}>
-                              <IconComponent size={20} className={`${dropdownItem.color} group-hover:scale-110 transition-transform duration-200`} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors duration-200 text-sm leading-tight">
-                                {dropdownItem.label}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-1 leading-tight">
-                                {dropdownItem.description}
-                              </div>
-                            </div>
-                            <ChevronDown
-                              size={14}
-                              className="text-gray-400 group-hover:text-blue-500 transform rotate-[-90deg] group-hover:translate-x-1 transition-all duration-200 mt-1"
-                            />
-                          </Link>
-                        );
-                      })}
-
-                      {/* View All Services Link */}
-                      <div className="border-t border-gray-100 mt-2 pt-2 px-4">
-                        <Link
-                          href="/services"
-                          className="flex items-center justify-center w-full py-2 px-4 text-sm font-semibold text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200 group"
-                          onClick={() => handleNavClick('View All Services')}
-                          role="menuitem"
-                        >
-                          <span>View All Services</span>
-                          <ChevronDown size={14} className="ml-2 transform rotate-[-90deg] group-hover:translate-x-1 transition-transform duration-200" />
-                        </Link>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href={item.href}
-                  className={`flex items-center font-semibold text-base transition-colors duration-200 py-2 px-3 lg:px-4 rounded-md hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    isActiveRoute(item.href) 
-                      ? 'text-blue-600 bg-blue-50' 
-                      : 'text-blue-800 hover:text-blue-600'
-                  }`}
-                  onClick={() => handleNavClick(item.labelFull || item.label)}
-                  role="menuitem"
-                  title={item.labelFull || item.label}
-                >
-                  {item.icon && (
-                    <item.icon size={16} className="mr-1.5 flex-shrink-0" aria-hidden="true" />
-                  )}
-                  <span className="hidden lg:inline">{item.labelFull || item.label}</span>
-                  <span className="lg:hidden">{item.label}</span>
-                </Link>
-              )}
-            </li>
-          ))}
-
-          {/* Contact Button */}
-          <li role="none">
-            <Link
-              href="/contact"
-              className="inline-block bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mr-2"
-              onClick={() => handleNavClick('Contact')}
-              role="menuitem"
-            >
-              Contact
-            </Link>
-          </li>
-
-          {/* Login Button */}
-          <li role="none">
-            <Link
-              href="/login"
-              className="inline-block bg-blue-800 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              onClick={() => handleNavClick('Login')}
-              role="menuitem"
-            >
-              Login
-            </Link>
-          </li>
-        </ul>
       </div>
 
-      {/* Mobile Navigation Menu - FIXED */}
-      {isMobileMenuOpen && (
-        <div
-          id="mobile-menu"
-          className="md:hidden mt-4 animate-fade-in-down"
-          role="menu"
-          aria-labelledby="mobile-menu-button"
-        >
-          <ul className="flex flex-col space-y-3 bg-blue-50 p-4 rounded-lg shadow-inner border border-blue-200">
-            {navigationItems.map((item) => (
-              <li key={item.href} role="none">
-                <div>
-                  {/* FIXED: Separate button for dropdown toggle in mobile */}
-                  {item.hasDropdown ? (
-                    <div className="mobile-services-dropdown">
-                      <div className="flex items-center justify-between">
+      {/* ─── 2. MAIN NAVIGATION ─── */}
+      <nav
+        className={`transition-all duration-300 border-b border-slate-200/60 ${
+          isScrolled
+            ? 'bg-white/90 backdrop-blur-xl py-2.5 shadow-xl'
+            : 'bg-white py-4'
+        }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+
+          {/* Brand — Bilateral Group Identity */}
+          <Link
+            href="/"
+            onClick={() => handleNavClick('Logo')}
+            className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
+            aria-label="Nevloh Group — Go to homepage"
+          >
+            <div className="relative w-11 h-11 flex-shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt="Nevloh Group"
+                fill
+                className="object-contain rounded-full shadow-md"
+                priority
+              />
+            </div>
+            <div className="hidden sm:block">
+              <span className="text-xl font-black text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                Nevloh <span className="text-blue-600">Group</span>
+              </span>
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Energy &amp; Trade</p>
+            </div>
+          </Link>
+
+          {/* ─── Desktop Links ─── */}
+          <div className="hidden lg:flex items-center gap-3" role="menubar">
+
+            <Link
+              href="/"
+              onClick={() => handleNavClick('Home')}
+              className={`nav-link ${isActiveRoute('/') && router.pathname === '/' ? 'text-blue-600 bg-slate-50' : ''}`}
+              role="menuitem"
+            >
+              Home
+            </Link>
+
+            <Link
+              href="/about"
+              onClick={() => handleNavClick('About')}
+              className={`nav-link ${isActiveRoute('/about') ? 'text-blue-600 bg-slate-50' : ''}`}
+              role="menuitem"
+            >
+              About
+            </Link>
+
+            {/* Services Mega Dropdown */}
+            <div
+              className="relative services-dropdown"
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
+              <Link
+                href="/services"
+                className={`nav-link flex items-center gap-1 ${isServicesOpen || isActiveRoute('/services') ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => handleNavClick('Services')}
+                role="menuitem"
+                aria-haspopup="true"
+                aria-expanded={isServicesOpen}
+              >
+                Services
+                <ChevronDown size={14} className={`transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
+              </Link>
+
+              {/* Invisible bridge */}
+              {isServicesOpen && (
+                <div
+                  className="absolute top-full left-0 w-full h-3 bg-transparent"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                />
+              )}
+
+              {/* Mega Menu */}
+              {isServicesOpen && (
+                <div
+                  className="absolute top-full left-0 mt-3 w-[520px] bg-white rounded-3xl shadow-2xl border border-slate-100 p-8 animate-dropdown-in"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                  style={{ transform: 'translateX(-40px)' }}
+                >
+                  <div className="flex justify-between items-center pb-4 mb-4 border-b border-slate-100">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Logistics Operations</p>
+                    <Link href="/services" className="text-[10px] font-bold text-blue-600 uppercase tracking-wider hover:underline">
+                      View All
+                    </Link>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    {servicesDropdownItems.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
                         <Link
+                          key={item.href}
                           href={item.href}
-                          className={`flex-1 font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                            isActiveRoute(item.href)
-                              ? 'text-blue-600 bg-blue-100'
-                              : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
-                          }`}
-                          onClick={() => {
-                            handleNavClick(item.label);
-                            setIsMobileMenuOpen(false);
-                          }}
+                          className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-50 transition-all"
+                          onClick={() => handleNavClick(item.label)}
                           role="menuitem"
                         >
-                          {item.label}
+                          <div className="bg-slate-50 p-2.5 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all flex-shrink-0">
+                            <IconComponent size={18} className={`${item.color} group-hover:text-white transition-colors`} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{item.label}</p>
+                            <p className="text-[11px] text-slate-500 leading-tight">{item.description}</p>
+                          </div>
                         </Link>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setIsServicesOpen(!isServicesOpen);
-                          }}
-                          className="ml-2 p-2 rounded hover:bg-blue-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          aria-label="Toggle services menu"
-                          aria-expanded={isServicesOpen}
-                        >
-                          <ChevronDown
-                            size={20}
-                            className={`transition-transform duration-200 text-blue-800 ${
-                              isServicesOpen ? 'rotate-180' : ''
-                            }`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Mobile dropdown items */}
-                      {isServicesOpen && (
-                        <ul className="ml-2 mt-3 space-y-2 animate-fade-in bg-white rounded-lg p-3 shadow-lg border border-blue-200">
-                          {item.dropdownItems.map((dropdownItem) => {
-                            const IconComponent = dropdownItem.icon;
-                            return (
-                              <li key={dropdownItem.href} role="none">
-                                <Link
-                                  href={dropdownItem.href}
-                                  className="flex items-center text-sm text-gray-600 hover:text-blue-600 py-2 px-3 rounded-lg hover:bg-blue-50 transition-colors duration-200 group"
-                                  onClick={() => {
-                                    handleNavClick(dropdownItem.label);
-                                    setIsMobileMenuOpen(false);
-                                    setIsServicesOpen(false);
-                                  }}
-                                  role="menuitem"
-                                >
-                                  <div className={`flex-shrink-0 w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center mr-3 group-hover:bg-blue-100 transition-colors duration-200`}>
-                                    <IconComponent size={16} className={dropdownItem.color} />
-                                  </div>
-                                  <div className="flex-1">
-                                    <div className="font-medium">{dropdownItem.label}</div>
-                                    <div className="text-xs text-gray-500 mt-0.5">
-                                      {dropdownItem.description}
-                                    </div>
-                                  </div>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={`flex items-center font-semibold text-base py-2 px-3 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        isActiveRoute(item.href)
-                          ? 'text-blue-600 bg-blue-100'
-                          : 'text-blue-800 hover:text-blue-600 hover:bg-blue-100'
-                      }`}
-                      onClick={() => {
-                        handleNavClick(item.labelFull || item.label);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      role="menuitem"
-                    >
-                      {item.icon && (
-                        <item.icon size={18} className="mr-2 flex-shrink-0" aria-hidden="true" />
-                      )}
-                      <span>{item.labelFull || item.label}</span>
-                    </Link>
-                  )}
+                      );
+                    })}
+                  </div>
                 </div>
-              </li>
-            ))}
+              )}
+            </div>
 
-            {/* Mobile Contact Button */}
-            <li role="none">
+            <Link
+              href="/international-trade"
+              onClick={() => handleNavClick('International Trade')}
+              className={`nav-link flex items-center gap-1.5 ${isActiveRoute('/international-trade') ? 'text-blue-600 bg-slate-50' : ''}`}
+              role="menuitem"
+            >
+              <Globe size={14} className="text-blue-600" />
+              <span className="hidden xl:inline">International Trade</span>
+              <span className="xl:hidden">Int&apos;l Trade</span>
+            </Link>
+
+            <Link
+              href="/blog"
+              onClick={() => handleNavClick('Blog')}
+              className={`nav-link ${isActiveRoute('/blog') ? 'text-blue-600 bg-slate-50' : ''}`}
+              role="menuitem"
+            >
+              Blog
+            </Link>
+
+            <Link
+              href="/sustainability"
+              onClick={() => handleNavClick('Sustainability')}
+              className={`nav-link ${isActiveRoute('/sustainability') ? 'text-blue-600 bg-slate-50' : ''}`}
+              role="menuitem"
+            >
+              Sustainability
+            </Link>
+          </div>
+
+          {/* ─── CTA Group ─── */}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/contact"
+              onClick={() => handleNavClick('Contact')}
+              className="hidden sm:flex bg-slate-900 hover:bg-blue-600 text-white px-7 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-slate-200 hover:shadow-blue-200 hover:scale-105"
+              role="menuitem"
+            >
+              Get Quote
+            </Link>
+            <Link
+              href="/login"
+              onClick={() => handleNavClick('Login')}
+              className="p-2.5 rounded-full bg-slate-100 text-slate-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-200"
+              aria-label="Admin Login"
+              role="menuitem"
+            >
+              <ShieldCheck size={18} />
+            </Link>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* ─── Mobile Menu ─── */}
+        {isMobileMenuOpen && (
+          <div
+            id="mobile-menu"
+            className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-200 shadow-xl mobile-panel animate-fade-in-down"
+            role="menu"
+          >
+            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-2">
+
+              <Link
+                href="/"
+                className={`mobile-link ${isActiveRoute('/') && router.pathname === '/' ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => { handleNavClick('Home'); setIsMobileMenuOpen(false); }}
+                role="menuitem"
+              >
+                Home
+              </Link>
+
+              <Link
+                href="/about"
+                className={`mobile-link ${isActiveRoute('/about') ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => { handleNavClick('About'); setIsMobileMenuOpen(false); }}
+                role="menuitem"
+              >
+                About the Group
+              </Link>
+
+              {/* Mobile Services Dropdown */}
+              <div className="mobile-services-dropdown">
+                <div className="flex items-center justify-between">
+                  <Link
+                    href="/services"
+                    className={`flex-1 mobile-link ${isActiveRoute('/services') ? 'text-blue-600 bg-slate-50' : ''}`}
+                    onClick={() => { handleNavClick('Services'); setIsMobileMenuOpen(false); }}
+                    role="menuitem"
+                  >
+                    Energy Services
+                  </Link>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setIsServicesOpen(!isServicesOpen); }}
+                    className="ml-2 p-2.5 rounded-xl hover:bg-slate-100 transition-colors"
+                    aria-label="Toggle services menu"
+                    aria-expanded={isServicesOpen}
+                  >
+                    <ChevronDown size={20} className={`text-slate-600 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                </div>
+
+                {isServicesOpen && (
+                  <div className="mt-2 ml-2 bg-slate-50 rounded-2xl p-3 space-y-1 animate-fade-in border border-slate-100">
+                    {servicesDropdownItems.map((item) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-white transition-colors group"
+                          onClick={() => { handleNavClick(item.label); setIsMobileMenuOpen(false); setIsServicesOpen(false); }}
+                          role="menuitem"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center flex-shrink-0 shadow-sm group-hover:bg-blue-50 transition-colors">
+                            <IconComponent size={16} className={item.color} />
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-slate-900">{item.label}</p>
+                            <p className="text-[11px] text-slate-500">{item.description}</p>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <Link
+                href="/international-trade"
+                className={`mobile-link flex items-center gap-2 ${isActiveRoute('/international-trade') ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => { handleNavClick('International Trade'); setIsMobileMenuOpen(false); }}
+                role="menuitem"
+              >
+                <Globe size={18} className="text-blue-600" />
+                International Trade Desk
+              </Link>
+
+              <Link
+                href="/blog"
+                className={`mobile-link ${isActiveRoute('/blog') ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => { handleNavClick('Blog'); setIsMobileMenuOpen(false); }}
+                role="menuitem"
+              >
+                Market Blog
+              </Link>
+
+              <Link
+                href="/sustainability"
+                className={`mobile-link ${isActiveRoute('/sustainability') ? 'text-blue-600 bg-slate-50' : ''}`}
+                onClick={() => { handleNavClick('Sustainability'); setIsMobileMenuOpen(false); }}
+                role="menuitem"
+              >
+                Sustainability
+              </Link>
+
+              {/* Mobile CTA Buttons */}
+              <hr className="border-slate-100 my-2" />
+
               <Link
                 href="/contact"
-                className="block text-center bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-md mt-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                onClick={() => {
-                  handleNavClick('Contact Mobile');
-                  setIsMobileMenuOpen(false);
-                }}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white text-center py-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all"
+                onClick={() => { handleNavClick('Contact Mobile'); setIsMobileMenuOpen(false); }}
                 role="menuitem"
               >
-                Contact Us
+                Request Operations Quote
               </Link>
-            </li>
 
-            {/* Mobile Login Button */}
-            <li role="none">
               <Link
                 href="/login"
-                className="block text-center bg-blue-800 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-colors duration-300 shadow-md mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                onClick={() => {
-                  handleNavClick('Login Mobile');
-                  setIsMobileMenuOpen(false);
-                }}
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3 rounded-2xl font-bold text-sm transition-all mt-2"
+                onClick={() => { handleNavClick('Login Mobile'); setIsMobileMenuOpen(false); }}
                 role="menuitem"
               >
-                Login
+                Admin Login
               </Link>
-            </li>
-          </ul>
-        </div>
-      )}
 
-      {/* Enhanced Custom Styles */}
+              {/* Mobile Bilateral Info */}
+              <div className="flex items-center justify-center gap-4 pt-4 mt-2 border-t border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="flex items-center gap-1.5 text-blue-500">
+                  <Globe size={10} /> Wyoming, USA
+                </span>
+                <span className="flex items-center gap-1.5 text-emerald-500">
+                  <MapPin size={10} /> Kingston, JM
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* ─── Scoped Styles ─── */}
       <style jsx>{`
+        .nav-link {
+          font-size: 0.875rem;
+          font-weight: 700;
+          color: rgb(71, 85, 105);
+          padding: 0.625rem 1.25rem;
+          border-radius: 0.75rem;
+          transition: all 0.25s ease;
+          border: 1px solid transparent;
+        }
+        .nav-link:hover {
+          color: rgb(37, 99, 235);
+          background-color: rgb(239, 246, 255);
+          border-color: rgb(191, 219, 254);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(37, 99, 235, 0.1);
+        }
+
+        .mobile-link {
+          font-size: 1rem;
+          font-weight: 700;
+          color: rgb(15, 23, 42);
+          padding: 0.75rem 1rem;
+          border-radius: 0.75rem;
+          transition: all 0.25s ease;
+          border-left: 3px solid transparent;
+        }
+        .mobile-link:hover {
+          color: rgb(37, 99, 235);
+          background-color: rgb(239, 246, 255);
+          border-left-color: rgb(37, 99, 235);
+        }
+
         @keyframes fade-in-down {
-          0% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; transform: translateY(-8px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
-        
         @keyframes fade-in {
-          0% {
-            opacity: 0;
-            transform: translateY(-8px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          0% { opacity: 0; transform: translateY(-6px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes dropdown-in {
-          0% {
-            opacity: 0;
-            transform: translateX(-10px) translateY(-5px) scale(0.98);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(-10px) translateY(0) scale(1);
-          }
-        }
-        
-        .animate-fade-in-down {
-          animation: fade-in-down 0.3s ease-out;
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.2s ease-out;
+          0% { opacity: 0; transform: translateX(-40px) translateY(-4px) scale(0.98); }
+          100% { opacity: 1; transform: translateX(-40px) translateY(0) scale(1); }
         }
 
-        .animate-dropdown-in {
-          animation: dropdown-in 0.25s ease-out;
-        }
-
-        /* Ensure smooth hover transitions */
-        .services-dropdown:hover .group {
-          transition-delay: 0ms;
-        }
+        .animate-fade-in-down { animation: fade-in-down 0.3s ease-out; }
+        .animate-fade-in { animation: fade-in 0.2s ease-out; }
+        .animate-dropdown-in { animation: dropdown-in 0.25s ease-out forwards; }
       `}</style>
-    </nav>
+    </div>
   );
 }
