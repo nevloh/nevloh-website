@@ -1,82 +1,64 @@
 // pages/sustainability.js
+// Tier 1 Institutional — Nevloh Group ESG & Sustainability
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import {
-  Leaf,
-  Recycle,
-  Sun,
-  Wind,
-  Battery,
-  Globe,
-  TreePine,
-  Droplets,
-  Heart,
-  Shield,
-  TrendingUp,
-  Users,
-  Award,
-  Target,
-  CheckCircle,
-  ArrowRight,
-  Zap,
-  Calendar,
-  Building2,
-  Truck
+  Leaf, Recycle, Sun, Wind, Battery, Globe, TreePine, Droplets,
+  Shield, TrendingUp, Users, Target, CheckCircle, ArrowRight,
+  Zap, Building2, Truck, FileText, ExternalLink, ShieldCheck
 } from 'lucide-react';
 
-// Color utility functions for Tailwind - CRITICAL FIX
-const getIconColorClass = (color) => {
-  const colors = {
-    green: 'text-green-600',
-    blue: 'text-blue-600',
-    purple: 'text-purple-600',
-    orange: 'text-orange-600'
-  };
-  return colors[color] || 'text-gray-600';
+// Enhanced Color Mapping for dynamic UI
+const colorMap = {
+  emerald: {
+    icon: 'text-emerald-600',
+    bg: 'bg-emerald-100',
+    border: 'border-emerald-500/30',
+    glow: 'shadow-emerald-500/20'
+  },
+  blue: {
+    icon: 'text-blue-600',
+    bg: 'bg-blue-100',
+    border: 'border-blue-500/30',
+    glow: 'shadow-blue-500/20'
+  },
+  purple: {
+    icon: 'text-purple-600',
+    bg: 'bg-purple-100',
+    border: 'border-purple-500/30',
+    glow: 'shadow-purple-500/20'
+  },
+  orange: {
+    icon: 'text-orange-600',
+    bg: 'bg-orange-100',
+    border: 'border-orange-500/30',
+    glow: 'shadow-orange-500/20'
+  }
 };
 
-const getBgColorClass = (color) => {
-  const colors = {
-    green: 'bg-green-100',
-    blue: 'bg-blue-100',
-    purple: 'bg-purple-100',
-    orange: 'bg-orange-100'
-  };
-  return colors[color] || 'bg-gray-100';
-};
-
-// SEO and Structured Data - FIXED URLs
+// Structured Data for SEO
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Nevloh Limited",
-  "description": "Leading Jamaica's transition to sustainable energy with clean fuel solutions and renewable energy services",
+  "@type": "WebPage",
+  "name": "Sustainability & ESG | Nevloh Group",
+  "description": "Nevloh Group's 2030 roadmap for carbon neutrality and clean energy leadership across Jamaica and the Caribbean Basin.",
   "url": "https://www.nevloh.com/sustainability",
-  "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "JM",
-    "addressRegion": "Saint Catherine Parish",
-    "addressLocality": "Spanish Town"
+  "publisher": {
+    "@type": "Organization",
+    "name": "Nevloh Group",
+    "logo": "https://www.nevloh.com/images/logo.png"
   },
-  "sustainabilityInitiative": [
-    {
-      "@type": "Thing",
-      "name": "Ultra Low Sulphur Diesel",
-      "description": "90% reduction in sulfur emissions"
-    },
-    {
-      "@type": "Thing",
-      "name": "Carbon Neutrality Goal",
-      "description": "Commitment to achieve carbon neutrality by 2030"
-    },
-    {
-      "@type": "Thing",
-      "name": "Renewable Energy Solutions",
-      "description": "Solar energy installation and battery storage services"
-    }
-  ]
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Nevloh Group",
+    "description": "Bilateral energy group committed to sustainable operations",
+    "sustainabilityInitiative": [
+      { "@type": "Thing", "name": "Ultra Low Sulphur Diesel", "description": "90% reduction in sulfur emissions" },
+      { "@type": "Thing", "name": "Carbon Neutrality Goal", "description": "Commitment to achieve carbon neutrality by 2030" },
+      { "@type": "Thing", "name": "Renewable Energy Solutions", "description": "Solar energy installation and battery storage services" }
+    ]
+  }
 };
 
 const SustainabilityPage = () => {
@@ -86,423 +68,154 @@ const SustainabilityPage = () => {
     {
       icon: Leaf,
       title: "Environmental Protection",
-      description: "Reducing emissions and protecting Jamaica's natural beauty",
-      color: "green",
+      description: "Aggressive emission reduction and ecosystem preservation in Jamaica.",
+      color: "emerald",
       initiatives: [
-        "Ultra Low Sulphur Diesel reduces emissions by 90%",
-        "Transitioning to renewable energy solutions",
-        "Carbon footprint reduction programs",
-        "Environmental impact monitoring"
+        "ULSD Implementation (90% sulfur reduction)",
+        "Zero-spill protocol for all logistics",
+        "Carbon footprint tracking per delivery",
+        "Reforestation partnership in St. Catherine"
       ]
     },
     {
       icon: Users,
       title: "Community Impact",
-      description: "Supporting local communities and sustainable development",
+      description: "Empowering local talent and fostering clean energy education.",
       color: "blue",
       initiatives: [
-        "Local employment and training programs",
-        "Community education on clean energy",
-        "Supporting local environmental initiatives",
-        "Partnerships with schools and universities"
+        "Nevloh Academy: Clean Energy Training",
+        "85% Local hire commitment",
+        "STEM scholarships for energy research",
+        "Community micro-grid support"
       ]
     },
     {
       icon: Zap,
       title: "Clean Energy Future",
-      description: "Leading Jamaica's transition to sustainable energy",
+      description: "Transitioning infrastructure from fossil fuels to renewables.",
       color: "purple",
       initiatives: [
-        "Solar energy installation services",
-        "Battery storage solutions",
-        "Smart grid technology development",
-        "Electric vehicle charging infrastructure"
+        "Grid-tied commercial solar arrays",
+        "Lithium-ion storage for peak shaving",
+        "EV Fleet transition (Phase 1 2026)",
+        "Smart-metering for efficiency"
       ]
     },
     {
       icon: Globe,
-      title: "Responsible Business",
-      description: "Operating with integrity and transparency",
+      title: "Governance & Ethics",
+      description: "Transparency in reporting and ethical supply chain sourcing.",
       color: "orange",
       initiatives: [
-        "Sustainable supply chain management",
-        "Ethical business practices",
-        "Regular sustainability reporting",
-        "Stakeholder engagement programs"
+        "Annual Sustainability Impact Report",
+        "Supplier code of conduct enforcement",
+        "ISO 14001 Environmental Certification",
+        "Public ESG performance dashboard"
       ]
     }
   ];
 
-  const environmentalImpact = [
+  const roadmapItems = [
     {
-      metric: "90%",
-      description: "Reduction in sulfur emissions with ULSD",
-      icon: Leaf,
-      color: "green"
+      year: '2024-25',
+      title: 'The Hybrid Shift',
+      desc: 'Mainstreaming ULSD across all operations and launching Solar-as-a-Service model for commercial clients.',
+      icon: Sun
     },
     {
-      metric: "25%",
-      description: "Longer engine life reduces waste",
-      icon: Recycle,
-      color: "blue"
+      year: '2026-28',
+      title: 'Electrification',
+      desc: 'Deploying Jamaica\'s first heavy-duty EV charging corridor and transitioning fleet vehicles.',
+      icon: Battery
     },
     {
-      metric: "50+",
-      description: "Trees planted through partnership programs",
-      icon: TreePine,
-      color: "green"
-    },
-    {
-      metric: "100%",
-      description: "Commitment to carbon neutrality by 2030",
-      icon: Target,
-      color: "purple"
-    }
-  ];
-
-  const futureInitiatives = [
-    {
-      year: "2025",
-      title: "Solar Energy Expansion",
-      description: "Launch comprehensive solar installation services for businesses and homes",
-      icon: Sun,
-      status: "In Progress"
-    },
-    {
-      year: "2026",
-      title: "Electric Vehicle Support",
-      description: "Establish EV charging stations across major routes in Jamaica",
-      icon: Battery,
-      status: "Planning"
-    },
-    {
-      year: "2027",
-      title: "Wind Energy Projects",
-      description: "Partner with local communities for small-scale wind energy solutions",
-      icon: Wind,
-      status: "Research"
-    },
-    {
-      year: "2028",
-      title: "Smart Grid Integration",
-      description: "Develop intelligent energy distribution networks",
-      icon: Zap,
-      status: "Vision"
-    },
-    {
-      year: "2029",
-      title: "Biofuel Development",
-      description: "Research and develop sustainable biofuel alternatives",
-      icon: Leaf,
-      status: "Vision"
-    },
-    {
-      year: "2030",
-      title: "Carbon Neutral Operations",
-      description: "Achieve complete carbon neutrality across all operations",
-      icon: Globe,
-      status: "Goal"
-    }
-  ];
-
-  const partnerships = [
-    {
-      name: "Jamaica Environment Trust",
-      focus: "Environmental Conservation",
-      description: "Collaborating on reforestation and coastal protection projects"
-    },
-    {
-      name: "University of the West Indies",
-      focus: "Research & Development",
-      description: "Joint research on renewable energy technologies"
-    },
-    {
-      name: "Caribbean Climate-Smart Coalition",
-      focus: "Climate Action",
-      description: "Regional initiatives for climate resilience"
-    },
-    {
-      name: "Local Fishing Communities",
-      focus: "Marine Protection",
-      description: "Supporting sustainable fishing practices and marine conservation"
+      year: '2029-30',
+      title: 'Net Zero',
+      desc: 'Full operational carbon neutrality and 100% sustainable sourcing across all supply chains.',
+      icon: Globe
     }
   ];
 
   const sustainablePractices = [
-    {
-      icon: Droplets,
-      title: "Water Conservation",
-      description: "Advanced water recycling systems at our facilities"
-    },
-    {
-      icon: Recycle,
-      title: "Waste Reduction",
-      description: "Zero-waste-to-landfill policy with comprehensive recycling"
-    },
-    {
-      icon: Truck,
-      title: "Efficient Logistics",
-      description: "Route optimization to reduce fuel consumption and emissions"
-    },
-    {
-      icon: Building2,
-      title: "Green Facilities",
-      description: "Solar-powered offices and energy-efficient operations"
-    }
+    { icon: Droplets, title: 'Water Conservation', description: 'Advanced water recycling systems at our facilities' },
+    { icon: Recycle, title: 'Waste Reduction', description: 'Zero-waste-to-landfill policy with comprehensive recycling' },
+    { icon: Truck, title: 'Efficient Logistics', description: 'Route optimization to reduce fuel consumption and emissions' },
+    { icon: Building2, title: 'Green Facilities', description: 'Solar-powered offices and energy-efficient operations' }
   ];
 
-  const getStatusColor = (status) => {
-    const colors = {
-      "In Progress": "bg-green-100 text-green-800",
-      "Planning": "bg-blue-100 text-blue-800",
-      "Research": "bg-yellow-100 text-yellow-800",
-      "Vision": "bg-purple-100 text-purple-800",
-      "Goal": "bg-orange-100 text-orange-800"
-    };
-    return colors[status] || "bg-gray-100 text-gray-800";
-  };
-
-  // FIXED: Get active pillar safely
   const activePillar = sustainabilityPillars[activeCommitment];
   const ActiveIcon = activePillar.icon;
 
   return (
     <>
       <Head>
-        <title>Sustainability Commitments | Nevloh Limited - Clean Energy Jamaica</title>
+        <title>Sustainability & ESG | Nevloh Group | Clean Energy Jamaica</title>
         <meta
           name="description"
-          content="Discover Nevloh Limited's sustainability initiatives in Jamaica. Leading the transition to clean energy with 90% emission reduction, solar solutions, and carbon neutrality by 2030."
+          content="Nevloh Group's commitment to a carbon-neutral Jamaica by 2030 through ULSD, solar energy, and community-led green initiatives. View our ESG roadmap."
         />
         <meta
           name="keywords"
-          content="sustainability Jamaica, clean energy, ULSD diesel, solar energy, carbon neutral, environmental protection, renewable energy Jamaica, sustainable fuel"
+          content="sustainability Jamaica, clean energy, ULSD diesel, solar energy, carbon neutral, environmental protection, renewable energy Jamaica, ESG, Nevloh Group"
         />
-
-        {/* FIXED: Added googlebot meta */}
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-        <meta name="googlebot" content="index, follow" />
-        <meta name="author" content="Nevloh Limited" />
-
-        {/* FIXED: All URLs now have www */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.nevloh.com/sustainability" />
-        <meta property="og:title" content="Sustainability Commitments | Nevloh Limited - Clean Energy Jamaica" />
-        <meta property="og:description" content="Leading Jamaica's transition to sustainable energy with clean fuel solutions and renewable energy services. 90% emission reduction with ULSD." />
-        <meta property="og:site_name" content="Nevloh Limited" />
-        <meta property="og:locale" content="en_JM" />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://www.nevloh.com/sustainability" />
-        <meta property="twitter:title" content="Sustainability Commitments | Nevloh Limited" />
-        <meta property="twitter:description" content="Leading Jamaica's transition to sustainable energy with 90% emission reduction and carbon neutrality by 2030." />
-
-        {/* FIXED: Consistent comma separators */}
-        <meta name="geo.region" content="JM-13" />
-        <meta name="geo.placename" content="Spanish Town, Saint Catherine Parish" />
-        <meta name="geo.position" content="17.9909,-76.9564" />
-        <meta name="ICBM" content="17.9909,-76.9564" />
-
-        {/* FIXED: Canonical with www */}
         <link rel="canonical" href="https://www.nevloh.com/sustainability" />
 
+        {/* Open Graph */}
+        <meta property="og:title" content="Sustainability & ESG | Nevloh Group" />
+        <meta property="og:description" content="Our 2030 roadmap for carbon neutrality and clean energy leadership in Jamaica." />
+        <meta property="og:image" content="https://www.nevloh.com/images/og-sustainability.png" />
+        <meta property="og:url" content="https://www.nevloh.com/sustainability" />
+
+        {/* Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-        {/* Hero Section */}
-        <section className="relative py-20 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-blue-600/10"></div>
-          <div className="relative max-w-7xl mx-auto">
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-800">
-                  Building a
-                  <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent block">
-                    Sustainable Future
-                  </span>
-                </h1>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  At Nevloh Limited, sustainability isn't just a goal—it's our responsibility.
-                  We're pioneering clean energy solutions that protect Jamaica's environment
-                  while powering economic growth.
-                </p>
-              </div>
+      <div className="min-h-screen bg-[#fcfdfe] text-slate-900 font-sans selection:bg-emerald-200">
 
-              {/* Environmental Impact Stats - FIXED COLOR CLASSES */}
-              <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                {environmentalImpact.map((impact, index) => {
-                  const IconComponent = impact.icon;
-                  return (
-                    <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                      <div className={`w-12 h-12 ${getBgColorClass(impact.color)} rounded-lg flex items-center justify-center mx-auto mb-3`}>
-                        <IconComponent size={24} className={getIconColorClass(impact.color)} />
-                      </div>
-                      <div className="text-2xl font-bold text-gray-800">{impact.metric}</div>
-                      <div className="text-sm text-gray-600 text-center">{impact.description}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ─── TIER 1 HERO: Visual Depth with Glassmorphism ─── */}
+        <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
+          {/* Background Blurs */}
+          <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-100 rounded-full blur-[150px] opacity-50 pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-100 rounded-full blur-[150px] opacity-50 pointer-events-none" aria-hidden="true" />
 
-        {/* Sustainability Pillars - FIXED COLOR CLASSES */}
-        <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                Our Sustainability Commitments
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Four foundational pillars guide our approach to sustainable business practices
-                and environmental stewardship in Jamaica.
-              </p>
+          <div className="relative max-w-7xl mx-auto text-center z-10">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+              <Leaf size={12} />
+              <span>Our 2030 Vision</span>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div className="space-y-4">
-                {sustainabilityPillars.map((pillar, index) => {
-                  const IconComponent = pillar.icon;
-                  const isActive = activeCommitment === index;
+            <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05] mb-8">
+              Fuelling the <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600">
+                Green Revolution
+              </span>
+            </h1>
 
-                  return (
-                    <div
-                      key={index}
-                      onClick={() => setActiveCommitment(index)}
-                      className={`cursor-pointer transition-all duration-300 p-6 rounded-2xl ${
-                        isActive ? 'bg-white shadow-lg transform scale-105' : 'bg-white/50 hover:bg-white/80'
-                      }`}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${getBgColorClass(pillar.color)}`}>
-                          <IconComponent size={24} className={getIconColorClass(pillar.color)} />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold text-gray-800">{pillar.title}</h3>
-                          <p className="text-gray-600">{pillar.description}</p>
-                        </div>
-                        <ArrowRight size={20} className={`text-gray-400 transition-transform ${isActive ? 'rotate-90' : ''}`} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+            <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed mb-16">
+              We aren't just delivering fuel; we're architecting Jamaica's transition
+              to a high-efficiency, low-carbon future through engineering and accountability.
+            </p>
 
-              {/* FIXED: React.createElement replaced with proper JSX */}
-              <div className="bg-white rounded-3xl p-8 shadow-xl">
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-3">
-                    <ActiveIcon size={32} className={getIconColorClass(activePillar.color)} />
-                    <h3 className="text-2xl font-bold text-gray-800">
-                      {activePillar.title}
-                    </h3>
-                  </div>
-
-                  <p className="text-lg text-gray-600 leading-relaxed">
-                    {activePillar.description}
-                  </p>
-
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-gray-800">Key Initiatives:</h4>
-                    {activePillar.initiatives.map((initiative, idx) => (
-                      <div key={idx} className="flex items-center space-x-3">
-                        <CheckCircle size={20} className="text-green-500 flex-shrink-0" />
-                        <span className="text-gray-700">{initiative}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Future Roadmap */}
-        <section className="py-16 px-4 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                Our Sustainability Roadmap
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                A clear path toward carbon neutrality and sustainable energy leadership
-                in the Caribbean by 2030.
-              </p>
-            </div>
-
-            <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-green-300 to-blue-300 hidden lg:block"></div>
-              <div className="space-y-12">
-                {futureInitiatives.map((initiative, index) => {
-                  const IconComponent = initiative.icon;
-                  const isEven = index % 2 === 0;
-
-                  return (
-                    <div key={index} className={`flex flex-col lg:flex-row items-center ${isEven ? '' : 'lg:flex-row-reverse'}`}>
-                      <div className={`w-full lg:w-1/2 ${isEven ? 'lg:pr-12' : 'lg:pl-12'}`}>
-                        <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center space-x-3">
-                              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <IconComponent size={24} className="text-green-600" />
-                              </div>
-                              <div>
-                                <div className="text-2xl font-bold text-blue-600">{initiative.year}</div>
-                                <div className="text-lg font-semibold text-gray-800">{initiative.title}</div>
-                              </div>
-                            </div>
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(initiative.status)}`}>
-                              {initiative.status}
-                            </span>
-                          </div>
-                          <p className="text-gray-600 leading-relaxed">{initiative.description}</p>
-                        </div>
-                      </div>
-
-                      <div className="hidden lg:flex lg:w-1/2 justify-center my-4 lg:my-0">
-                        <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center shadow-lg z-10">
-                          <IconComponent size={28} className="text-white" />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Sustainable Practices */}
-        <section className="py-16 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                Our Sustainable Practices
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Every aspect of our operations is designed with sustainability in mind,
-                from facility management to delivery logistics.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {sustainablePractices.map((practice, index) => {
-                const IconComponent = practice.icon;
+            {/* Quick Impact Stats */}
+            <div className="flex flex-wrap justify-center gap-8 md:gap-16 border-y border-slate-100 py-10">
+              {[
+                { label: 'Sulphur Reduction', value: '90%', icon: Shield },
+                { label: 'Carbon Neutral By', value: '2030', icon: Target },
+                { label: 'Renewable Goal', value: '15MW', icon: Sun }
+              ].map((stat, i) => {
+                const Icon = stat.icon;
                 return (
-                  <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
-                      <IconComponent size={32} className="text-green-600" />
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center">
+                      <Icon size={20} className="text-emerald-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800 mb-2">{practice.title}</h3>
-                    <p className="text-gray-600">{practice.description}</p>
+                    <div className="text-left">
+                      <div className="text-3xl font-black text-slate-900">{stat.value}</div>
+                      <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
+                    </div>
                   </div>
                 );
               })}
@@ -510,128 +223,273 @@ const SustainabilityPage = () => {
           </div>
         </section>
 
-        {/* Partnerships */}
-        <section className="py-16 px-4 bg-white">
+        {/* ─── INTERACTIVE SUSTAINABILITY PILLARS ─── */}
+        <section className="py-24 px-6 bg-slate-50">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                Strategic Partnerships
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                ESG Framework
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Collaborating with leading organizations to amplify our environmental impact
-                and drive sustainable development across Jamaica.
+              <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+                Pillars of Responsibility
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {partnerships.map((partnership, index) => (
-                <div key={index} className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-6 border border-green-100">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Users size={24} className="text-green-600" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-800 mb-1">{partnership.name}</h3>
-                      <div className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold mb-2">
-                        {partnership.focus}
+            <div className="flex flex-col lg:flex-row gap-12 items-start">
+              {/* Pillar Selector */}
+              <div className="w-full lg:w-1/2 space-y-4">
+                {sustainabilityPillars.map((pillar, index) => {
+                  const Icon = pillar.icon;
+                  const isActive = activeCommitment === index;
+                  const colors = colorMap[pillar.color];
+
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => setActiveCommitment(index)}
+                      className={`w-full text-left p-6 rounded-[2rem] transition-all duration-500 border-2 ${
+                        isActive
+                          ? `${colors.border} bg-white shadow-xl ${colors.glow} translate-x-4`
+                          : 'border-transparent bg-white/50 hover:bg-white hover:shadow-lg'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={`p-4 rounded-2xl ${colors.bg}`}>
+                          <Icon size={24} className={colors.icon} />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-lg text-slate-900">{pillar.title}</h3>
+                          <p className="text-sm text-slate-500">{pillar.description}</p>
+                        </div>
+                        <ArrowRight
+                          size={20}
+                          className={`text-slate-300 transition-transform ${isActive ? 'rotate-90 text-slate-600' : ''}`}
+                        />
                       </div>
-                      <p className="text-gray-600">{partnership.description}</p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Active Pillar Detail Card */}
+              <div className="w-full lg:w-1/2 lg:sticky lg:top-32">
+                <div className="bg-white rounded-[2.5rem] p-10 shadow-2xl border border-slate-100 relative overflow-hidden">
+                  {/* Background Accent */}
+                  <div className={`absolute top-0 right-0 w-40 h-40 ${colorMap[activePillar.color].bg} opacity-30 rounded-bl-full`} aria-hidden="true" />
+
+                  <div className="relative">
+                    <ActiveIcon size={48} className={`${colorMap[activePillar.color].icon} mb-6`} />
+                    <h3 className="text-3xl font-black text-slate-900 mb-6">{activePillar.title}</h3>
+                    <p className="text-slate-500 mb-8 leading-relaxed">{activePillar.description}</p>
+
+                    <div className="space-y-4">
+                      {activePillar.initiatives.map((item, i) => (
+                        <div
+                          key={i}
+                          className="flex items-start gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100"
+                        >
+                          <CheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0" size={18} />
+                          <span className="font-medium text-slate-700">{item}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Impact Metrics */}
-        <section className="py-16 px-4 bg-gradient-to-r from-green-600 to-blue-600">
+        {/* ─── STRATEGY ROADMAP: Horizontal Layout ─── */}
+        <section className="py-24 px-6 bg-white overflow-hidden">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                Corporate Roadmap
+              </h2>
+              <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+                Strategy Roadmap
+              </p>
+              <div className="w-24 h-1 bg-emerald-500 mx-auto mt-6 rounded-full" />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-12 relative">
+              {/* Decorative Connection Line */}
+              <div className="hidden md:block absolute top-[56px] left-[10%] w-[80%] h-1 bg-gradient-to-r from-emerald-200 via-blue-200 to-purple-200 rounded-full" aria-hidden="true" />
+
+              {roadmapItems.map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <div key={i} className="relative group text-center md:text-left">
+                    {/* Circle Icon */}
+                    <div className="w-14 h-14 bg-white border-4 border-emerald-500 rounded-full flex items-center justify-center mb-8 relative z-10 mx-auto md:mx-0 group-hover:bg-emerald-500 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                      <Icon size={24} className="text-emerald-600 group-hover:text-white transition-colors" />
+                    </div>
+
+                    {/* Step Number Watermark */}
+                    <div className="text-7xl font-black text-slate-100 absolute -top-6 -left-4 select-none group-hover:text-emerald-100 transition-colors">
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+
+                    <div className="relative">
+                      <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">{step.year}</p>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4">{step.title}</h3>
+                      <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── SUSTAINABLE PRACTICES ─── */}
+        <section className="py-24 px-6 bg-slate-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                Operational Excellence
+              </h2>
+              <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+                Sustainable Practices
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {sustainablePractices.map((practice, index) => {
+                const Icon = practice.icon;
+                return (
+                  <div
+                    key={index}
+                    className="group bg-white rounded-[2rem] p-8 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-500"
+                  >
+                    <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-100 transition-colors">
+                      <Icon size={32} className="text-emerald-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{practice.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{practice.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── ACCOUNTABILITY & TRANSPARENCY SECTION ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-5xl mx-auto bg-slate-950 rounded-[3rem] p-12 md:p-16 relative overflow-hidden shadow-2xl">
+            {/* Background Effects */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(16,185,129,0.15),transparent_50%)]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(59,130,246,0.15),transparent_50%)]" aria-hidden="true" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
+              {/* Icon Container */}
+              <div className="p-8 bg-white/10 rounded-[2rem] backdrop-blur-md border border-white/20">
+                <FileText size={60} className="text-emerald-400" />
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                  Accountability is Our Core
+                </h2>
+                <p className="text-slate-400 mb-8 leading-relaxed">
+                  We believe in radical transparency. Download our latest Environmental
+                  Impact Report to see how we track carbon offsets, community investments,
+                  and progress toward our 2030 goals.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                  <button className="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-wider transition-all transform hover:-translate-y-1 shadow-lg shadow-emerald-900/30">
+                    Download 2024 Report
+                    <ExternalLink size={18} />
+                  </button>
+                  <Link
+                    href="/contact/jamaica"
+                    className="flex items-center gap-3 bg-white/10 hover:bg-white/20 text-white border border-white/10 px-8 py-4 rounded-2xl font-bold text-sm uppercase tracking-wider transition-all"
+                  >
+                    Partner with Us
+                    <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── IMPACT METRICS BANNER ─── */}
+        <section className="py-20 px-6 bg-gradient-to-r from-emerald-600 to-blue-600">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center text-white space-y-8">
-              <h2 className="text-4xl font-bold">Our Environmental Impact</h2>
-              <p className="text-xl opacity-90 max-w-3xl mx-auto">
+            <div className="text-center text-white mb-12">
+              <h2 className="text-3xl md:text-4xl font-black mb-4">Our Environmental Impact</h2>
+              <p className="text-lg opacity-90 max-w-2xl mx-auto">
                 Measurable progress toward our sustainability goals and positive environmental impact.
               </p>
+            </div>
 
-              <div className="grid md:grid-cols-4 gap-8">
-                <div className="space-y-2">
-                  <TrendingUp size={32} className="mx-auto" />
-                  <div className="text-3xl font-bold">90%</div>
-                  <p className="text-sm opacity-90">Emission Reduction with ULSD</p>
-                </div>
-                <div className="space-y-2">
-                  <TreePine size={32} className="mx-auto" />
-                  <div className="text-3xl font-bold">50+</div>
-                  <p className="text-sm opacity-90">Trees Planted This Year</p>
-                </div>
-                <div className="space-y-2">
-                  <Recycle size={32} className="mx-auto" />
-                  <div className="text-3xl font-bold">75%</div>
-                  <p className="text-sm opacity-90">Waste Recycling Rate</p>
-                </div>
-                <div className="space-y-2">
-                  <Sun size={32} className="mx-auto" />
-                  <div className="text-3xl font-bold">2025</div>
-                  <p className="text-sm opacity-90">Solar Energy Launch</p>
-                </div>
-              </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { icon: TrendingUp, value: '90%', label: 'Emission Reduction with ULSD' },
+                { icon: TreePine, value: '50+', label: 'Trees Planted This Year' },
+                { icon: Recycle, value: '75%', label: 'Waste Recycling Rate' },
+                { icon: Sun, value: '2025', label: 'Solar Energy Launch' }
+              ].map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={i} className="text-center">
+                    <Icon size={32} className="mx-auto mb-4 opacity-80" />
+                    <div className="text-4xl font-black mb-2">{stat.value}</div>
+                    <p className="text-sm opacity-80">{stat.label}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-4xl font-bold text-gray-800">
-              Join Us in Building a Sustainable Future
+        {/* ─── TIER 1 CTA ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-4xl mx-auto bg-slate-50 border border-slate-100 rounded-[3rem] p-12 md:p-20 text-center shadow-xl">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+              <ShieldCheck size={12} />
+              <span>Join the Movement</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-6">
+              Ready for a Cleaner Operation?
             </h2>
-            <p className="text-xl text-gray-600">
-              Partner with Nevloh Limited to reduce your environmental impact while
-              maintaining operational excellence. Together, we can create a cleaner,
-              more sustainable Jamaica.
+            <p className="text-slate-500 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+              Join the growing list of Jamaican businesses switching to Nevloh's
+              sustainable energy solutions. Lower costs, lower emissions, higher reliability.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
-                href="/contact"
-                className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-colors flex items-center"
+                href="/contact/jamaica"
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2"
               >
-                <Leaf size={20} className="mr-2" />
-                Start Your Sustainability Journey
+                <Leaf size={18} />
+                Request a Green Audit
               </Link>
               <Link
-                href="/contact"
-                className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors flex items-center"
+                href="/contact/international"
+                className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
               >
-                <Calendar size={20} className="mr-2" />
-                Schedule Consultation
+                <Globe size={18} />
+                International ESG Desk
               </Link>
-            </div>
-            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600">
-              <div className="flex items-center">
-                <Shield size={16} className="mr-1" />
-                Environmental Compliance
-              </div>
-              <div className="flex items-center">
-                <Award size={16} className="mr-1" />
-                Sustainability Certified
-              </div>
-              <div className="flex items-center">
-                <Heart size={16} className="mr-1" />
-                Community Focused
-              </div>
             </div>
           </div>
         </section>
+
       </div>
     </>
   );
 };
 
-// Next.js Static Props for SEO
 export async function getStaticProps() {
   return {
     props: {},
-    revalidate: 86400, // Revalidate once per day
+    revalidate: 86400
   };
 }
 

@@ -1,71 +1,38 @@
 // pages/services/ulsd.js
+// Tier 1 Institutional — Ultra Low Sulphur Diesel Supply
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import Link from 'next/link';
 import {
-  Fuel,
-  Truck,
-  Shield,
-  Leaf,
-  Award,
-  TrendingUp,
-  Globe,
-  CheckCircle,
-  Zap,
-  Clock,
-  Phone,
-  Star,
-  ArrowRight,
-  BarChart3,
-  Wrench,
-  DollarSign,
-  Target,
-  Users
+  Fuel, Truck, Shield, Leaf, Award, TrendingUp, Globe, CheckCircle,
+  Zap, Clock, Phone, ArrowRight, BarChart3, Wrench, DollarSign,
+  Droplets, FlaskConical, Beaker
 } from 'lucide-react';
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
-export default function ULSDService() {
-  const [activeFeature, setActiveFeature] = useState(0);
+const ULSDService = () => {
+  const [activeTab, setActiveTab] = useState('environment');
 
-  // Enhanced Service Schema - Fixed structure for Google validation
+  // Enhanced Schema
   const ulsdSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/ulsd#service",
-    "name": "Ultra Low Sulphur Diesel (ULSD) Supply Jamaica",
-    "serviceType": "Ultra Low Sulphur Diesel Supply",
-    "image": "https://www.nevloh.com/images/logo.png",
+    "name": "Ultra Low Sulphur Diesel Supply Jamaica",
+    "serviceType": "ULSD Fuel Supply",
     "provider": {
-      "@type": "LocalBusiness",
-      "@id": "https://www.nevloh.com/#organization",
-      "name": "Nevloh Limited",
-      "telephone": "+1-876-449-5172",
-      "email": "shamar@nevloh.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Caymanas Bay",
-        "addressLocality": "Spanish Town",
-        "addressRegion": "Saint Catherine",
-        "addressCountry": "JM"
-      }
+      "@type": "Organization",
+      "name": "Nevloh Group",
+      "url": "https://www.nevloh.com",
+      "telephone": "+1-876-449-5172"
     },
-    "description": "Premium Ultra Low Sulphur Diesel supply and delivery across Jamaica. 90% cleaner emissions, 25% longer engine life, environmentally friendly fuel meeting ASTM D975 and EN 590 international standards.",
+    "description": "Premium Ultra Low Sulphur Diesel meeting ASTM D975 standards for industrial and fleet operations across Jamaica.",
     "areaServed": {
       "@type": "Country",
       "name": "Jamaica"
-    },
-    "serviceOutput": "Ultra Low Sulphur Diesel fuel delivery",
-    "termsOfService": "https://www.nevloh.com/terms",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "142",
-      "bestRating": "5"
     }
   };
 
-  // FAQ Schema for better search visibility
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -75,639 +42,482 @@ export default function ULSDService() {
         "name": "What is Ultra Low Sulphur Diesel (ULSD)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ultra Low Sulphur Diesel (ULSD) is a premium diesel fuel with sulphur content of 15 parts per million (ppm) or less, compared to 500+ ppm in conventional diesel. ULSD produces 90% less sulphur emissions, extends engine life by up to 25%, and meets international environmental standards like EURO VI and EPA requirements."
+          "text": "Ultra Low Sulphur Diesel (ULSD) is a premium diesel fuel with sulphur content of 15 parts per million (ppm) or less, compared to higher levels in conventional diesel. ULSD is designed to produce cleaner emissions and is required for modern diesel engines with advanced emission control systems."
         }
       },
       {
         "@type": "Question",
-        "name": "What are the benefits of ULSD over regular diesel in Jamaica?",
+        "name": "Does Nevloh Limited deliver ULSD across Jamaica?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ULSD offers significant benefits for Jamaica's tropical climate: 90% cleaner emissions reducing air pollution, 25% longer engine life due to reduced wear and corrosion, lower maintenance costs, better fuel system cleanliness, and compliance with international environmental standards."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Nevloh Limited deliver ULSD across all parishes in Jamaica?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, Nevloh Limited delivers premium Ultra Low Sulphur Diesel to all 14 parishes across Jamaica. We offer same-day delivery, 24/7 emergency service with 2-hour priority response, and flexible scheduling for commercial and industrial customers."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What industries use ULSD in Jamaica?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "ULSD is used across many industries in Jamaica including transportation and logistics fleets, construction for heavy machinery and generators, agriculture for tractors and irrigation systems, power generation for backup generators, marine operations for fishing vessels and cargo ships, and mining for equipment and transport vehicles."
+          "text": "Yes, Nevloh Limited delivers Ultra Low Sulphur Diesel to all 14 parishes across Jamaica with flexible scheduling and 24/7 support available."
         }
       }
     ]
   };
 
-  const ulsdBenefits = [
-    {
+  const performanceData = {
+    environment: {
+      title: 'Environmental Benefits',
       icon: Leaf,
-      title: "Environmental Protection",
-      description: "Significantly reduces harmful emissions and particulate matter across Jamaica",
-      details: [
-        "90% less sulfur content than conventional diesel",
-        "Reduces air pollution and acid rain in urban areas",
-        "Protects local Jamaican communities and ecosystems",
-        "Meets international environmental standards and regulations"
-      ],
-      color: "green"
+      color: 'emerald',
+      description: 'ULSD significantly reduces sulfur content compared to conventional diesel, helping to lower harmful emissions and particulate matter. This contributes to cleaner air quality in communities across Jamaica.',
+      features: [
+        'Reduced sulfur emissions compared to standard diesel',
+        'Lower particulate matter output',
+        'Helps meet environmental compliance requirements',
+        'Supports cleaner air quality initiatives'
+      ]
     },
-    {
+    longevity: {
+      title: 'Engine Protection',
       icon: Wrench,
-      title: "Engine Performance",
-      description: "Superior engine protection and enhanced performance for Jamaica's climate",
-      details: [
-        "Reduces engine wear and corrosion in tropical conditions",
-        "Extends engine life by up to 25% in Caribbean climate",
-        "Improves fuel system cleanliness and efficiency",
-        "Better cold start performance during cooler months"
-      ],
-      color: "blue"
+      color: 'blue',
+      description: 'Lower sulfur content means less corrosive byproducts during combustion. This can help reduce wear on fuel system components and support longer service intervals for modern diesel engines.',
+      features: [
+        'Reduced corrosive compounds in combustion',
+        'Better compatibility with modern emission systems',
+        'Supports fuel system cleanliness',
+        'Suitable for high-pressure common-rail engines'
+      ]
     },
-    {
-      icon: DollarSign,
-      title: "Cost Efficiency",
-      description: "Long-term savings through reduced maintenance costs for Jamaican businesses",
-      details: [
-        "Lower maintenance and repair costs for fleet operations",
-        "Reduced downtime and extended service intervals",
-        "Better fuel economy and operational efficiency",
-        "Higher resale value for vehicles and equipment"
-      ],
-      color: "purple"
-    },
-    {
-      icon: Shield,
-      title: "Regulatory Compliance",
-      description: "Stay ahead of environmental regulations in Jamaica and internationally",
-      details: [
-        "Meets EURO VI emission standards for international operations",
-        "Complies with EPA regulations for export markets",
-        "Future-proof your fleet for upcoming regulations",
-        "Avoid regulatory penalties and compliance issues"
-      ],
-      color: "orange"
+    efficiency: {
+      title: 'Operational Value',
+      icon: TrendingUp,
+      color: 'purple',
+      description: 'Cleaner fuel can help maintain the efficiency of emission control systems like DPF filters and EGR valves, potentially reducing maintenance requirements over time.',
+      features: [
+        'Helps maintain DPF and EGR system efficiency',
+        'May support extended maintenance intervals',
+        'Compatible with all modern diesel engines',
+        'Consistent fuel quality from batch to batch'
+      ]
     }
-  ];
-
-  const globalTrends = [
-    {
-      country: "United States",
-      year: "2006",
-      standard: "EPA Mandated ULSD",
-      impact: "99% reduction in sulfur content nationwide"
-    },
-    {
-      country: "European Union",
-      year: "2009",
-      standard: "EURO VI Standard",
-      impact: "Mandatory ULSD for all commercial vehicles"
-    },
-    {
-      country: "Japan",
-      year: "2007",
-      standard: "JIS K 2204 Standard",
-      impact: "Leading Asia in clean diesel adoption"
-    },
-    {
-      country: "Canada",
-      year: "2006",
-      standard: "Canadian Environmental Protection Act",
-      impact: "Synchronized with US standards"
-    }
-  ];
-
-  const specifications = {
-    "Sulfur Content": "≤ 15 ppm (parts per million)",
-    "Cetane Number": "≥ 51",
-    "Density @ 15°C": "820-845 kg/m³",
-    "Flash Point": "≥ 55°C",
-    "Cloud Point": "≤ 4°C",
-    "Pour Point": "≤ -6°C",
-    "Water Content": "≤ 200 mg/kg",
-    "Ash Content": "≤ 0.01% m/m"
   };
 
-  const services = [
-    {
-      icon: Truck,
-      title: "Reliable ULSD Delivery",
-      description: "On-time premium fuel delivery across all 14 Jamaican parishes",
-      features: ["Same-day delivery available", "GPS tracked vehicles", "Professional certified drivers", "Flexible scheduling"]
-    },
-    {
-      icon: Clock,
-      title: "24/7 Emergency ULSD Service",
-      description: "Round-the-clock premium fuel support for critical operations",
-      features: ["Emergency hotline available", "Priority response within 2 hours", "Weekend and holiday service", "Hurricane preparation support"]
-    },
-    {
-      icon: Shield,
-      title: "ULSD Quality Assurance",
-      description: "Certified premium fuel quality and testing for peace of mind",
-      features: ["Laboratory tested quality", "International certificates", "Proper storage standards", "Contamination prevention"]
-    },
-    {
-      icon: Users,
-      title: "Premium Customer Support",
-      description: "Dedicated account management for ULSD customers",
-      features: ["Personal account manager", "Volume discounts available", "Flexible payment terms", "Usage tracking and reporting"]
-    }
+  const specifications = [
+    { label: 'Sulfur Content', value: '≤ 15 ppm', highlight: true },
+    { label: 'Cetane Number', value: '≥ 51', highlight: false },
+    { label: 'Density @ 15°C', value: '820-845 kg/m³', highlight: false },
+    { label: 'Flash Point', value: '≥ 55°C', highlight: false },
+    { label: 'Cloud Point', value: '≤ 4°C', highlight: false },
+    { label: 'Water Content', value: '≤ 200 mg/kg', highlight: false }
   ];
 
   const industries = [
-    { name: "Transportation & Logistics", icon: Truck, usage: "Fleet operations, delivery services across Jamaica" },
-    { name: "Construction", icon: Wrench, usage: "Heavy machinery, generators for construction projects" },
-    { name: "Agriculture", icon: Leaf, usage: "Tractors, irrigation systems for farming operations" },
-    { name: "Power Generation", icon: Zap, usage: "Backup generators, remote power solutions" },
-    { name: "Marine", icon: Globe, usage: "Fishing vessels, cargo ships in Jamaican waters" },
-    { name: "Mining", icon: Target, usage: "Mining equipment, transport vehicles for operations" }
+    { icon: Truck, name: 'Transportation & Logistics', desc: 'Fleet operations and delivery services' },
+    { icon: Wrench, name: 'Construction', desc: 'Heavy machinery and generators' },
+    { icon: Leaf, name: 'Agriculture', desc: 'Tractors and irrigation systems' },
+    { icon: Zap, name: 'Power Generation', desc: 'Backup generators and power solutions' },
+    { icon: Globe, name: 'Marine', desc: 'Vessels and port operations' },
+    { icon: BarChart3, name: 'Industrial', desc: 'Manufacturing and processing' }
   ];
 
-  const testimonials = [
-    {
-      name: "Marcus Thompson",
-      company: "Thompson Logistics Ltd., Kingston",
-      text: "Switching to Nevloh's ULSD reduced our maintenance costs by 30%. Our fleet runs smoother and cleaner across all parishes.",
-      rating: 5
-    },
-    {
-      name: "Patricia Williams",
-      company: "Green Valley Farms, Saint Catherine",
-      text: "The environmental benefits are clear, and our equipment lasts longer. Excellent service from the Nevloh team.",
-      rating: 5
-    },
-    {
-      name: "David Chen",
-      company: "Island Construction Co., Spanish Town",
-      text: "Reliable delivery and premium quality fuel. Our generators run more efficiently with ULSD during power outages.",
-      rating: 5
-    }
+  const globalAdoption = [
+    { country: 'USA', year: '2006', standard: 'EPA Mandate' },
+    { country: 'EU', year: '2009', standard: 'EURO VI Standard' },
+    { country: 'Japan', year: '2007', standard: 'JIS K 2204' },
+    { country: 'Canada', year: '2006', standard: 'CEPA Regulation' }
   ];
+
+  const activeData = performanceData[activeTab];
+  const ActiveIcon = activeData.icon;
 
   return (
     <>
       <Head>
-        <title>Ultra Low Sulphur Diesel (ULSD) Supply Jamaica | Premium Clean Fuel | Nevloh Limited</title>
-        <meta name="description" content="Premium Ultra Low Sulphur Diesel (ULSD) supply across Jamaica. 90% cleaner emissions, 25% longer engine life. Professional delivery to all 14 parishes, ASTM D975 & EN 590 certified. Call +1-876-449-5172" />
-        <meta name="keywords" content="Ultra Low Sulphur Diesel Jamaica, ULSD fuel supply, premium diesel Jamaica, clean fuel delivery, environmental diesel, low sulfur diesel, ULSD supplier Kingston, Spanish Town ULSD, ASTM D975 diesel" />
-
-        {/* Robots and indexing */}
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-
-        {/* Geographic targeting */}
-        <meta name="geo.region" content="JM" />
-        <meta name="geo.placename" content="Jamaica" />
-        <meta name="geo.position" content="17.9909;-76.9571" />
-        <meta name="ICBM" content="17.9909, -76.9571" />
+        <title>Ultra Low Sulphur Diesel (ULSD) Supply Jamaica | Premium Fuel | Nevloh Limited</title>
+        <meta
+          name="description"
+          content="Premium Ultra Low Sulphur Diesel (ULSD) supply across Jamaica. ASTM D975 compliant, professional delivery to all 14 parishes. 24/7 support available."
+        />
+        <meta
+          name="keywords"
+          content="Ultra Low Sulphur Diesel Jamaica, ULSD fuel supply, premium diesel Jamaica, clean fuel delivery, low sulfur diesel, ASTM D975 diesel"
+        />
+        <link rel="canonical" href="https://www.nevloh.com/services/ulsd" />
 
         {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Ultra Low Sulphur Diesel (ULSD) Supply Jamaica | Nevloh Limited" />
-        <meta property="og:description" content="Premium ULSD supply across Jamaica. 90% cleaner emissions, 25% longer engine life. Professional delivery with quality guaranteed." />
+        <meta property="og:title" content="ULSD Supply | Nevloh Limited Jamaica" />
+        <meta property="og:description" content="Premium Ultra Low Sulphur Diesel meeting ASTM D975 standards for industrial and fleet operations." />
+        <meta property="og:image" content="https://www.nevloh.com/images/og-ulsd.png" />
         <meta property="og:url" content="https://www.nevloh.com/services/ulsd" />
-        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
-        <meta property="og:site_name" content="Nevloh Limited" />
-        <meta property="og:locale" content="en_JM" />
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ultra Low Sulphur Diesel (ULSD) Supply Jamaica | Nevloh Limited" />
-        <meta name="twitter:description" content="Premium ULSD supply across Jamaica. 90% cleaner emissions, 25% longer engine life." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
-
-        <link rel="canonical" href="https://www.nevloh.com/services/ulsd" />
+        {/* Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ulsdSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
       </Head>
 
-      {/* Service Schema */}
-      <Script
-        id="ulsd-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(ulsdSchema)
-        }}
-      />
+      <div className="min-h-screen bg-slate-50 font-sans selection:bg-emerald-100">
 
-      {/* FAQ Schema */}
-      <Script
-        id="ulsd-faq-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema)
-        }}
-      />
+        {/* ─── TIER 1 HERO: The Purity Standard ─── */}
+        <section className="relative pt-24 pb-32 bg-[#0F172A] overflow-hidden">
+          {/* Background Gradient */}
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-600/10 to-transparent pointer-events-none" aria-hidden="true" />
 
-      <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            {/* Breadcrumbs */}
+            <div className="mb-12">
+              <Breadcrumbs items={breadcrumbConfigs.ulsd} />
+            </div>
 
-        {/* Breadcrumbs - Properly wrapped with container and padding */}
-        <div className="max-w-7xl mx-auto px-4 pt-4">
-          <Breadcrumbs items={breadcrumbConfigs.ulsd} />
-        </div>
-
-        {/* Hero Section */}
-        <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Left Content */}
               <div>
-                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
-
-                <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
-                  Ultra Low Sulphur Diesel
-                  <span className="block text-green-600">(ULSD) Supply</span>
-                </h1>
-                <p className="text-xl text-gray-700 mb-8">
-                  Jamaica's premier supplier of environmentally-friendly, high-performance Ultra Low Sulphur Diesel.
-                  Experience 90% cleaner emissions, 25% longer engine life, and superior performance
-                  with professional delivery across all 14 parishes.
-                </p>
-
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                  <h2 className="font-semibold text-green-800 mb-2">Premium Quality Benefits</h2>
-                  <p className="text-green-700">90% cleaner emissions • 25% longer engine life • International standards</p>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+                  <FlaskConical size={14} />
+                  <span>15PPM Purity Standard</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-8">
+                  Ultra Low <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">
+                    Sulphur Diesel
+                  </span>
+                </h1>
+
+                <p className="text-xl text-slate-400 max-w-xl mb-10 leading-relaxed">
+                  Nevloh Limited supplies premium Ultra Low Sulphur Diesel (ULSD)
+                  meeting international ASTM D975 standards. Designed for modern diesel
+                  engines with advanced emission control systems.
+                </p>
+
+                <div className="flex flex-wrap gap-4">
                   <Link
-                    href="/contact"
-                    className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+                    href="/contact/jamaica"
+                    className="px-10 py-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-xl shadow-emerald-900/20 flex items-center gap-2 group"
                   >
-                    Get ULSD Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
+                    Request Quote
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <a
                     href="tel:+18764495172"
-                    className="inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg border border-blue-200"
+                    className="px-10 py-4 bg-slate-800 text-white rounded-2xl font-bold border border-slate-700 hover:bg-slate-700 transition-all flex items-center gap-2"
                   >
-                    Call (876) 449-5172
+                    <Phone size={18} />
+                    Technical Support
                   </a>
                 </div>
               </div>
 
+              {/* Lab Spec Card */}
               <div className="relative">
-                <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 shadow-2xl">
-                  <Fuel className="text-white mb-4" size={64} aria-hidden="true" />
-                  <h2 className="text-2xl font-bold text-white mb-4">Premium ULSD Benefits</h2>
-                  <ul className="text-green-100 space-y-2">
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>90% Less Sulfur Content</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>25% Longer Engine Life</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>Cleaner Emissions</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>International Standards</span>
-                    </li>
-                  </ul>
+                <div className="bg-slate-800/50 backdrop-blur-md border border-slate-700 p-8 rounded-[2.5rem] shadow-2xl">
+                  {/* Header */}
+                  <div className="flex justify-between items-center mb-10">
+                    <div className="text-emerald-400 font-mono text-xs uppercase tracking-widest">Fuel_Specification</div>
+                    <div className="flex gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-red-500" />
+                      <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                      <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                    </div>
+                  </div>
+
+                  {/* Main Spec */}
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-end">
+                      <div className="text-slate-400 text-sm">Sulfur Content</div>
+                      <div className="text-3xl font-black text-white">&lt;15 PPM</div>
+                    </div>
+                    <div className="w-full h-3 bg-slate-900 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 w-[15%] rounded-full" />
+                    </div>
+                    <p className="text-[10px] text-slate-500 italic">ASTM D975 / EN 590 Compliant</p>
+                  </div>
+
+                  {/* Quick Stats */}
+                  <div className="grid grid-cols-2 gap-4 mt-8">
+                    <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50 text-center">
+                      <div className="text-white font-bold">≥ 51</div>
+                      <div className="text-[10px] text-slate-500 uppercase">Cetane Number</div>
+                    </div>
+                    <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-700/50 text-center">
+                      <div className="text-white font-bold">14</div>
+                      <div className="text-[10px] text-slate-500 uppercase">Parishes Covered</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Badge */}
+                <div className="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 hidden md:flex items-center gap-4">
+                  <div className="p-3 bg-emerald-100 rounded-xl">
+                    <Award className="text-emerald-600" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-sm font-black text-slate-900">ASTM D975</div>
+                    <div className="text-[10px] text-slate-500 uppercase">Certified Standard</div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Key Statistics */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { icon: Leaf, number: "90%", label: "Less Sulfur Content", color: "green" },
-                { icon: Wrench, number: "25%", label: "Longer Engine Life", color: "blue" },
-                { icon: Globe, number: "50+", label: "Countries Using ULSD", color: "purple" },
-                { icon: Award, number: "100%", label: "Quality Guaranteed", color: "orange" }
-              ].map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
-                    <div className={`w-12 h-12 bg-${stat.color}-100 rounded-lg flex items-center justify-center mx-auto mb-3`}>
-                      <IconComponent size={24} className={`text-${stat.color}-600`} aria-hidden="true" />
-                    </div>
-                    <div className="text-2xl font-bold text-gray-800">{stat.number}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        {/* ─── PERFORMANCE BENEFITS ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              {/* Content */}
+              <div>
+                <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                  Fuel Benefits
+                </h2>
+                <p className="text-3xl md:text-4xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                  Why Choose <br />
+                  <span className="text-emerald-600">Ultra Low Sulphur Diesel</span>
+                </p>
+                <p className="text-lg text-slate-600 mb-10 leading-relaxed">
+                  ULSD is the modern standard for diesel fuel, required by advanced emission
+                  control systems and designed to provide cleaner combustion compared to
+                  conventional diesel.
+                </p>
 
-        {/* ULSD Benefits */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Why Choose Ultra Low Sulphur Diesel in Jamaica?
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Discover the comprehensive benefits that make ULSD the preferred choice for forward-thinking businesses
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Benefits List */}
-              <div className="space-y-4">
-                {ulsdBenefits.map((benefit, index) => {
-                  const IconComponent = benefit.icon;
-                  const isActive = activeFeature === index;
-                  const colorClasses = {
-                    green: 'bg-green-100 text-green-600',
-                    blue: 'bg-blue-100 text-blue-600',
-                    purple: 'bg-purple-100 text-purple-600',
-                    orange: 'bg-orange-100 text-orange-600'
-                  };
-
-                  return (
-                    <div
-                      key={index}
-                      onClick={() => setActiveFeature(index)}
-                      className={`cursor-pointer transition-all duration-300 p-6 rounded-2xl ${
-                        isActive ? 'bg-white shadow-lg transform scale-105' : 'bg-white/50 hover:bg-white/80'
-                      }`}
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          setActiveFeature(index);
-                        }
-                      }}
-                      aria-pressed={isActive}
-                      aria-label={`View details for ${benefit.title}`}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${colorClasses[benefit.color]}`}>
-                          <IconComponent size={24} aria-hidden="true" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-gray-800">{benefit.title}</h3>
-                          <p className="text-gray-600">{benefit.description}</p>
-                        </div>
-                        <ArrowRight size={20} className={`text-gray-400 transition-transform ${isActive ? 'rotate-90' : ''}`} aria-hidden="true" />
-                      </div>
-                    </div>
-                  );
-                })}
+                {/* Tab Buttons */}
+                <div className="space-y-3">
+                  {Object.entries(performanceData).map(([key, data]) => {
+                    const Icon = data.icon;
+                    const isActive = activeTab === key;
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => setActiveTab(key)}
+                        className={`w-full flex items-center gap-4 p-5 rounded-2xl transition-all border-2 text-left ${
+                          isActive
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-transparent bg-slate-50 hover:bg-slate-100'
+                        }`}
+                      >
+                        <Icon className={isActive ? 'text-emerald-600' : 'text-slate-400'} size={24} />
+                        <span className="font-bold text-slate-900">{data.title}</span>
+                        <ArrowRight
+                          className={`ml-auto transition-transform ${isActive ? 'rotate-0 text-emerald-600' : '-rotate-45 text-slate-300'}`}
+                          size={18}
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* Feature Details */}
-              <div className="bg-white rounded-3xl p-8 shadow-xl">
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-3">
-                    {React.createElement(ulsdBenefits[activeFeature].icon, {
-                      size: 32,
-                      className: `text-${ulsdBenefits[activeFeature].color}-600`,
-                      'aria-hidden': true
-                    })}
-                    <h3 className="text-2xl font-bold text-gray-800">
-                      {ulsdBenefits[activeFeature].title}
-                    </h3>
+              {/* Detail Card */}
+              <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden">
+                {/* Background Accent */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-bl-full pointer-events-none" aria-hidden="true" />
+
+                <div className="relative z-10">
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${
+                    activeData.color === 'emerald' ? 'bg-emerald-500/20' :
+                    activeData.color === 'blue' ? 'bg-blue-500/20' : 'bg-purple-500/20'
+                  }`}>
+                    <ActiveIcon className={
+                      activeData.color === 'emerald' ? 'text-emerald-400' :
+                      activeData.color === 'blue' ? 'text-blue-400' : 'text-purple-400'
+                    } size={32} />
                   </div>
 
-                  <p className="text-lg text-gray-600 leading-relaxed">
-                    {ulsdBenefits[activeFeature].description}
+                  <h3 className="text-2xl font-black mb-4">{activeData.title}</h3>
+                  <p className="text-slate-400 leading-relaxed mb-8">
+                    {activeData.description}
                   </p>
 
                   <div className="space-y-3">
-                    {ulsdBenefits[activeFeature].details.map((detail, index) => (
-                      <div key={index} className="flex items-center space-x-3">
-                        <CheckCircle size={20} className="text-green-500 flex-shrink-0" aria-hidden="true" />
-                        <span className="text-gray-700">{detail}</span>
+                    {activeData.features.map((feature, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <CheckCircle className="text-emerald-400 flex-shrink-0" size={18} />
+                        <span className="text-slate-300 text-sm">{feature}</span>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Global Trends */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Global ULSD Adoption
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Leading developed countries have mandated ULSD adoption. Join the global movement towards cleaner diesel technology.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {globalTrends.map((trend, index) => (
-                <article key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="text-center space-y-4">
-                    <h3 className="text-lg font-bold text-gray-800">{trend.country}</h3>
-                    <div className="space-y-2">
-                      <div className="inline-block bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Since {trend.year}
-                      </div>
-                      <p className="font-medium text-gray-700 text-sm">{trend.standard}</p>
-                      <p className="text-xs text-gray-600">{trend.impact}</p>
-                    </div>
+                  <div className="mt-8 p-4 bg-white/5 rounded-xl border border-white/10 flex items-center gap-3">
+                    <Shield className="text-emerald-400" size={20} />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400">
+                      Industrial Grade Quality
+                    </span>
                   </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-3xl p-8 text-white text-center">
-              <h3 className="text-2xl font-bold mb-4">ULSD: The Global Standard, Now in Jamaica</h3>
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="space-y-2">
-                  <BarChart3 size={32} className="mx-auto" aria-hidden="true" />
-                  <div className="text-2xl font-bold">85%</div>
-                  <p className="text-sm opacity-90">of developed countries mandate ULSD</p>
-                </div>
-                <div className="space-y-2">
-                  <TrendingUp size={32} className="mx-auto" aria-hidden="true" />
-                  <div className="text-2xl font-bold">$50B+</div>
-                  <p className="text-sm opacity-90">global ULSD market value</p>
-                </div>
-                <div className="space-y-2">
-                  <Globe size={32} className="mx-auto" aria-hidden="true" />
-                  <div className="text-2xl font-bold">2030</div>
-                  <p className="text-sm opacity-90">projected global adoption</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Technical Specifications */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
+        {/* ─── SPECIFICATIONS ─── */}
+        <section className="py-24 px-6 bg-slate-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                Technical Data
+              </h2>
+              <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                ULSD Specifications
+              </p>
+              <p className="text-slate-500 mt-4">Meeting ASTM D975 and EN 590 international standards.</p>
+            </div>
+
             <div className="grid lg:grid-cols-2 gap-12">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                    Technical Specifications
-                  </h2>
-                  <p className="text-xl text-gray-700">
-                    Our ULSD meets and exceeds international quality standards for Jamaica's tropical climate
+              {/* Spec Table */}
+              <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+                <div className="space-y-4">
+                  {specifications.map((spec, i) => (
+                    <div key={i} className="flex justify-between items-center py-4 border-b border-slate-50 last:border-0">
+                      <span className="text-slate-600 font-medium">{spec.label}</span>
+                      <span className={`font-bold ${spec.highlight ? 'text-emerald-600' : 'text-slate-900'}`}>
+                        {spec.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Info Cards */}
+              <div className="space-y-6">
+                <div className="p-8 bg-slate-900 rounded-[2rem] text-white">
+                  <h4 className="text-xl font-bold mb-4 flex items-center gap-3">
+                    <Beaker className="text-emerald-400" size={24} />
+                    Refined Quality
+                  </h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Our ULSD undergoes hydrodesulfurization processing to achieve
+                    the low sulfur content required by modern diesel engines and
+                    emission control systems.
                   </p>
                 </div>
 
-                <div className="bg-white rounded-2xl p-8 shadow-lg">
-                  <div className="space-y-4">
-                    {Object.entries(specifications).map(([spec, value], index) => (
-                      <div key={index} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0">
-                        <span className="font-medium text-gray-700">{spec}</span>
-                        <span className="font-bold text-blue-600">{value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4 p-4 bg-green-50 rounded-lg">
-                  <Award size={24} className="text-green-600 flex-shrink-0" aria-hidden="true" />
-                  <span className="text-green-800 font-medium">
-                    Certified to meet ASTM D975 and EN 590 international standards
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6">Industries We Serve</h3>
-                  <div className="space-y-4">
-                    {industries.map((industry, index) => {
-                      const IconComponent = industry.icon;
-                      return (
-                        <article key={index} className="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                              <IconComponent size={24} className="text-blue-600" aria-hidden="true" />
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-gray-800">{industry.name}</h4>
-                              <p className="text-sm text-gray-600">{industry.usage}</p>
-                            </div>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
+                <div className="p-8 bg-emerald-600 rounded-[2rem] text-white">
+                  <h4 className="text-xl font-bold mb-2">ASTM D975 / EN 590</h4>
+                  <p className="text-emerald-100 text-sm leading-relaxed">
+                    Our ULSD meets international diesel specifications required
+                    for Tier 4 and EURO VI compliant engines.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Services */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Premium ULSD Services
+        {/* ─── INDUSTRIES ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+                Applications
               </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Professional Ultra Low Sulphur Diesel delivery with comprehensive support services
+              <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                Industries We Serve
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {services.map((service, index) => {
-                const IconComponent = service.icon;
+            <div className="grid md:grid-cols-3 gap-6">
+              {industries.map((industry, i) => {
+                const Icon = industry.icon;
                 return (
-                  <article key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                    <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
-                      <IconComponent size={32} className="text-blue-600" aria-hidden="true" />
+                  <div
+                    key={i}
+                    className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                  >
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover:bg-emerald-600 transition-colors">
+                      <Icon className="text-slate-400 group-hover:text-white transition-colors" size={24} />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
-                    <p className="text-gray-600 mb-4">{service.description}</p>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-sm text-gray-700">
-                          <CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" aria-hidden="true" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
+                    <h3 className="font-bold text-slate-900 mb-1">{industry.name}</h3>
+                    <p className="text-sm text-slate-500">{industry.desc}</p>
+                  </div>
                 );
               })}
             </div>
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="py-16">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                What Our Customers Say About ULSD
-              </h2>
-              <p className="text-xl text-gray-700">
-                Real experiences from Jamaican businesses using our Ultra Low Sulphur Diesel
-              </p>
-            </div>
+        {/* ─── GLOBAL STANDARD ─── */}
+        <section className="py-24 px-6 bg-slate-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-600 mb-4">
+              Global Context
+            </h2>
+            <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-12">
+              The International Standard
+            </p>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <article key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="flex items-center mb-4" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} size={20} className="text-yellow-400 fill-current" aria-hidden="true" />
-                    ))}
-                  </div>
-                  <blockquote className="text-gray-600 mb-4 italic">"{testimonial.text}"</blockquote>
-                  <footer>
-                    <div className="font-semibold text-gray-800">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.company}</div>
-                  </footer>
-                </article>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {globalAdoption.map((item, i) => (
+                <div
+                  key={i}
+                  className="p-8 rounded-[2rem] bg-white border border-slate-100 hover:border-emerald-200 transition-colors group"
+                >
+                  <Globe className="mx-auto mb-4 text-slate-300 group-hover:text-emerald-500 transition-colors" size={32} />
+                  <div className="text-emerald-600 font-black text-lg mb-1">{item.country}</div>
+                  <div className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-2">Since {item.year}</div>
+                  <div className="text-slate-700 font-bold text-xs">{item.standard}</div>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="py-16 bg-gradient-to-r from-green-600 to-green-800">
-          <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <Fuel className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Upgrade to Ultra Low Sulphur Diesel?
-            </h2>
-            <p className="text-xl mb-8 text-green-100">
-              Join forward-thinking Jamaican businesses choosing cleaner, more efficient fuel.
-              Contact us today for premium ULSD delivery across all parishes.
-            </p>
+        {/* ─── CTA ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-emerald-600 to-blue-900 rounded-[3rem] p-12 md:p-16 text-white relative overflow-hidden shadow-2xl">
+            {/* Background Glow */}
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-[100px]" aria-hidden="true" />
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Link
-                href="/contact"
-                className="inline-flex items-center bg-white text-green-600 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
-              >
-                Get ULSD Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
-              </Link>
-              <a
-                href="tel:+18764495172"
-                className="inline-flex items-center bg-transparent text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 border-2 border-white"
-              >
-                <Phone className="mr-2" size={20} aria-hidden="true" />
-                Call (876) 449-5172
-              </a>
-            </div>
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <Droplets size={64} className="mb-8 opacity-50" />
 
-            <div className="text-green-100">
-              <p className="text-sm">
-                <strong>Premium Quality:</strong> Laboratory tested • International standards • Professional delivery
+              <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight leading-tight">
+                Upgrade to <br />
+                <span className="text-emerald-200">Premium ULSD</span>
+              </h2>
+
+              <p className="text-emerald-100 text-lg max-w-2xl mb-10 leading-relaxed">
+                Contact us to discuss your ULSD requirements. We supply premium
+                ultra low sulphur diesel to commercial and industrial customers
+                across all 14 parishes in Jamaica.
               </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                <Link
+                  href="/contact/jamaica"
+                  className="px-10 py-5 bg-white text-slate-900 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                >
+                  <BarChart3 size={18} />
+                  Request Volume Quote
+                </Link>
+                <a
+                  href="tel:+18764495172"
+                  className="px-10 py-5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-2xl font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2"
+                >
+                  <Phone size={18} />
+                  Contact Dispatch
+                </a>
+              </div>
             </div>
           </div>
         </section>
+
+        {/* ─── BILATERAL LINK ─── */}
+        <section className="py-16 px-6 bg-slate-50">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-slate-500 mb-6">
+              <strong className="text-slate-700">Coverage:</strong> All 14 parishes • 24/7 support available
+            </p>
+            <Link
+              href="/contact/international"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-emerald-600 text-xs font-bold uppercase tracking-widest transition-colors"
+            >
+              <Globe size={14} />
+              International Inquiries →
+            </Link>
+          </div>
+        </section>
+
       </div>
     </>
   );
-}
+};
+
+export default ULSDService;

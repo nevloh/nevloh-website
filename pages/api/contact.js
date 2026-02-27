@@ -1,6 +1,7 @@
 // pages/api/contact.js
 // Brevo (formerly Sendinblue) integration for contact form
 // WITH Anti-Spam Protection: Honeypot, Turnstile, Content Filtering
+// WITH Newsletter Subscription Support
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -102,7 +103,7 @@ export default async function handler(req, res) {
     /earn\s+\$?\d+.*day/i,        // "Earn $X per day" spam
   ];
 
-  const textToCheck = `${firstName} ${lastName} ${message} ${companyName || ''}`;
+  const textToCheck = `${firstName || ''} ${lastName || ''} ${message || ''} ${companyName || ''}`;
   const isSpamContent = spamPatterns.some(pattern => pattern.test(textToCheck));
 
   if (isSpamContent) {
@@ -141,14 +142,25 @@ export default async function handler(req, res) {
   }
 
   // ============================================
-  // STANDARD VALIDATION
+  // DETERMINE FORM TYPE
   // ============================================
-
-  // Validate required fields (adjusted for different form types)
+  const isNewsletter = source === 'footer_newsletter' || source === 'newsletter';
   const isInternationalTrade = source === 'contact_international_trade';
   const isQuickForm = source === 'contact_jamaica_quick';
 
-  if (isQuickForm) {
+  // ============================================
+  // VALIDATION BASED ON FORM TYPE
+  // ============================================
+
+  if (isNewsletter) {
+    // Newsletter only requires email
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        error: 'Please provide your email address'
+      });
+    }
+  } else if (isQuickForm) {
     // Quick form only requires name and phone
     if (!firstName || !phone) {
       return res.status(400).json({
@@ -192,6 +204,7 @@ export default async function handler(req, res) {
   const BREVO_API_KEY = process.env.BREVO_API_KEY;
   const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || 'shamar@nevloh.com';
   const BREVO_LIST_ID = process.env.BREVO_LIST_ID;
+  const BREVO_NEWSLETTER_LIST_ID = process.env.BREVO_NEWSLETTER_LIST_ID;
 
   if (!BREVO_API_KEY) {
     console.error('BREVO_API_KEY is not configured');
@@ -202,6 +215,220 @@ export default async function handler(req, res) {
   }
 
   try {
+    // ============================================
+    // NEWSLETTER SUBSCRIPTION FLOW
+    // ============================================
+    if (isNewsletter) {
+      console.log('📧 Processing newsletter subscription:', { email, source });
+
+      // Build contact payload for Brevo
+      const contactPayload = {
+        email: email,
+        attributes: {
+          FIRSTNAME: 'Newsletter',
+          LASTNAME: 'Subscriber',
+          NEWSLETTER: true,
+          SOURCE: source,
+          SIGNUP_DATE: new Date().toISOString().split('T')[0],
+          LAST_ACTIVITY: new Date().toISOString()
+        },
+        updateEnabled: true // Update if contact already exists
+      };
+
+      // Add to newsletter list if configured
+      const listIds = [];
+      if (BREVO_NEWSLETTER_LIST_ID) {
+        listIds.push(parseInt(BREVO_NEWSLETTER_LIST_ID));
+      } else if (BREVO_LIST_ID) {
+        listIds.push(parseInt(BREVO_LIST_ID));
+      }
+
+      if (listIds.length > 0) {
+        contactPayload.listIds = listIds;
+      }
+
+      // Create/Update contact in Brevo
+      const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'api-key': BREVO_API_KEY,
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(contactPayload)
+      });
+
+      if (!contactResponse.ok) {
+        const contactError = await contactResponse.json();
+
+        // Check if it's a duplicate contact error (already subscribed)
+        if (contactError.code === 'duplicate_parameter') {
+          console.log('📧 Newsletter: Contact already exists, updating...', { email });
+
+          // Update existing contact to ensure they're subscribed
+          const updatePayload = {
+            attributes: {
+              NEWSLETTER: true,
+              LAST_ACTIVITY: new Date().toISOString()
+            }
+          };
+
+          if (listIds.length > 0) {
+            updatePayload.listIds = listIds;
+          }
+
+          const updateResponse = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+            method: 'PUT',
+            headers: {
+              'accept': 'application/json',
+              'api-key': BREVO_API_KEY,
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(updatePayload)
+          });
+
+          if (!updateResponse.ok) {
+            const updateError = await updateResponse.json();
+            console.warn('Failed to update existing contact:', updateError);
+          } else {
+            console.log('✅ Existing contact updated with newsletter subscription');
+          }
+        } else {
+          console.error('Failed to add newsletter subscriber:', contactError);
+          throw new Error('Failed to subscribe to newsletter');
+        }
+      } else {
+        console.log('✅ New newsletter subscriber added to Brevo');
+      }
+
+      // Send welcome email to subscriber
+      const currentYear = new Date().getFullYear();
+      const welcomeHtml = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Welcome to Nevloh</title>
+          </head>
+          <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+              
+              <!-- Header -->
+              <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+                <h1 style="margin: 0; font-size: 28px;">🚛 Welcome to Nevloh</h1>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">Industry Insights & Market Updates</p>
+              </div>
+              
+              <!-- Content -->
+              <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
+                <h2 style="color: #1e40af; margin-top: 0;">You're Now Subscribed!</h2>
+                
+                <p>Thank you for subscribing to the Nevloh newsletter. You'll receive:</p>
+                
+                <ul style="color: #4b5563; padding-left: 20px;">
+                  <li style="margin-bottom: 8px;">Industry insights and market trends</li>
+                  <li style="margin-bottom: 8px;">Fuel logistics updates</li>
+                  <li style="margin-bottom: 8px;">Commodities trading news</li>
+                  <li style="margin-bottom: 8px;">Exclusive offers and announcements</li>
+                </ul>
+
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="https://www.nevloh.com/services" style="display: inline-block; background: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 5px; font-weight: bold;">Explore Our Services</a>
+                  <a href="https://www.nevloh.com/blog" style="display: inline-block; background: #059669; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 5px; font-weight: bold;">Read Our Blog</a>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 25px 0;">
+
+                <p style="color: #6b7280; font-size: 14px;">
+                  Best regards,<br>
+                  <strong>The Nevloh Team</strong><br>
+                  Spanish Town, Jamaica & Casper, Wyoming
+                </p>
+              </div>
+
+              <!-- Footer -->
+              <div style="background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px;">
+                <p style="margin: 0 0 10px 0;">© ${currentYear} Nevloh Group. All rights reserved.</p>
+                <p style="margin: 0;">
+                  <a href="https://www.nevloh.com" style="color: #9ca3af; text-decoration: none;">www.nevloh.com</a> | 
+                  <a href="https://www.nevloh.com/contact" style="color: #9ca3af; text-decoration: none;">Contact Us</a>
+                </p>
+              </div>
+            </div>
+          </body>
+        </html>
+      `;
+
+      // Send welcome email
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': BREVO_API_KEY,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: {
+              name: 'Nevloh Group',
+              email: 'noreply@nevloh.com'
+            },
+            to: [{ email: email, name: 'Subscriber' }],
+            replyTo: { email: 'shamar@nevloh.com', name: 'Nevloh Team' },
+            subject: '🚛 Welcome to Nevloh - You\'re Subscribed!',
+            htmlContent: welcomeHtml,
+            tags: ['newsletter', 'welcome', 'footer']
+          })
+        });
+        console.log('✅ Welcome email sent to subscriber');
+      } catch (welcomeError) {
+        console.warn('Failed to send welcome email:', welcomeError);
+        // Don't fail the subscription if welcome email fails
+      }
+
+      // Send notification to admin
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': BREVO_API_KEY,
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            sender: { name: 'Nevloh Website', email: 'noreply@nevloh.com' },
+            to: [{ email: NOTIFICATION_EMAIL, name: 'Nevloh Team' }],
+            subject: `📧 New Newsletter Subscriber: ${email}`,
+            htmlContent: `
+              <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 500px;">
+                <h2 style="color: #1e40af; margin-top: 0;">New Newsletter Subscriber</h2>
+                <div style="background: #f3f4f6; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                  <p style="margin: 5px 0;"><strong>Email:</strong> ${email}</p>
+                  <p style="margin: 5px 0;"><strong>Source:</strong> ${source}</p>
+                  <p style="margin: 5px 0;"><strong>Time:</strong> ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica' })} (Jamaica Time)</p>
+                </div>
+                <p style="color: #059669; font-weight: bold;">✅ Added to Brevo contact list</p>
+              </div>
+            `,
+            tags: ['newsletter', 'notification', 'admin']
+          })
+        });
+        console.log('✅ Admin notification sent');
+      } catch (notifyError) {
+        console.warn('Failed to send admin notification:', notifyError);
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully subscribed! Check your inbox for a welcome email.'
+      });
+    }
+
+    // ============================================
+    // STANDARD CONTACT FORM FLOW
+    // ============================================
+
     // Map fuel type values to readable labels
     const fuelTypeLabels = {
       'ulsd': 'Ultra Low Sulphur Diesel (ULSD)',
@@ -468,7 +695,7 @@ Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica'
                   `}
                 </ul>
 
-                <p>${isInternationalTrade ? 'All trades are LC-secured with SGS/Intertek inspection at load port.' : 'We deliver across all 14 parishes in Jamaica with 24/7 emergency service available.'}</p>
+                <p>${isInternationalTrade ? 'All trades are LC-secured with SGS/Intertek inspection at load port.' : 'We deliver across all 14 parishes in Jamaica.'}</p>
 
                 <p style="color: #6b7280; font-size: 14px;">
                   Best regards,<br>
@@ -552,9 +779,9 @@ Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica'
         HEAR_ABOUT_US: hearAboutUs || '',
 
         // Preferences
-        NEWSLETTER: newsletter ? 'Yes' : 'No',
-        WHATSAPP_UPDATES: whatsappUpdates ? 'Yes' : 'No',
-        SMS_ALERTS: smsAlerts ? 'Yes' : 'No',
+        NEWSLETTER: newsletter ? true : false,
+        WHATSAPP_UPDATES: whatsappUpdates ? true : false,
+        SMS_ALERTS: smsAlerts ? true : false,
 
         // Inquiry Details
         MESSAGE: message ? message.substring(0, 500) : '', // Brevo has field limits

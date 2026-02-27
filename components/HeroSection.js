@@ -1,16 +1,16 @@
 // components/HeroSection.js
+// Tier 1 Institutional — Dual Pillar Business Architecture
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Fuel, MapPin } from 'lucide-react';
+import { ArrowRight, Truck, Phone, Globe, ShieldCheck } from 'lucide-react';
 
 export default function HeroSection() {
-  // Analytics tracking for CTA clicks
-  const handleCTAClick = () => {
+  const handleCTAClick = (label) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'click', {
         event_category: 'Hero CTA',
-        event_label: 'Request Quote',
+        event_label: label,
         value: 1
       });
     }
@@ -18,150 +18,183 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* Structured Data for Hero Section */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "name": "On-Site Fuel Delivery",
-            "provider": {
-              "@type": "Organization",
-              "name": "Nevloh Limited",
-              "url": "https://www.nevloh.com",
-              "logo": "https://www.nevloh.com/logo.png"
-            },
-            "description": "Trusted partner for on-site fuel solutions in Jamaica - delivering fast, safe, and reliable energy where you need it most",
-            "areaServed": {
-              "@type": "Country",
-              "name": "Jamaica"
-            },
-            "serviceType": "Fuel Delivery Service",
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Fuel Services",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "On-Site Fuel Delivery"
-                  }
-                }
-              ]
-            }
-          })
-        }}
-      />
-
       <section
-        className="relative flex flex-col items-center justify-center py-20 px-4 sm:py-24 lg:py-32 bg-gradient-to-br from-blue-50 to-blue-100 overflow-hidden text-center"
+        className="relative min-h-screen flex flex-col items-center justify-start pt-32 pb-20 px-4 bg-[#fcfdfe] overflow-hidden"
         aria-labelledby="hero-heading"
       >
-        {/* Enhanced Background Elements */}
-        <div className="absolute inset-0 z-0 opacity-20" aria-hidden="true">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-            <circle cx="20" cy="80" r="15" fill="rgba(100, 150, 255, 0.5)"></circle>
-            <circle cx="80" cy="20" r="20" fill="rgba(0, 100, 255, 0.4)"></circle>
-            <path d="M0 0 L100 0 L100 30 C80 50, 20 50, 0 30 Z" fill="rgba(200, 220, 255, 0.3)"></path>
-          </svg>
-        </div>
+        {/* BACKGROUND: Global Network Grid */}
+        <div
+          className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+          style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%231e3a8a' stroke-width='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}
+          aria-hidden="true"
+        />
 
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 z-0" aria-hidden="true">
-          <div className="absolute top-10 left-10 w-4 h-4 bg-blue-300 rounded-full opacity-40 animate-pulse"></div>
-          <div className="absolute top-20 right-20 w-6 h-6 bg-blue-400 rounded-full opacity-30 animate-bounce"></div>
-          <div className="absolute bottom-20 left-20 w-3 h-3 bg-blue-500 rounded-full opacity-50 animate-ping"></div>
-        </div>
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_30%,rgba(59,130,246,0.06),transparent_60%)]" aria-hidden="true" />
 
-        {/* Logo with Next.js Image Optimization */}
-        <div className="relative z-10 mb-6 flex justify-center">
-          <Image
-            src="/images/logo.png" // Logo is in public/images folder
-            alt="Nevloh Limited - Premium Fuel Delivery Services in Jamaica"
-            width={144} // w-36 = 144px
-            height={144}
-            className="rounded-full shadow-lg border-2 border-white hover:shadow-xl transition-shadow duration-300 mx-auto"
-            priority // Load immediately as it's above the fold
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyLDSEaxBkjlcbPfK2g=="
-            onError={(e) => {
-              e.currentTarget.src = '/logo-fallback.png'; // Fallback image
-            }}
-          />
-        </div>
-
-        {/* Main Heading */}
-        <h1
-          id="hero-heading"
-          className="relative z-10 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-blue-900 drop-shadow-md mb-6 text-center"
-        >
-          Delivering Fuel, <span className="bg-gradient-to-r from-blue-700 to-blue-900 bg-clip-text text-transparent">Driving Success</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p className="relative z-10 text-gray-700 text-lg sm:text-xl max-w-3xl leading-relaxed mb-8 text-center mx-auto">
-          Your trusted partner for on-site fuel solutions in Jamaica — {' '}
-          <br className="hidden sm:inline" />
-          delivering fast, safe, and reliable energy where you need it most.
-        </p>
-
-        {/* Key Benefits */}
-        <div className="relative z-10 flex flex-wrap justify-center gap-4 mb-10 max-w-2xl mx-auto">
-          <div className="flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
-            <Fuel size={20} className="text-blue-600 mr-2" aria-hidden="true" />
-            <span className="text-sm font-medium text-blue-900">Island-wide Delivery</span>
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          {/* Header & Logo */}
+          <div className="flex flex-col items-center mb-12">
+            <div className="relative mb-6 group">
+              <div className="absolute inset-0 bg-blue-600 rounded-2xl blur-3xl opacity-10 group-hover:opacity-20 transition-opacity animate-pulse" />
+              <Image
+                src="/images/logo.png"
+                alt="Nevloh Group Logo"
+                width={100}
+                height={100}
+                className="relative rounded-2xl border border-slate-200 shadow-xl"
+                priority
+              />
+            </div>
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-bold uppercase tracking-[0.2em] shadow-lg">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              <span>Bilateral Global Operations Active</span>
+            </div>
           </div>
-          <div className="flex items-center justify-center bg-white/70 backdrop-blur-sm rounded-lg px-6 py-3 shadow-md">
-            <MapPin size={20} className="text-blue-600 mr-2" aria-hidden="true" />
-            <span className="text-sm font-medium text-blue-900">On-Site Solutions</span>
+
+          {/* Core Value Proposition */}
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h1
+              id="hero-heading"
+              className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.05] mb-8"
+            >
+              Reliable Energy. <br />
+              <span className="text-blue-600">Global Execution.</span>
+            </h1>
+            <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+              Managing high-volume logistics across Jamaica while executing structured
+              commodities trade from our Wyoming trade desk.
+            </p>
           </div>
-        </div>
 
-        {/* Primary CTA */}
-        <div className="relative z-10 space-y-4 text-center">
-          <Link
-            href="/contact"
-            onClick={handleCTAClick}
-            className="inline-block bg-blue-800 text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2 group"
-            aria-label="Request a fuel delivery quote from Nevloh Limited"
-          >
-            Request A Quote
-            <ArrowRight size={20} className="inline ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-          </Link>
+          {/* ─── DUAL PILLAR VISUALS ─── */}
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
 
-          {/* Secondary CTA */}
-          <div className="text-sm text-gray-600">
-            <span>or call us directly at </span>
+            {/* PILLAR 1: Jamaica Operations */}
+            <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 border border-slate-800 shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-blue-500/20">
+              <div className="relative h-72 w-full overflow-hidden">
+                <Image
+                  src="/images/fuel-truck-delivery.jpg"
+                  alt="Jamaica Fuel Delivery Operations"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+                <div className="absolute bottom-6 left-8 flex items-center gap-3">
+                  <div className="bg-blue-600 p-3 rounded-2xl text-white shadow-xl shadow-blue-500/30">
+                    <Truck size={24} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-widest leading-none mb-1">Regional Ops</p>
+                    <p className="text-lg font-bold text-white leading-none">Nevloh Limited</p>
+                    <p className="font-mono text-[10px] text-slate-400 tracking-wider mt-1">SPANISH TOWN, JAMAICA</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8">
+                {/* Service Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700 text-slate-300">FLEET REFUEL</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700 text-slate-300">BULK SUPPLY</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-blue-500/50 text-blue-400">ALL 14 PARISHES</span>
+                </div>
+
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  Island-wide fuel logistics serving industrial and commercial off-takers with licensed petroleum haulage.
+                </p>
+                <Link
+                  href="/contact/jamaica"
+                  onClick={() => handleCTAClick('Jamaica Quote')}
+                  className="flex items-center justify-between w-full bg-slate-800 hover:bg-blue-600 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 border border-slate-700 hover:border-blue-500 group/btn"
+                >
+                  <span>Request Local Quote</span>
+                  <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* PILLAR 2: International Trade */}
+            <div className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 border border-slate-800 shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-indigo-500/20">
+              <div className="relative h-72 w-full overflow-hidden">
+                <Image
+                  src="/images/og-international-trade.png"
+                  alt="International Commodities Trade Desk"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-70"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+                {/* Banking & Compliance Badge */}
+                <div className="absolute top-6 right-6 flex items-center gap-2 bg-slate-900/80 backdrop-blur-sm border border-slate-700 px-3 py-1.5 rounded-full">
+                  <ShieldCheck size={12} className="text-emerald-400" />
+                  <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest">SGS / Intertek Verified</span>
+                </div>
+
+                <div className="absolute bottom-6 left-8 flex items-center gap-3">
+                  <div className="bg-indigo-600 p-3 rounded-2xl text-white shadow-xl shadow-indigo-500/30">
+                    <Globe size={24} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-indigo-400 uppercase tracking-widest leading-none mb-1">Global Desk</p>
+                    <p className="text-lg font-bold text-white leading-none">Nevloh LLC</p>
+                    <p className="font-mono text-[10px] text-slate-400 tracking-wider mt-1">CASPER, WYOMING — USA</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8">
+                {/* Key Spec Tags */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700 text-slate-300">EN590 DIESEL</span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700 text-slate-300">UREA 46%</span>
+                  <Link href="/glossary#ucp-600" className="text-[10px] font-bold px-2.5 py-1 bg-slate-800 rounded-lg border border-indigo-500/50 text-indigo-400 hover:bg-indigo-600 hover:text-white hover:border-indigo-500 transition-all">
+                    UCP 600
+                  </Link>
+                </div>
+
+                <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                  Structured settlement for EN590 Diesel and Urea 46% via irrevocable LC-at-sight. Bank-to-bank execution only.
+                </p>
+                <Link
+                  href="/contact/international"
+                  onClick={() => handleCTAClick('Intl Inquiry')}
+                  className="flex items-center justify-between w-full bg-slate-800 hover:bg-indigo-600 text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 border border-slate-700 hover:border-indigo-500 group/btn"
+                >
+                  <span>Submit Trade Inquiry</span>
+                  <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Quick Connect & Verification */}
+          <div className="flex flex-col items-center gap-8">
+            <div className="flex flex-wrap justify-center gap-8">
+              <Link
+                href="/glossary#ucp-600"
+                className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors"
+              >
+                <ShieldCheck size={16} />
+                <span>UCP 600 COMPLIANT</span>
+              </Link>
+            </div>
             <a
               href="tel:+18764495172"
-              className="font-semibold text-blue-800 hover:text-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 rounded"
-              aria-label="Call Nevloh Limited at (876) 449-5172"
+              className="group flex items-center gap-4 bg-white/80 backdrop-blur-sm border border-slate-200 px-8 py-3 rounded-full text-slate-600 hover:text-blue-600 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100 transition-all duration-300"
             >
-              (876) 449-5172
+              <Phone size={18} className="text-blue-600" />
+              <span className="font-bold">Direct Operations: (876) 449-5172</span>
             </a>
           </div>
         </div>
 
-        {/* Trust Indicators */}
-        <div className="relative z-10 mt-12 flex flex-wrap justify-center items-center gap-6 text-xs text-gray-500">
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></div>
-            <span>Licensed & Insured</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-green-500 rounded-full mr-2" aria-hidden="true"></div>
-            <span>Trusted Since 2022</span>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" aria-hidden="true">
-          <div className="w-6 h-10 border-2 border-blue-300 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-blue-300 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
+        {/* Floating Background Assets */}
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue-100 rounded-full blur-[120px] opacity-30 pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-100 rounded-full blur-[120px] opacity-30 pointer-events-none" aria-hidden="true" />
       </section>
     </>
   );

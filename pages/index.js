@@ -19,7 +19,7 @@ export default function Home() {
     "alternateName": ["Nevloh", "Nevloh Fuel Services"],
     "image": [
       "https://www.nevloh.com/images/nevloh-logo.webp",
-      "https://www.nevloh.com/images/fuel-truck-delivery.webp",
+      "https://www.nevloh.com/images/fuel-truck-delivery.jpg",
       "https://www.nevloh.com/images/ulsd-diesel-tank.webp"
     ],
     "description": "Jamaica's premier Ultra Low Sulphur Diesel supplier and professional fuel delivery service. Serving all 14 parishes with 24/7 emergency service, competitive prices, and eco-friendly solutions since 2018.",

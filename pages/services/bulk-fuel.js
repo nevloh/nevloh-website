@@ -1,43 +1,40 @@
 // pages/services/bulk-fuel.js
+// Tier 1 Institutional — Industrial Bulk Supply Portal
+import React from 'react';
 import Head from 'next/head';
-import Script from 'next/script';
 import Link from 'next/link';
-import { Building2, TrendingDown, Shield, CheckCircle, ArrowRight, BarChart3, Truck, Calculator, Clock } from 'lucide-react';
+import {
+  Building2, TrendingDown, Shield, CheckCircle, ArrowRight,
+  BarChart3, Truck, Calculator, Clock, Factory, HardHat,
+  Droplets, Zap, FileSpreadsheet, Globe
+} from 'lucide-react';
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
-export default function BulkFuelSupply() {
-  // Enhanced Service Schema - Fixed structure for Google validation
+const BulkFuelSupply = () => {
+  // Enhanced Service Schema
   const bulkFuelSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/bulk-fuel#service",
-    "name": "Bulk Fuel Supply Services Jamaica",
+    "name": "Industrial Bulk Fuel Supply Jamaica",
     "serviceType": "Bulk Fuel Supply",
-    "image": "https://www.nevloh.com/images/logo.png",
     "provider": {
-      "@type": "LocalBusiness",
-      "@id": "https://www.nevloh.com/#organization",
-      "name": "Nevloh Limited",
-      "telephone": "+1-876-449-5172",
-      "email": "shamar@nevloh.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Caymanas Bay",
-        "addressLocality": "Spanish Town",
-        "addressRegion": "Saint Catherine",
-        "addressCountry": "JM"
-      }
+      "@type": "Organization",
+      "name": "Nevloh Group",
+      "url": "https://www.nevloh.com"
     },
-    "description": "Large volume fuel supply for industrial operations, commercial businesses, and bulk fuel requirements across Jamaica. Volume discounts: 5% (500-999 gal), 10% (1,000-4,999 gal), 15%+ (5,000+ gal).",
+    "description": "Large volume fuel supply for industrial operations across Jamaica. Tiered volume discounts up to 15% for ULSD diesel. Minimum 500 gallons.",
     "areaServed": {
       "@type": "Country",
       "name": "Jamaica"
     },
-    "serviceOutput": "Bulk diesel fuel delivery",
-    "termsOfService": "https://www.nevloh.com/terms"
+    "offers": {
+      "@type": "AggregateOffer",
+      "description": "Tiered volume discounts: 5% (500-999 gal), 10% (1,000-4,999 gal), 15%+ (5,000+ gal)",
+      "offerCount": "3"
+    }
   };
 
-  // FAQ Schema for better search visibility
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -57,628 +54,394 @@ export default function BulkFuelSupply() {
           "@type": "Answer",
           "text": "Nevloh Limited offers volume-based discounts up to 15% off standard pricing. Standard Bulk (500-999 gallons) saves 5%, High Volume (1,000-4,999 gallons) saves 10%, and Industrial Scale (5,000+ gallons) saves 15% or more."
         }
-      },
-      {
-        "@type": "Question",
-        "name": "What industries does Nevloh supply bulk fuel to?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We supply bulk fuel to manufacturing, transportation & logistics, construction, agriculture, government agencies, and other industries across all 14 parishes in Jamaica."
-        }
       }
     ]
   };
 
-  const services = [
-    {
-      icon: Building2,
-      title: 'Industrial Operations',
-      description: 'Large-scale fuel supply for manufacturing, processing plants, and heavy industrial operations.',
-      features: [
-        'High-volume deliveries (1000+ gallons)',
-        'Custom delivery schedules',
-        'Industrial-grade fuel quality',
-        'Dedicated account management'
-      ],
-      volumeRange: '1,000 - 10,000+ gallons',
-      industries: ['Manufacturing', 'Processing Plants', 'Heavy Industry', 'Power Generation']
-    },
-    {
-      icon: Truck,
-      title: 'Commercial Fleet Operations',
-      description: 'Bulk fuel supply for large commercial fleets, transportation companies, and logistics operations.',
-      features: [
-        'Fleet-specific fuel programs',
-        'Volume-based pricing tiers',
-        'Fuel management systems',
-        'Performance analytics'
-      ],
-      volumeRange: '500 - 5,000 gallons',
-      industries: ['Transportation', 'Logistics', 'Delivery Services', 'Public Transit']
-    },
-    {
-      icon: BarChart3,
-      title: 'Government & Municipal',
-      description: 'Reliable bulk fuel supply for government agencies, municipalities, and public sector operations.',
-      features: [
-        'Government contract compliance',
-        'Transparent pricing structure',
-        'Regular reporting and documentation',
-        'Emergency service protocols'
-      ],
-      volumeRange: '1,000 - 8,000 gallons',
-      industries: ['Government Agencies', 'Municipalities', 'Public Works', 'Emergency Services']
-    },
-    {
-      icon: Clock,
-      title: 'Long-term Contracts',
-      description: 'Structured long-term fuel supply agreements with guaranteed pricing and delivery schedules.',
-      features: [
-        'Fixed pricing agreements',
-        'Guaranteed supply security',
-        'Priority delivery scheduling',
-        'Contract flexibility options'
-      ],
-      volumeRange: 'Customized volumes',
-      industries: ['All Industries', 'Long-term Projects', 'Ongoing Operations', 'Strategic Partnerships']
-    }
-  ];
-
   const pricingTiers = [
     {
       tier: 'Standard Bulk',
-      volume: '500 - 999 gallons',
+      volume: '500 - 999 gal',
       discount: '5%',
-      features: [
-        'Competitive bulk pricing',
-        'Scheduled delivery options',
-        'Quality assurance guarantee',
-        'Basic reporting'
-      ],
-      bestFor: 'Medium operations'
+      discountLabel: 'Savings',
+      accent: 'border-slate-200 hover:border-slate-300',
+      description: 'Ideal for medium-scale commercial backup and local fleets.',
+      features: ['Scheduled Delivery', 'Consolidated Invoicing', 'Quality Guarantee']
     },
     {
       tier: 'High Volume',
-      volume: '1,000 - 4,999 gallons',
+      volume: '1,000 - 4,999 gal',
       discount: '10%',
-      features: [
-        'Enhanced bulk discounts',
-        'Priority delivery scheduling',
-        'Dedicated account manager',
-        'Detailed consumption reports'
-      ],
-      bestFor: 'Large operations',
-      popular: true
+      discountLabel: 'Savings',
+      accent: 'border-blue-500 shadow-blue-100/50',
+      popular: true,
+      description: 'Engineered for logistics hubs and construction sites.',
+      features: ['Priority Dispatch', 'Volume Locking', 'Dedicated Account Manager']
     },
     {
       tier: 'Industrial Scale',
-      volume: '5,000+ gallons',
+      volume: '5,000+ gal',
       discount: '15%+',
-      features: [
-        'Maximum bulk savings',
-        'Custom delivery schedules',
-        'Premium support services',
-        'Advanced fuel management'
-      ],
-      bestFor: 'Industrial operations'
+      discountLabel: 'Savings',
+      accent: 'border-orange-500 shadow-orange-100/50',
+      description: 'Strategic supply for manufacturing and power generation.',
+      features: ['Custom Scheduling', 'Tank Monitoring', 'Executive Support Line']
     }
   ];
 
-  const benefits = [
+  const infrastructureServices = [
     {
-      title: 'Significant Cost Savings',
-      description: 'Volume discounts up to 15% off standard pricing',
-      icon: TrendingDown,
-      stat: 'Up to 15%',
-      statLabel: 'Cost Reduction'
+      title: 'Compliance Audits',
+      description: 'Ensuring your storage meets local environmental laws and safety regulations.'
     },
     {
-      title: 'Supply Chain Reliability',
-      description: 'Guaranteed fuel availability with priority delivery',
-      icon: Shield,
-      stat: '99.8%',
-      statLabel: 'Delivery Success'
+      title: 'Remote Monitoring',
+      description: 'Automated alerts when your inventory hits 20% — never run dry.'
     },
     {
-      title: 'Operational Efficiency',
-      description: 'Streamlined fuel management and reporting',
-      icon: BarChart3,
-      stat: '30%',
-      statLabel: 'Time Saved'
+      title: 'Filter Systems',
+      description: 'Industrial filtration for high-performance machinery and generators.'
     },
     {
-      title: 'Premium Quality',
-      description: 'Industrial-grade Ultra Low Sulphur Diesel',
-      icon: CheckCircle,
-      stat: '100%',
-      statLabel: 'Quality Assured'
-    }
-  ];
-
-  const process = [
-    {
-      step: '01',
-      title: 'Volume Assessment',
-      description: 'Analyze your fuel consumption patterns and determine optimal bulk delivery volumes and schedules.'
-    },
-    {
-      step: '02',
-      title: 'Custom Pricing',
-      description: 'Develop competitive bulk pricing structure based on volume commitments and delivery requirements.'
-    },
-    {
-      step: '03',
-      title: 'Agreement Setup',
-      description: 'Establish service agreements with pricing, delivery schedules, and performance guarantees.'
-    },
-    {
-      step: '04',
-      title: 'Ongoing Management',
-      description: 'Continuous monitoring, reporting, and optimization of your bulk fuel supply program.'
+      title: 'Tank Consultation',
+      description: 'Expert sizing and installation guidance for optimal bulk efficiency.'
     }
   ];
 
   const industries = [
-    {
-      name: 'Manufacturing',
-      description: 'Production facilities and processing plants',
-      volumes: '1,000 - 10,000+ gallons',
-      applications: ['Heavy machinery', 'Backup generators', 'Material handling equipment', 'Production lines']
-    },
-    {
-      name: 'Transportation & Logistics',
-      description: 'Fleet operations and distribution centers',
-      volumes: '500 - 5,000 gallons',
-      applications: ['Commercial fleets', 'Delivery vehicles', 'Logistics operations', 'Public transportation']
-    },
-    {
-      name: 'Construction',
-      description: 'Large construction projects and contractors',
-      volumes: '1,000 - 8,000 gallons',
-      applications: ['Heavy equipment', 'Construction vehicles', 'Job site operations', 'Project-based supply']
-    },
-    {
-      name: 'Agriculture',
-      description: 'Large-scale farming and agricultural operations',
-      volumes: '500 - 3,000 gallons',
-      applications: ['Farming equipment', 'Irrigation systems', 'Harvesting machinery', 'Seasonal operations']
-    }
+    { name: 'Manufacturing', icon: Factory },
+    { name: 'Construction', icon: HardHat },
+    { name: 'Transportation', icon: Truck },
+    { name: 'Power Generation', icon: Zap }
   ];
 
   return (
     <>
       <Head>
-        <title>Bulk Fuel Supply Jamaica | Industrial Volume Diesel Delivery | Nevloh Limited</title>
-        <meta name="description" content="Large volume fuel supply for industrial operations across Jamaica. Competitive bulk pricing with up to 15% discount, reliable delivery, custom schedules. Minimum 500 gallons. Call +1-876-449-5172" />
-        <meta name="keywords" content="bulk fuel supply Jamaica, industrial fuel delivery, commercial bulk diesel, high volume fuel, bulk fuel pricing, industrial fuel supply, large scale fuel delivery, wholesale diesel Jamaica" />
-
-        {/* Robots and indexing */}
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-
-        {/* Geographic targeting */}
-        <meta name="geo.region" content="JM" />
-        <meta name="geo.placename" content="Jamaica" />
-        <meta name="geo.position" content="17.9909;-76.9571" />
-        <meta name="ICBM" content="17.9909, -76.9571" />
+        <title>Bulk Diesel Supply & Industrial Fuel Solutions | Nevloh Limited Jamaica</title>
+        <meta
+          name="description"
+          content="Optimize your operational costs with Nevloh's Bulk Fuel Program. Tiered savings up to 15% for industrial and commercial diesel requirements across Jamaica. Minimum 500 gallons."
+        />
+        <meta
+          name="keywords"
+          content="bulk fuel supply Jamaica, industrial fuel delivery, commercial bulk diesel, high volume fuel, bulk fuel pricing, industrial fuel supply, wholesale diesel Jamaica, ULSD bulk"
+        />
+        <link rel="canonical" href="https://www.nevloh.com/services/bulk-fuel" />
 
         {/* Open Graph */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Bulk Fuel Supply Jamaica | Save Up to 15% | Nevloh Limited" />
-        <meta property="og:description" content="Large volume fuel supply for industrial operations. Competitive bulk pricing, reliable delivery, and professional service across Jamaica." />
+        <meta property="og:title" content="Bulk Diesel Supply | Save Up to 15% | Nevloh Limited" />
+        <meta property="og:description" content="Large volume fuel supply for industrial operations. Competitive bulk pricing with tiered discounts up to 15%." />
+        <meta property="og:image" content="https://www.nevloh.com/images/og-bulk-fuel.png" />
         <meta property="og:url" content="https://www.nevloh.com/services/bulk-fuel" />
-        <meta property="og:image" content="https://www.nevloh.com/images/logo.png" />
-        <meta property="og:site_name" content="Nevloh Limited" />
-        <meta property="og:locale" content="en_JM" />
 
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Bulk Fuel Supply Jamaica | Save Up to 15% | Nevloh Limited" />
-        <meta name="twitter:description" content="Large volume fuel supply with competitive bulk pricing and reliable delivery across Jamaica." />
-        <meta name="twitter:image" content="https://www.nevloh.com/images/logo.png" />
-
-        <link rel="canonical" href="https://www.nevloh.com/services/bulk-fuel" />
+        {/* Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(bulkFuelSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
       </Head>
 
-      {/* Service Schema */}
-      <Script
-        id="bulk-fuel-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(bulkFuelSchema)
-        }}
-      />
+      <div className="min-h-screen bg-[#fcfdfe] font-sans selection:bg-blue-100">
 
-      {/* FAQ Schema */}
-      <Script
-        id="bulk-fuel-faq-schema"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema)
-        }}
-      />
+        {/* ─── TIER 1 HERO: Industrial Dark Authority ─── */}
+        <section className="relative pt-24 pb-32 bg-[#0F172A] overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-600/10 to-transparent pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-600/5 blur-[120px] rounded-full pointer-events-none" aria-hidden="true" />
 
-      <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen pt-20">
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            {/* Breadcrumbs */}
+            <div className="mb-12">
+              <Breadcrumbs items={breadcrumbConfigs.bulkFuel} />
+            </div>
 
-        {/* Breadcrumbs - Properly wrapped with container and padding */}
-        <div className="max-w-7xl mx-auto px-4 pt-4">
-          <Breadcrumbs items={breadcrumbConfigs.bulkFuel} />
-        </div>
-
-        {/* Hero Section */}
-        <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Left Content */}
               <div>
-                {/* Removed redundant "Back to Services" link - breadcrumbs handle this */}
-
-                <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
-                  Bulk Fuel Supply
-                </h1>
-                <p className="text-xl text-gray-700 mb-8">
-                  Large volume fuel supply for industrial operations, commercial businesses, and
-                  bulk fuel requirements. Competitive pricing, reliable delivery, and professional
-                  service tailored to your high-volume needs.
-                </p>
-
-                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-                  <h3 className="font-semibold text-green-800 mb-2">Volume Discounts Available</h3>
-                  <p className="text-green-700">Save up to 15% with our bulk fuel pricing tiers • Minimum 500 gallons</p>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+                  <Factory size={14} />
+                  <span>Industrial Logistics</span>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-8">
+                  Scale Your <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                    Energy Efficiency
+                  </span>
+                </h1>
+
+                <p className="text-xl text-slate-400 max-w-xl mb-10 leading-relaxed">
+                  Nevloh Limited provides high-precision bulk diesel delivery systems for
+                  Jamaica's most demanding industries. Reduce overhead by up to 15%
+                  through our tiered volume architecture.
+                </p>
+
+                <div className="flex flex-wrap gap-4">
                   <Link
-                    href="/contact"
-                    className="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+                    href="/contact/jamaica"
+                    className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-900/30 flex items-center gap-2"
                   >
-                    Get Bulk Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
+                    Request Bulk Quote
+                    <ArrowRight size={20} />
                   </Link>
                   <a
                     href="tel:+18764495172"
-                    className="inline-flex items-center bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg border border-blue-200"
+                    className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold transition-all border border-slate-700"
                   >
-                    Call (876) 449-5172
+                    Talk to a Specialist
                   </a>
                 </div>
               </div>
 
+              {/* Right: Capability Grid */}
               <div className="relative">
-                <div className="bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl p-8 shadow-2xl">
-                  <Building2 className="text-white mb-4" size={64} aria-hidden="true" />
-                  <h2 className="text-2xl font-bold text-white mb-4">Industrial-Scale Supply</h2>
-                  <ul className="text-orange-100 space-y-2">
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>Volume Discounts up to 15%</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>Custom Delivery Schedules</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>Industrial-Grade Quality</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                      <span>Dedicated Account Management</span>
-                    </li>
-                  </ul>
+                <div className="bg-slate-800/50 backdrop-blur-md border border-slate-700 p-8 rounded-[2.5rem] shadow-2xl">
+                  <div className="grid grid-cols-2 gap-6">
+                    {[
+                      { icon: Shield, label: 'Quality', val: 'ASTM D975' },
+                      { icon: Clock, label: 'Lead Time', val: '24-48hrs' },
+                      { icon: Truck, label: 'Fleet', val: 'GPS Tracked' },
+                      { icon: BarChart3, label: 'Reporting', val: 'Real-time' }
+                    ].map((item, i) => {
+                      const Icon = item.icon;
+                      return (
+                        <div key={i} className="p-5 bg-slate-900/50 rounded-2xl border border-slate-700/50">
+                          <Icon className="text-blue-400 mb-3" size={24} />
+                          <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-1">{item.label}</div>
+                          <div className="text-white font-bold text-lg">{item.val}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Industries Served */}
+                  <div className="mt-6 pt-6 border-t border-slate-700/50">
+                    <div className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mb-4">Industries Served</div>
+                    <div className="flex flex-wrap gap-3">
+                      {industries.map((ind, i) => {
+                        const Icon = ind.icon;
+                        return (
+                          <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 rounded-full border border-slate-700">
+                            <Icon size={14} className="text-orange-400" />
+                            <span className="text-xs font-bold text-slate-300">{ind.name}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Services Grid */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Bulk Fuel Solutions
+        {/* ─── THE SAVINGS MATRIX ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
+                Volume Pricing
               </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Tailored bulk fuel supply programs for various industries and volume requirements
+              <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
+                The Bulk Savings Matrix
+              </p>
+              <p className="text-slate-500 max-w-xl mx-auto">
+                Precision pricing for every scale of operation. Lock in your rate today.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {services.map((service, index) => (
-                <article
-                  key={index}
-                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <div className="bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center mb-4">
-                    <service.icon className="text-blue-600" size={24} aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
-
-                  <div className="mb-4 p-3 bg-blue-50 rounded-lg">
-                    <div className="text-sm font-medium text-blue-800">Volume Range</div>
-                    <div className="text-lg font-bold text-blue-600">{service.volumeRange}</div>
-                  </div>
-
-                  <div className="mb-4">
-                    <h4 className="font-medium text-gray-800 mb-2">Key Features</h4>
-                    <ul className="space-y-1">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-gray-600">
-                          <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={14} aria-hidden="true" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Typical Industries</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {service.industries.map((industry, industryIndex) => (
-                        <span
-                          key={industryIndex}
-                          className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs"
-                        >
-                          {industry}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Tiers */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Bulk Pricing Tiers
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Competitive volume-based pricing with increasing discounts for larger quantities
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {pricingTiers.map((tier, index) => (
+            <div className="grid md:grid-cols-3 gap-8">
+              {pricingTiers.map((tier, i) => (
                 <div
-                  key={index}
-                  className={`bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-                    tier.popular ? 'ring-2 ring-blue-500 relative' : ''
-                  }`}
+                  key={i}
+                  className={`relative bg-white border-2 rounded-[2.5rem] p-10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl ${tier.accent}`}
                 >
                   {tier.popular && (
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                        Most Popular
-                      </span>
-                    </div>
+                    <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
+                      Most Scalable
+                    </span>
                   )}
 
-                  <div className="text-center mb-4">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">{tier.tier}</h3>
-                    <div className="text-2xl font-bold text-blue-600">{tier.discount}</div>
-                    <div className="text-sm text-gray-500">Discount</div>
-                    <div className="text-lg font-medium text-gray-700 mt-2">{tier.volume}</div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{tier.tier}</h3>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-5xl font-black text-slate-900">{tier.discount}</span>
+                    <span className="text-slate-400 font-bold text-sm uppercase">{tier.discountLabel}</span>
                   </div>
+                  <div className="text-blue-600 font-bold text-lg mb-6">{tier.volume}</div>
 
-                  <ul className="space-y-2 mb-6">
-                    {tier.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-600">
-                        <CheckCircle className="text-green-500 mr-2 flex-shrink-0" size={16} aria-hidden="true" />
-                        <span className="text-sm">{feature}</span>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8">{tier.description}</p>
+
+                  <ul className="space-y-4 mb-10">
+                    {tier.features.map((feat, j) => (
+                      <li key={j} className="flex items-center gap-3 text-sm font-medium text-slate-700">
+                        <CheckCircle className="text-emerald-500 flex-shrink-0" size={18} />
+                        {feat}
                       </li>
                     ))}
                   </ul>
 
+                  <Link
+                    href="/contact/jamaica"
+                    className="block text-center py-4 bg-slate-50 hover:bg-blue-600 hover:text-white rounded-2xl font-bold text-slate-900 transition-all"
+                  >
+                    Lock This Rate
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── INFRASTRUCTURE SUPPORT ─── */}
+        <section className="py-24 px-6 bg-slate-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Schematic Visual */}
+              <div className="order-2 lg:order-1">
+                <div className="aspect-square bg-white rounded-[3rem] border border-slate-100 p-10 flex flex-col justify-center items-center relative shadow-xl">
+                  {/* Window Controls */}
+                  <div className="absolute top-8 right-8 flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-400" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                    <div className="w-3 h-3 rounded-full bg-green-400" />
+                  </div>
+
+                  {/* Schematic Icon */}
                   <div className="text-center">
-                    <div className="text-sm font-medium text-gray-600 mb-3">Best for: {tier.bestFor}</div>
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all duration-300"
-                    >
-                      Get Quote <ArrowRight className="ml-2" size={16} aria-hidden="true" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Benefits of Bulk Fuel Supply
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Why businesses choose our bulk fuel supply services
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => (
-                <div
-                  key={index}
-                  className="text-center bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="text-orange-600" size={28} aria-hidden="true" />
-                  </div>
-                  <div className="text-3xl font-bold text-orange-600 mb-2">{benefit.stat}</div>
-                  <div className="text-sm text-gray-500 uppercase tracking-wide mb-3">{benefit.statLabel}</div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">{benefit.title}</h3>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Process Section */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                How Bulk Supply Works
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Simple process from volume assessment to ongoing fuel supply management
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {process.map((step, index) => (
-                <div key={index} className="text-center relative">
-                  <div className="bg-orange-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                    {step.step}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                  {index < process.length - 1 && (
-                    <div className="hidden lg:block absolute top-8 left-full w-full">
-                      <ArrowRight className="text-orange-300 mx-auto" size={24} aria-hidden="true" />
+                    <div className="mb-8 inline-block p-8 bg-blue-50 rounded-[2rem] shadow-lg border border-blue-100">
+                      <Droplets className="text-blue-600" size={64} />
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Industries */}
-        <section className="py-16 bg-white/50">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-                Industries We Supply
-              </h2>
-              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-                Bulk fuel supply solutions across various industries and applications
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {industries.map((industry, index) => (
-                <article
-                  key={index}
-                  className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{industry.name}</h3>
-                  <p className="text-gray-600 mb-4">{industry.description}</p>
-
-                  <div className="mb-4 p-3 bg-orange-50 rounded-lg">
-                    <div className="text-sm font-medium text-orange-800">Typical Volume Range</div>
-                    <div className="text-lg font-bold text-orange-600">{industry.volumes}</div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-medium text-gray-800 mb-2">Common Applications</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {industry.applications.map((app, appIndex) => (
-                        <span
-                          key={appIndex}
-                          className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm"
-                        >
-                          {app}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Calculator CTA */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl p-8 md:p-12 text-white text-center">
-              <Calculator className="mx-auto mb-6 text-white" size={64} aria-hidden="true" />
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Calculate Your Bulk Savings
-              </h2>
-              <p className="text-xl mb-8 text-orange-100">
-                See how much you can save with our bulk fuel pricing. Get a custom quote based on your volume requirements.
-              </p>
-
-              <div className="bg-white/10 rounded-lg p-6 mb-8 backdrop-blur-sm">
-                <h3 className="text-2xl font-bold mb-4">Potential Annual Savings</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-3xl font-bold text-yellow-300">$15,000+</div>
-                    <div className="text-orange-100">1,000 gal/month</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-yellow-300">$45,000+</div>
-                    <div className="text-orange-100">3,000 gal/month</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-yellow-300">$75,000+</div>
-                    <div className="text-orange-100">5,000+ gal/month</div>
+                    <h4 className="text-2xl font-black text-slate-900 mb-3">Storage Optimization</h4>
+                    <p className="text-slate-500 max-w-xs mx-auto leading-relaxed">
+                      Our engineers help you size tanks and piping for maximum bulk efficiency and compliance.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center bg-white text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
-                >
-                  Get Custom Bulk Quote <ArrowRight className="ml-2" size={20} aria-hidden="true" />
-                </Link>
-                <a
-                  href="tel:+18764495172"
-                  className="inline-flex items-center bg-transparent text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 border-2 border-white"
-                >
-                  Call (876) 449-5172
-                </a>
+              {/* Content */}
+              <div className="order-1 lg:order-2">
+                <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
+                  Beyond Delivery
+                </h2>
+                <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6">
+                  Total Infrastructure Support
+                </p>
+                <p className="text-lg text-slate-500 leading-relaxed mb-10">
+                  Bulk supply isn't just about delivery—it's about storage integrity.
+                  Nevloh Limited provides consultation on tank installation, pump maintenance,
+                  and environmental compliance to ensure your fuel remains high-yield.
+                </p>
+
+                <div className="space-y-4">
+                  {infrastructureServices.map((item, i) => (
+                    <div key={i} className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center flex-shrink-0">
+                        <HardHat className="text-orange-500" size={24} />
+                      </div>
+                      <div>
+                        <div className="font-bold text-slate-900 mb-1">{item.title}</div>
+                        <div className="text-sm text-slate-500">{item.description}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="py-16 bg-gradient-to-br from-blue-600 to-blue-800">
-          <div className="max-w-4xl mx-auto px-4 text-center text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Save with Bulk Fuel Supply?
+        {/* ─── ROI CALCULATOR CTA ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-6xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-900 rounded-[3rem] p-12 md:p-16 text-white relative overflow-hidden shadow-2xl">
+            {/* Background Effects */}
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/10 rounded-full blur-[100px]" aria-hidden="true" />
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-blue-400/10 rounded-full blur-[80px]" aria-hidden="true" />
+
+            <div className="relative z-10 flex flex-col items-center text-center">
+              <Calculator size={64} className="mb-8 opacity-50" />
+
+              <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">
+                Quantify Your Efficiency
+              </h2>
+              <p className="text-blue-100 text-xl max-w-2xl mb-12 leading-relaxed">
+                Stop guessing your fuel expenses. Let our analysts run a consumption
+                audit and show you the exact annual ROI of switching to a Nevloh Bulk Program.
+              </p>
+
+              {/* ROI Stats */}
+              <div className="grid md:grid-cols-3 gap-6 w-full max-w-4xl mb-12">
+                {[
+                  { value: '$1.2M+', label: 'Annual Savings Potential' },
+                  { value: '99.9%', label: 'Uptime Reliability' },
+                  { value: '0%', label: 'Outage Rate Target' }
+                ].map((stat, i) => (
+                  <div key={i} className="p-6 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20">
+                    <div className="text-3xl font-black mb-2">{stat.value}</div>
+                    <div className="text-[10px] uppercase tracking-widest font-bold text-blue-200">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/contact/jamaica"
+                className="px-12 py-5 bg-white text-blue-900 rounded-2xl font-black text-sm uppercase tracking-wider hover:scale-105 transition-transform flex items-center gap-3 shadow-xl"
+              >
+                <FileSpreadsheet size={20} />
+                Get Savings Audit
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── FINAL CTA ─── */}
+        <section className="py-24 px-6 bg-slate-950">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+              <Zap size={12} />
+              <span>Start Your Bulk Program</span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">
+              Ready to Scale Your Fuel Efficiency?
             </h2>
-            <p className="text-xl mb-8 text-blue-100">
-              Join hundreds of businesses saving money with our bulk fuel supply programs.
+            <p className="text-slate-400 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
+              Join hundreds of Jamaican businesses saving with our tiered bulk fuel programs.
               Professional service, competitive pricing, reliable delivery.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
               <Link
-                href="/contact"
-                className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
+                href="/contact/jamaica"
+                className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-blue-900/30 transition-all flex items-center justify-center gap-2"
               >
-                Start Bulk Program <ArrowRight className="ml-2" size={20} aria-hidden="true" />
+                <Truck size={18} />
+                Start Bulk Program
               </Link>
-              <a
-                href="tel:+18764495172"
-                className="inline-flex items-center bg-transparent text-white px-8 py-4 rounded-full font-semibold hover:bg-white/10 transition-all duration-300 border-2 border-white"
+              <Link
+                href="/contact/international"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-2"
               >
-                Call (876) 449-5172
-              </a>
+                <Globe size={18} />
+                International Trade Desk
+              </Link>
             </div>
 
-            <div className="text-blue-100">
-              <p className="text-sm">
-                <strong>Minimum Order:</strong> 500 gallons • <strong>Maximum Savings:</strong> Up to 15% off standard pricing
-              </p>
+            <div className="text-slate-500 text-sm">
+              <strong className="text-slate-400">Minimum Order:</strong> 500 gallons •
+              <strong className="text-slate-400 ml-2">Maximum Savings:</strong> Up to 15% off standard pricing
             </div>
           </div>
         </section>
+
       </div>
     </>
   );
-}
+};
+
+export default BulkFuelSupply;

@@ -1,12 +1,18 @@
 // components/Footer.js
 // Tier 1 Institutional — Nevloh Group Bilateral Footer
-import React from 'react';
+// WITH Functional Newsletter Subscription
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, MapPin, Mail, Phone, ExternalLink, ShieldCheck } from 'lucide-react';
+import { Instagram, MapPin, Mail, Phone, ExternalLink, ShieldCheck, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+
+  // Newsletter subscription state
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
   const handleExternalLinkClick = (linkName) => {
     if (typeof window !== 'undefined' && window.gtag) {
@@ -15,6 +21,81 @@ export default function Footer() {
         event_label: linkName,
         value: 1
       });
+    }
+  };
+
+  // Newsletter subscription handler
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid email address.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: '', message: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: 'Newsletter',
+          lastName: 'Subscriber',
+          email: email,
+          phone: '',
+          message: 'Newsletter subscription from website footer.',
+          newsletter: true,
+          source: 'footer_newsletter',
+          // Anti-spam honeypot (leave empty)
+          website: ''
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: 'Subscribed! Check your inbox.'
+        });
+        setEmail('');
+
+        // Track successful subscription
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'newsletter_signup', {
+            event_category: 'Newsletter',
+            event_label: 'Footer Subscription',
+            value: 1
+          });
+        }
+
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: '', message: '' });
+        }, 5000);
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Subscription failed. Please try again.'
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'Connection error. Please try again later.'
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -84,17 +165,65 @@ export default function Footer() {
               Strategic energy solutions and commodities trade execution for the Caribbean Basin.
             </p>
           </div>
+
+          {/* Newsletter Form */}
           <div className="w-full lg:w-auto">
-            <form className="flex max-w-md mx-auto lg:mx-0" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="Industry Insights & Market Updates"
-                className="bg-slate-900 border border-slate-800 px-4 py-3 rounded-l-xl w-full focus:ring-1 focus:ring-blue-500 outline-none text-sm text-white placeholder-slate-600"
-                aria-label="Email address for newsletter"
-              />
-              <button className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-r-xl text-xs font-black uppercase tracking-wider transition-all flex-shrink-0">
-                Subscribe
-              </button>
+            <form
+              className="flex flex-col max-w-md mx-auto lg:mx-0"
+              onSubmit={handleNewsletterSubmit}
+            >
+              <div className="flex">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Industry Insights & Market Updates"
+                  className={`bg-slate-900 border px-4 py-3 rounded-l-xl w-full focus:ring-1 focus:ring-blue-500 outline-none text-sm text-white placeholder-slate-600 transition-colors ${
+                    submitStatus.type === 'error'
+                      ? 'border-red-500'
+                      : submitStatus.type === 'success'
+                      ? 'border-emerald-500'
+                      : 'border-slate-800'
+                  }`}
+                  aria-label="Email address for newsletter"
+                  disabled={isSubmitting}
+                />
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`px-6 py-3 rounded-r-xl text-xs font-black uppercase tracking-wider transition-all flex-shrink-0 flex items-center justify-center min-w-[100px] ${
+                    isSubmitting
+                      ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                      : submitStatus.type === 'success'
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-blue-600 hover:bg-blue-500 text-white'
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : submitStatus.type === 'success' ? (
+                    <CheckCircle size={16} />
+                  ) : (
+                    'Subscribe'
+                  )}
+                </button>
+              </div>
+
+              {/* Status Message */}
+              {submitStatus.message && (
+                <div
+                  className={`mt-2 flex items-center gap-2 text-xs ${
+                    submitStatus.type === 'error' ? 'text-red-400' : 'text-emerald-400'
+                  }`}
+                >
+                  {submitStatus.type === 'error' ? (
+                    <AlertCircle size={12} />
+                  ) : (
+                    <CheckCircle size={12} />
+                  )}
+                  <span>{submitStatus.message}</span>
+                </div>
+              )}
             </form>
           </div>
         </div>

@@ -1,63 +1,89 @@
 // components/ServicesSection.js
+// Tier 1 Institutional — Dual-Operational Architecture
 import React from 'react';
 import Link from 'next/link';
-import { Truck, Users, Fuel, ArrowRight, Clock, Shield, CheckCircle, MapPin, Zap, Building2 } from 'lucide-react';
+import {
+  Truck, Fuel, ArrowRight, ShieldCheck,
+  MapPin, Zap, Building2, Globe, Scale, BadgeCheck
+} from 'lucide-react';
 
 export default function ServicesSection() {
   const services = [
     {
+      id: 'international-trade',
+      entity: 'Nevloh LLC',
+      location: 'WYOMING, USA',
+      title: 'International Commodities Trade',
+      description: 'Structured procurement and settlement for EN590 Diesel and Urea 46% Nitrogen Fertilizer via bank-secured instruments.',
+      icon: Globe,
+      color: 'indigo',
+      features: ['UCP 600 / ISBP 745 Compliant', 'SGS/Intertek Verified', 'LC-at-Sight Settlement'],
+      href: '/international-trade',
+      isDark: true
+    },
+    {
       id: 'fleet-refuelling',
-      title: 'Fleet Refuelling',
-      description: 'Professional on-site refuelling services for commercial fleets. Scheduled deliveries, emergency support, and comprehensive fuel management.',
+      entity: 'Nevloh Limited',
+      location: 'JAMAICA',
+      title: 'Fleet Refuelling Logistics',
+      description: 'Systematic on-site refuelling solutions designed to eliminate downtime for commercial and industrial fleets across Jamaica.',
       icon: Truck,
       color: 'blue',
-      features: ['Scheduled Deliveries', 'Emergency Service', 'Real-time Tracking', 'Cost Optimization'],
-      industries: ['Transportation', 'Logistics', 'Construction', 'Government'],
-      href: '/services/fleet-refuelling'
+      features: ['Automated Fuel Accounting', '24/7 Priority Dispatch', 'Same-Day Delivery'],
+      href: '/services/fleet-refuelling',
+      isDark: false
     },
     {
       id: 'generator-refuelling',
-      title: 'Generator Refuelling Services',
-      description: 'Ensure uninterrupted power with reliable generator fuel delivery. Perfect for hospitals, data centers, and critical facilities.',
+      entity: 'Nevloh Limited',
+      location: 'JAMAICA',
+      title: 'Critical Power Support',
+      description: 'Uninterrupted fuel supply chains for hospitals, data centers, and telecommunications infrastructure.',
       icon: Zap,
-      color: 'green',
-      features: ['24/7 Emergency Response', 'Remote Monitoring', 'Critical Facility Support', 'Automated Alerts'],
-      industries: ['Healthcare', 'Data Centers', 'Banking', 'Manufacturing'],
-      href: '/services/generator-refuelling'
-    },
-    {
-      id: 'on-site-fuel-delivery',
-      title: 'On-Site Fuel Delivery',
-      description: 'Direct fuel delivery to construction sites, farms, remote areas - anywhere across Jamaica where you need fuel.',
-      icon: MapPin,
-      color: 'purple',
-      features: ['Remote Location Access', 'Flexible Scheduling', 'GPS Tracking', 'Safety Certified'],
-      industries: ['Construction', 'Agriculture', 'Mining', 'Events'],
-      href: '/services/on-site-fuel-delivery'
+      color: 'emerald',
+      features: ['Emergency Response Protocol', 'Remote Level Monitoring', 'Backup Power Assurance'],
+      href: '/services/generator-refuelling',
+      isDark: false
     },
     {
       id: 'bulk-fuel-supply',
-      title: 'Bulk Fuel Supply',
-      description: 'Large volume fuel supply for industrial operations. Competitive bulk pricing with reliable delivery and professional service.',
+      entity: 'Nevloh Limited',
+      location: 'JAMAICA',
+      title: 'Industrial Bulk Supply',
+      description: 'High-volume petroleum distribution for manufacturing, marine operations, and government entities.',
       icon: Building2,
-      color: 'orange',
-      features: ['Volume Discounts', 'Industrial Grade', 'Custom Schedules', 'Dedicated Support'],
-      industries: ['Manufacturing', 'Industrial', 'Government', 'Marine'],
-      href: '/services/bulk-fuel'
+      color: 'blue',
+      features: ['Tier 1 Product Quality', 'Volume Price Optimization', 'Dedicated Account Ops'],
+      href: '/services/bulk-fuel',
+      isDark: false
     },
     {
       id: 'haulage-services',
-      title: 'Haulage Services',
-      description: 'Licensed petroleum haulage contractor providing professional fuel transportation for petroleum companies across Jamaica.',
-      icon: Users,
+      entity: 'Nevloh Limited',
+      location: 'JAMAICA',
+      title: 'Petroleum Haulage',
+      description: 'Licensed petroleum haulage contractor providing certified cross-island transportation for oil marketing companies.',
+      icon: Scale,
       color: 'slate',
-      features: ['Licensed Contractor', 'Compliant Operations', 'Professional Fleet', 'B2B Partnership'],
-      industries: ['Oil Marketing', 'Distributors', 'Industrial', 'Government'],
-      href: '/services/haulage'
+      features: ['Licensed & Safety Certified', 'GPS Managed Fleet', 'B2B Logistics Partner'],
+      href: '/services/haulage',
+      isDark: false
+    },
+    {
+      id: 'on-site-delivery',
+      entity: 'Nevloh Limited',
+      location: 'JAMAICA',
+      title: 'Remote Site Delivery',
+      description: 'Direct-to-equipment fuel delivery for construction, agriculture, and remote infrastructure projects.',
+      icon: MapPin,
+      color: 'purple',
+      features: ['All-Terrain Access', 'Safety-First Handling', 'Flexible Site Scheduling'],
+      href: '/services/on-site-fuel-delivery',
+      isDark: false
     }
   ];
 
-  // Analytics tracking for service clicks
+  // Analytics tracking
   const handleServiceClick = (serviceName) => {
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'click', {
@@ -66,52 +92,6 @@ export default function ServicesSection() {
         value: 1
       });
     }
-  };
-
-  const getColorClasses = (color) => {
-    const colorMap = {
-      blue: {
-        icon: 'text-blue-600',
-        bg: 'bg-blue-50',
-        border: 'border-blue-200',
-        title: 'text-blue-800',
-        hover: 'hover:border-blue-300 hover:bg-blue-100',
-        button: 'bg-blue-600 hover:bg-blue-700'
-      },
-      green: {
-        icon: 'text-green-600',
-        bg: 'bg-green-50',
-        border: 'border-green-200',
-        title: 'text-green-800',
-        hover: 'hover:border-green-300 hover:bg-green-100',
-        button: 'bg-green-600 hover:bg-green-700'
-      },
-      purple: {
-        icon: 'text-purple-600',
-        bg: 'bg-purple-50',
-        border: 'border-purple-200',
-        title: 'text-purple-800',
-        hover: 'hover:border-purple-300 hover:bg-purple-100',
-        button: 'bg-purple-600 hover:bg-purple-700'
-      },
-      orange: {
-        icon: 'text-orange-600',
-        bg: 'bg-orange-50',
-        border: 'border-orange-200',
-        title: 'text-orange-800',
-        hover: 'hover:border-orange-300 hover:bg-orange-100',
-        button: 'bg-orange-600 hover:bg-orange-700'
-      },
-      slate: {
-        icon: 'text-slate-600',
-        bg: 'bg-slate-50',
-        border: 'border-slate-200',
-        title: 'text-slate-800',
-        hover: 'hover:border-slate-300 hover:bg-slate-100',
-        button: 'bg-slate-600 hover:bg-slate-700'
-      }
-    };
-    return colorMap[color] || colorMap.blue;
   };
 
   return (
@@ -125,17 +105,17 @@ export default function ServicesSection() {
             "@type": "Service",
             "provider": {
               "@type": "Organization",
-              "name": "Nevloh Limited",
+              "name": "Nevloh Group",
               "url": "https://www.nevloh.com"
             },
-            "serviceType": "Fuel Delivery Services",
-            "areaServed": {
-              "@type": "Country",
-              "name": "Jamaica"
-            },
+            "serviceType": "Energy & Commodities Services",
+            "areaServed": [
+              { "@type": "Country", "name": "Jamaica" },
+              { "@type": "Place", "name": "Caribbean Basin" }
+            ],
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
-              "name": "Fuel Services",
+              "name": "Energy Services",
               "itemListElement": services.map((service, index) => ({
                 "@type": "Offer",
                 "position": index + 1,
@@ -152,257 +132,184 @@ export default function ServicesSection() {
       />
 
       <section
-        className="py-16 sm:py-20 px-6 bg-white shadow-inner"
+        className="py-24 bg-[#fcfdfe] relative overflow-hidden"
         aria-labelledby="services-heading"
       >
-        <div className="max-w-6xl mx-auto">
+        {/* Background Institutional Elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-50/50 blur-[120px] rounded-full pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-indigo-50/50 blur-[100px] rounded-full pointer-events-none" aria-hidden="true" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="mb-20">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-px w-12 bg-blue-600" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-600">Operations Hub</span>
+            </div>
             <h2
               id="services-heading"
-              className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4"
+              className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight mb-6"
             >
-              Our Comprehensive Services
+              Bilateral Energy <span className="text-blue-600">Solutions.</span>
             </h2>
-            <p className="text-gray-600 mb-8 max-w-3xl mx-auto text-lg leading-relaxed">
-              We provide a complete range of professional fuel delivery solutions to meet the diverse needs
-              of businesses across Jamaica. From emergency deliveries to scheduled fleet services and industrial supply.
+            <p className="text-xl text-slate-500 max-w-2xl leading-relaxed">
+              Integrated energy logistics for the Jamaican market paired with global
+              commodities trading for international counterparties.
             </p>
+          </div>
 
-            {/* Service Highlights */}
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <div className="flex items-center bg-blue-50 px-4 py-2 rounded-full">
-                <Clock size={16} className="text-blue-600 mr-2" aria-hidden="true" />
-                <span className="text-sm font-medium text-blue-800">24/7 Emergency Service</span>
-              </div>
-              <div className="flex items-center bg-green-50 px-4 py-2 rounded-full">
-                <MapPin size={16} className="text-green-600 mr-2" aria-hidden="true" />
-                <span className="text-sm font-medium text-green-800">Island-wide Delivery</span>
-              </div>
-              <div className="flex items-center bg-purple-50 px-4 py-2 rounded-full">
-                <Shield size={16} className="text-purple-600 mr-2" aria-hidden="true" />
-                <span className="text-sm font-medium text-purple-800">Licensed & Insured</span>
-              </div>
+          {/* Trust Badges Row */}
+          <div className="flex flex-wrap justify-start gap-4 mb-12">
+            <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm">
+              <ShieldCheck size={16} className="text-emerald-500" />
+              <span className="text-xs font-bold text-slate-600">Licensed & Insured</span>
             </div>
-          </div>
-
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {services.slice(0, 3).map((service, index) => {
-              const IconComponent = service.icon;
-              const colors = getColorClasses(service.color);
-
-              return (
-                <article
-                  key={service.id}
-                  className={`${colors.bg} shadow-lg rounded-xl p-8 transform hover:scale-105 transition-all duration-300 flex flex-col border ${colors.border} ${colors.hover} group cursor-pointer`}
-                  onClick={() => handleServiceClick(service.title)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Learn more about ${service.title}`}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      handleServiceClick(service.title);
-                    }
-                  }}
-                >
-                  {/* Icon */}
-                  <div className="text-center mb-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-md group-hover:shadow-lg transition-shadow duration-300">
-                      <IconComponent size={32} className={colors.icon} aria-hidden="true" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="text-center flex-grow">
-                    <h3 className={`text-xl font-bold mb-3 ${colors.title}`}>
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-700 leading-relaxed text-base mb-6">
-                      {service.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="space-y-2 mb-6">
-                      {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center text-sm text-gray-600">
-                          <CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" aria-hidden="true" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Industries Served */}
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-800 mb-2">Industries Served:</h4>
-                      <div className="flex flex-wrap gap-1 justify-center">
-                        {service.industries.map((industry, industryIndex) => (
-                          <span
-                            key={industryIndex}
-                            className="inline-block bg-white px-2 py-1 rounded-full text-xs text-gray-600 border"
-                          >
-                            {industry}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Learn More Button */}
-                    <Link
-                      href={service.href}
-                      className={`inline-flex items-center ${colors.button} text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 group-hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleServiceClick(`${service.title} - Learn More`);
-                      }}
-                    >
-                      Learn More
-                      <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Second Row - Remaining Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
-            {services.slice(3).map((service, index) => {
-              const IconComponent = service.icon;
-              const colors = getColorClasses(service.color);
-
-              return (
-                <article
-                  key={service.id}
-                  className={`${colors.bg} shadow-lg rounded-xl p-8 transform hover:scale-105 transition-all duration-300 flex flex-col border ${colors.border} ${colors.hover} group cursor-pointer`}
-                  onClick={() => handleServiceClick(service.title)}
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Learn more about ${service.title}`}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      handleServiceClick(service.title);
-                    }
-                  }}
-                >
-                  {/* Icon */}
-                  <div className="text-center mb-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-md group-hover:shadow-lg transition-shadow duration-300">
-                      <IconComponent size={32} className={colors.icon} aria-hidden="true" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="text-center flex-grow">
-                    <h3 className={`text-xl font-bold mb-3 ${colors.title}`}>
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-700 leading-relaxed text-base mb-6">
-                      {service.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="space-y-2 mb-6">
-                      {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center text-sm text-gray-600">
-                          <CheckCircle size={16} className="text-green-500 mr-2 flex-shrink-0" aria-hidden="true" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Industries Served */}
-                    <div className="mb-6">
-                      <h4 className="text-sm font-semibold text-gray-800 mb-2">Industries Served:</h4>
-                      <div className="flex flex-wrap gap-1 justify-center">
-                        {service.industries.map((industry, industryIndex) => (
-                          <span
-                            key={industryIndex}
-                            className="inline-block bg-white px-2 py-1 rounded-full text-xs text-gray-600 border"
-                          >
-                            {industry}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Learn More Button */}
-                    <Link
-                      href={service.href}
-                      className={`inline-flex items-center ${colors.button} text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 group-hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleServiceClick(`${service.title} - Learn More`);
-                      }}
-                    >
-                      Learn More
-                      <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                    </Link>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* View All Services Button */}
-          <div className="text-center mb-12">
+            <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm">
+              <Zap size={16} className="text-amber-500" />
+              <span className="text-xs font-bold text-slate-600">24/7 Emergency Response</span>
+            </div>
+            <div className="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm">
+              <MapPin size={16} className="text-blue-500" />
+              <span className="text-xs font-bold text-slate-600">Island-wide Coverage</span>
+            </div>
             <Link
-              href="/services"
-              className="inline-flex items-center bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg transform hover:-translate-y-1"
-              onClick={() => handleServiceClick('View All Services')}
+              href="/glossary#ucp-600"
+              className="flex items-center gap-2 bg-slate-900 border border-slate-700 px-4 py-2 rounded-full shadow-sm hover:bg-slate-800 transition-colors"
             >
-              View All Services
-              <ArrowRight size={20} className="ml-2" aria-hidden="true" />
+              <Globe size={16} className="text-indigo-400" />
+              <span className="text-xs font-bold text-white">UCP 600 Compliant</span>
             </Link>
           </div>
 
-          {/* Additional Services */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">Need Something Different?</h3>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              We offer customized fuel solutions tailored to your specific requirements.
-              Contact us to discuss your unique needs and get a personalized quote.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors duration-200 flex items-center"
-                onClick={() => handleServiceClick('Custom Solutions - Contact')}
-              >
-                <Fuel size={20} className="mr-2" aria-hidden="true" />
-                Request Custom Quote
-              </Link>
-              <a
-                href="tel:+18764495172"
-                className="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-colors duration-200 flex items-center"
-                onClick={() => handleServiceClick('Custom Solutions - Call')}
-                aria-label="Call Nevloh Limited for custom fuel solutions"
-              >
-                <Clock size={20} className="mr-2" aria-hidden="true" />
-                Call (876) 449-5172
-              </a>
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((s) => {
+              const Icon = s.icon;
+              const isDark = s.isDark;
+
+              return (
+                <article
+                  key={s.id}
+                  className={`group relative rounded-[2rem] p-10 border transition-all duration-500 hover:-translate-y-2 ${
+                    isDark
+                      ? 'bg-slate-950 border-slate-800 shadow-2xl hover:shadow-indigo-500/20'
+                      : 'bg-white border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-blue-200/40'
+                  }`}
+                  onClick={() => handleServiceClick(s.title)}
+                >
+                  {/* Entity Badge & Icon */}
+                  <div className="flex justify-between items-start mb-8">
+                    <div
+                      className={`p-4 rounded-2xl transition-all duration-500 ${
+                        isDark
+                          ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/40 group-hover:shadow-indigo-500/50'
+                          : 'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white'
+                      }`}
+                    >
+                      <Icon size={28} />
+                    </div>
+                    <div className="text-right">
+                      <span
+                        className={`block text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border mb-1 ${
+                          isDark
+                            ? 'border-indigo-500/30 text-indigo-400 bg-indigo-950/50'
+                            : 'border-blue-100 text-blue-500 bg-blue-50'
+                        }`}
+                      >
+                        {s.entity}
+                      </span>
+                      <span className={`font-mono text-[8px] tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                        {s.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className={`text-xl font-extrabold mb-4 leading-tight ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    {s.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed mb-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                    {s.description}
+                  </p>
+
+                  {/* Features List */}
+                  <div className="space-y-3 mb-10">
+                    {s.features.map((f, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <BadgeCheck size={16} className={isDark ? 'text-indigo-400' : 'text-blue-600'} />
+                        <span className={`text-xs font-bold ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Learn More Link */}
+                  <Link
+                    href={s.href}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleServiceClick(`${s.title} - Learn More`);
+                    }}
+                    className={`inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest transition-all ${
+                      isDark ? 'text-indigo-400 hover:text-white' : 'text-blue-600 hover:text-blue-800'
+                    }`}
+                  >
+                    Explore Service
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Specialized Inquiry Banner */}
+          <div className="mt-20 bg-slate-900 rounded-[2.5rem] p-12 relative overflow-hidden">
+            {/* Background glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" aria-hidden="true" />
+
+            <div className="relative z-10 text-center">
+              <h3 className="text-2xl md:text-3xl font-black text-white mb-4">
+                Complex Energy Requirements?
+              </h3>
+              <p className="text-slate-400 max-w-xl mx-auto mb-8 leading-relaxed">
+                From large-scale industrial haulage to global trade finance, we design bespoke energy supply chains.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link
+                  href="/contact"
+                  onClick={() => handleServiceClick('Custom Solution - Contact')}
+                  className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2"
+                >
+                  <Fuel size={18} />
+                  Request Custom Solution
+                </Link>
+                <a
+                  href="tel:+18764495172"
+                  onClick={() => handleServiceClick('Custom Solution - Call')}
+                  className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/10 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all flex items-center justify-center"
+                >
+                  Speak with Ops Hub
+                </a>
+              </div>
             </div>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-12 text-center">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">500+</div>
-                <div className="text-sm text-gray-600">Satisfied Customers</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">24/7</div>
-                <div className="text-sm text-gray-600">Emergency Service</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">100%</div>
-                <div className="text-sm text-gray-600">Reliable Delivery</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-orange-600">2022</div>
-                <div className="text-sm text-gray-600">Serving Since</div>
-              </div>
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-black text-blue-600">500+</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Satisfied Clients</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black text-emerald-600">24/7</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Emergency Service</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black text-indigo-600">14</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Parishes Covered</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-black text-slate-900">2022</div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mt-1">Established</div>
             </div>
           </div>
         </div>

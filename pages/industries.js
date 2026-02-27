@@ -1,401 +1,248 @@
-// pages/industries.js or pages/industry-solutions.js
+// pages/industries.js
+// Tier 1 Institutional — Industrial Fuel Solutions Portal
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import {
-  Truck,
-  HardHat,
-  Wheat,
-  Ship,
-  Zap,
-  Pickaxe,
-  Phone,
-  Calendar,
-  ArrowRight,
-  CheckCircle,
-  TrendingUp,
-  Users,
-  Clock,
-  Shield,
-  Fuel,
-  Settings,
-  BarChart3,
-  Target,
-  Globe,
-  Award
+  Truck, HardHat, Wheat, Ship, Zap, Factory, Phone,
+  ArrowRight, CheckCircle, TrendingUp, Clock, Shield,
+  BarChart3, Globe, Activity, LifeBuoy, Timer
 } from 'lucide-react';
+import Breadcrumbs, { breadcrumbConfigs } from '../components/Breadcrumbs';
 
 const IndustriesPage = () => {
-  const router = useRouter();
   const [activeIndustry, setActiveIndustry] = useState(0);
 
-  // Helper functions for dynamic styling
-  const getActiveButtonClass = (color) => {
-    const colorClasses = {
-      blue: 'bg-blue-600 text-white shadow-lg transform scale-105',
-      orange: 'bg-orange-600 text-white shadow-lg transform scale-105',
-      green: 'bg-green-600 text-white shadow-lg transform scale-105',
-      cyan: 'bg-cyan-600 text-white shadow-lg transform scale-105',
-      yellow: 'bg-yellow-600 text-white shadow-lg transform scale-105',
-      purple: 'bg-purple-600 text-white shadow-lg transform scale-105'
-    };
-    return colorClasses[color] || 'bg-blue-600 text-white shadow-lg transform scale-105';
-  };
-
-  const getReadyToStartClass = (color) => {
-    const colorClasses = {
-      blue: 'bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white',
-      orange: 'bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white',
-      green: 'bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white',
-      cyan: 'bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl p-6 text-white',
-      yellow: 'bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl p-6 text-white',
-      purple: 'bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white'
-    };
-    return colorClasses[color] || 'bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white';
-  };
-
-  // Analytics tracking
-  const handleIndustryClick = (industryName) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'industry_selection', {
-        event_category: 'Industry Solutions',
-        event_label: industryName,
-        value: 1
-      });
-    }
-  };
-
-  const handleCTAClick = (ctaType, industryName) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'industry_cta_click', {
-        event_category: 'Industry CTA',
-        event_label: `${ctaType} - ${industryName}`,
-        value: 1
-      });
+  // Schema
+  const industriesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.nevloh.com/industries#service",
+    "name": "Industrial Fuel Solutions Jamaica",
+    "serviceType": "Industry-Specific Fuel Delivery",
+    "provider": {
+      "@type": "Organization",
+      "name": "Nevloh Group",
+      "url": "https://www.nevloh.com",
+      "telephone": "+1-876-449-5172"
+    },
+    "description": "Specialized Ultra Low Sulphur Diesel solutions for Jamaica's leading industries including logistics, construction, agriculture, and maritime.",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Jamaica"
     }
   };
 
   const industries = [
     {
-      id: 'transport',
-      name: 'Transport & Logistics',
+      id: 'logistics',
+      name: 'Logistics & Fleet',
       icon: Truck,
-      description: 'Keeping Jamaica\'s fleet moving with reliable fuel delivery',
-      longDescription: 'The backbone of Jamaica\'s economy relies on efficient transportation and logistics. From delivery trucks to passenger buses, our Ultra Low Sulphur Diesel ensures optimal performance, reduced maintenance costs, and environmental compliance for all vehicle types.',
-      keyBenefits: [
-        'Extended engine life for fleet vehicles',
-        'Reduced maintenance and downtime',
-        'Lower emissions for urban operations',
-        'Improved fuel efficiency and cost savings',
-        'Compliance with international shipping standards'
-      ],
-      applications: [
-        'Commercial trucking fleets',
-        'Public transportation buses',
-        'Delivery and courier services',
-        'Taxi and ride-sharing vehicles',
-        'Freight and cargo transport'
+      color: 'emerald',
+      tagline: 'Fleet Fuel Solutions',
+      challenge: 'Fleet operations face challenges with fuel costs, vehicle maintenance, and emission compliance requirements.',
+      solution: 'Nevloh provides ULSD that meets modern engine specifications, helping to reduce sulfur-related buildup and supporting cleaner fleet operations.',
+      benefits: [
+        'Lower sulfur content for modern engines',
+        'Flexible delivery scheduling',
+        'GPS-tracked delivery fleet'
       ],
       stats: [
-        { value: '40%', label: 'Fuel Cost Savings' },
-        { value: '25%', label: 'Engine Life Extension' },
-        { value: '90%', label: 'Emission Reduction' }
-      ],
-      color: 'blue',
-      challenges: 'Rising fuel costs, environmental regulations, vehicle maintenance expenses',
-      solution: 'Our ULSD reduces total cost of ownership while meeting emission standards',
-      seoKeywords: 'fleet fuel delivery, commercial diesel, transport logistics fuel'
+        { v: '14', l: 'Parishes Covered' },
+        { v: '24/7', l: 'Support Available' }
+      ]
     },
     {
       id: 'construction',
-      name: 'Construction',
+      name: 'Civil Engineering',
       icon: HardHat,
-      description: 'Powering construction projects across Jamaica',
-      longDescription: 'Construction projects demand reliable, high-performance fuel for heavy machinery and equipment. Our ULSD provides the power and efficiency needed for excavators, bulldozers, cranes, and generators operating in demanding conditions.',
-      keyBenefits: [
-        'Superior performance in heavy machinery',
-        'Reduced equipment maintenance costs',
-        'Better cold start performance',
-        'Cleaner burning for work site environments',
-        'Reliable supply for project timelines'
-      ],
-      applications: [
-        'Excavators and bulldozers',
-        'Cranes and lifting equipment',
-        'Concrete mixers and pumps',
-        'Generators and power tools',
-        'Site vehicles and transport'
+      color: 'blue',
+      tagline: 'Job Site Fuel Supply',
+      challenge: 'Construction sites often face fuel accessibility challenges, especially for remote locations and heavy equipment operations.',
+      solution: 'Our mobile delivery units can reach job sites across Jamaica, providing filtered fuel directly to your equipment location.',
+      benefits: [
+        'On-site delivery capability',
+        'Off-road accessible vehicles',
+        'Project-based fuel tracking'
       ],
       stats: [
-        { value: '30%', label: 'Maintenance Reduction' },
-        { value: '15%', label: 'Equipment Efficiency' },
-        { value: '24/7', label: 'Emergency Supply' }
-      ],
-      color: 'orange',
-      challenges: 'Equipment downtime, high maintenance costs, strict project deadlines',
-      solution: 'Reliable fuel supply with emergency delivery to keep projects on schedule',
-      seoKeywords: 'construction fuel delivery, heavy equipment diesel, site fuel supply'
+        { v: 'Mobile', l: 'Site Delivery' },
+        { v: 'Filtered', l: 'At Discharge' }
+      ]
     },
     {
       id: 'agriculture',
-      name: 'Agriculture',
+      name: 'Agri-Business',
       icon: Wheat,
-      description: 'Supporting Jamaica\'s agricultural sector with clean fuel',
-      longDescription: 'Agriculture is vital to Jamaica\'s food security and economy. Our ULSD powers tractors, harvesters, irrigation systems, and transport vehicles, ensuring farmers can operate efficiently while protecting the environment they depend on.',
-      keyBenefits: [
-        'Cleaner fuel for sustainable farming',
-        'Reliable power for critical operations',
-        'Reduced impact on crop environments',
-        'Lower operating costs for farmers',
-        'Support for organic certification'
-      ],
-      applications: [
-        'Tractors and farming equipment',
-        'Irrigation and water pumps',
-        'Harvesters and processing equipment',
-        'Transport vehicles for produce',
-        'Backup generators for facilities'
+      color: 'green',
+      tagline: 'Farm & Field Fuel',
+      challenge: 'Agricultural operations require reliable fuel delivery to rural locations, often with seasonal demand variations.',
+      solution: 'Nevloh provides ULSD compatible with modern Tier 4 agricultural equipment, with delivery to remote farm locations across Jamaica.',
+      benefits: [
+        'Rural delivery capability',
+        'Seasonal volume flexibility',
+        'Tier 4 engine compatible fuel'
       ],
       stats: [
-        { value: '20%', label: 'Operational Savings' },
-        { value: '95%', label: 'Equipment Reliability' },
-        { value: '12', label: 'Parishes Served' }
-      ],
-      color: 'green',
-      challenges: 'Seasonal fuel demands, remote locations, cost management',
-      solution: 'Flexible delivery schedules and competitive pricing for agricultural operations',
-      seoKeywords: 'farm fuel delivery, agricultural diesel, tractor fuel supply'
+        { v: 'Rural', l: 'Access Available' },
+        { v: 'Flexible', l: 'Scheduling' }
+      ]
     },
     {
       id: 'marine',
-      name: 'Marine',
+      name: 'Maritime Operations',
       icon: Ship,
-      description: 'Fueling Jamaica\'s maritime industry',
-      longDescription: 'Jamaica\'s maritime sector includes fishing vessels, cargo ships, pleasure craft, and port operations. Our marine-grade ULSD meets international maritime standards while providing the reliability and performance needed for ocean operations.',
-      keyBenefits: [
-        'Meets international maritime standards',
-        'Reduced engine corrosion in marine environments',
-        'Better fuel stability for long voyages',
-        'Lower sulfur content for port compliance',
-        'Reliable supply at coastal locations'
-      ],
-      applications: [
-        'Fishing vessels and boats',
-        'Cargo and freight ships',
-        'Pleasure craft and yachts',
-        'Port equipment and vehicles',
-        'Marine generators and pumps'
+      color: 'cyan',
+      tagline: 'Marine Fuel Supply',
+      challenge: 'Maritime operations require fuel that meets port emission standards and performs well in marine environments.',
+      solution: 'Our Marine ULSD is designed to meet maritime emission standards, with coastal delivery options available.',
+      benefits: [
+        'Port-compliant fuel supply',
+        'Coastal delivery available',
+        'ASTM D975 certified'
       ],
       stats: [
-        { value: '100%', label: 'Maritime Compliance' },
-        { value: '50%', label: 'Corrosion Reduction' },
-        { value: '8', label: 'Coastal Locations' }
-      ],
-      color: 'cyan',
-      challenges: 'Strict maritime regulations, saltwater corrosion, remote coastal access',
-      solution: 'Marine-grade ULSD with coastal delivery and regulatory compliance',
-      seoKeywords: 'marine fuel delivery, boat diesel, port fuel supply'
+        { v: 'ASTM', l: 'D975 Certified' },
+        { v: 'Coastal', l: 'Delivery' }
+      ]
     },
     {
       id: 'power',
-      name: 'Power Generation',
+      name: 'Critical Infrastructure',
       icon: Zap,
-      description: 'Reliable backup power solutions',
-      longDescription: 'Backup power generation is critical for hospitals, businesses, data centers, and residential complexes. Our ULSD ensures generators start reliably and run efficiently when the power grid fails, providing peace of mind and operational continuity.',
-      keyBenefits: [
-        'Reliable backup power supply',
-        'Quick generator start-up',
-        'Cleaner burning for indoor environments',
-        'Long-term fuel stability',
-        'Emergency delivery services'
-      ],
-      applications: [
-        'Hospital backup generators',
-        'Business continuity systems',
-        'Data center power backup',
-        'Residential standby generators',
-        'Telecommunications equipment'
+      color: 'orange',
+      tagline: 'Generator Fuel Support',
+      challenge: 'Backup power systems require reliable fuel supply and consistent fuel quality for dependable generator operation.',
+      solution: 'We provide ULSD for standby generators with emergency delivery support available for critical facilities.',
+      benefits: [
+        '24/7 emergency support available',
+        'Consistent fuel quality',
+        'Tank monitoring options'
       ],
       stats: [
-        { value: '99.9%', label: 'Reliability Rate' },
-        { value: '2hr', label: 'Emergency Response' },
-        { value: '365', label: 'Days Service' }
-      ],
-      color: 'yellow',
-      challenges: 'Power outages, fuel degradation, emergency response time',
-      solution: '24/7 emergency delivery with high-quality, stable ULSD for generators',
-      seoKeywords: 'generator fuel delivery, backup power diesel, emergency fuel'
+        { v: '24/7', l: 'Support Line' },
+        { v: 'Emergency', l: 'Delivery' }
+      ]
     },
     {
-      id: 'mining',
-      name: 'Mining',
-      icon: Pickaxe,
-      description: 'Powering Jamaica\'s mining operations',
-      longDescription: 'Mining operations require powerful, reliable fuel for heavy equipment operating in challenging conditions. Our ULSD provides the performance and durability needed for excavators, haulers, and processing equipment in Jamaica\'s mining sector.',
-      keyBenefits: [
-        'High-performance fuel for heavy equipment',
-        'Reduced maintenance in dusty conditions',
-        'Reliable supply to remote locations',
-        'Environmental compliance for mining sites',
-        'Bulk delivery options available'
-      ],
-      applications: [
-        'Mining excavators and haulers',
-        'Processing and crushing equipment',
-        'Site vehicles and transport',
-        'Generators and power systems',
-        'Maintenance and support equipment'
+      id: 'manufacturing',
+      name: 'Industrial Plants',
+      icon: Factory,
+      color: 'indigo',
+      tagline: 'Plant Power Supply',
+      challenge: 'Manufacturing facilities require consistent fuel quality and reliable supply to maintain production schedules.',
+      solution: 'Nevloh supplies industrial-grade ULSD with consistent specifications and bulk delivery options for plant operations.',
+      benefits: [
+        'Consistent fuel specifications',
+        'Bulk delivery available',
+        'Quality documentation'
       ],
       stats: [
-        { value: '35%', label: 'Equipment Uptime' },
-        { value: '500+', label: 'Gallons Capacity' },
-        { value: '10', label: 'Mining Sites Served' }
-      ],
-      color: 'purple',
-      challenges: 'Remote locations, harsh operating conditions, equipment durability',
-      solution: 'Bulk delivery to remote sites with high-performance ULSD for extreme conditions',
-      seoKeywords: 'mining fuel delivery, heavy equipment diesel, bulk fuel supply'
+        { v: 'Bulk', l: 'Supply Options' },
+        { v: 'Quality', l: 'Certified' }
+      ]
+    }
+  ];
+
+  const active = industries[activeIndustry];
+  const ActiveIcon = active.icon;
+
+  const governanceFeatures = [
+    {
+      icon: BarChart3,
+      title: 'Consumption Analysis',
+      desc: 'We can help analyze your fuel usage patterns to optimize delivery schedules.'
+    },
+    {
+      icon: Activity,
+      title: 'Tank Monitoring',
+      desc: 'Optional monitoring solutions to help track fuel levels and plan deliveries.'
+    },
+    {
+      icon: Globe,
+      title: 'Island-Wide Logistics',
+      desc: 'Delivery capability across all 14 parishes with flexible scheduling.'
     }
   ];
 
   const overallStats = [
-    { icon: Users, number: '500+', label: 'Industry Partners', color: 'blue' },
-    { icon: Truck, number: '50,000+', label: 'Gallons Delivered', color: 'green' },
-    { icon: Target, number: '99.8%', label: 'On-Time Delivery', color: 'purple' },
-    { icon: Shield, number: '24/7', label: 'Emergency Service', color: 'orange' }
+    { icon: Shield, label: 'Quality', val: 'ASTM D975' },
+    { icon: Globe, label: 'Coverage', val: '14 Parishes' },
+    { icon: Timer, label: 'Support', val: '24/7 Available' },
+    { icon: TrendingUp, label: 'Service', val: 'Professional' }
   ];
-
-  const whyChooseUs = [
-    {
-      icon: Clock,
-      title: 'Reliable Delivery',
-      description: 'On-time fuel delivery across all 14 parishes with GPS tracking and professional drivers'
-    },
-    {
-      icon: Shield,
-      title: 'Quality Assurance',
-      description: 'Laboratory-tested ULSD meeting international standards with quality certificates'
-    },
-    {
-      icon: Settings,
-      title: 'Industry Expertise',
-      description: 'Deep understanding of each industry\'s unique fuel requirements and challenges'
-    },
-    {
-      icon: Globe,
-      title: 'Island-Wide Coverage',
-      description: 'Comprehensive service across Jamaica with emergency response capabilities'
-    }
-  ];
-
-  // Get current industry for SEO
-  const currentIndustry = industries[activeIndustry];
 
   return (
     <>
       <Head>
-        <title>{`${currentIndustry.name} Fuel Solutions | Nevloh Limited - Industry Specialists Jamaica`}</title>
-        <meta 
-          name="description" 
-          content={`Specialized Ultra Low Sulphur Diesel solutions for ${currentIndustry.name.toLowerCase()} in Jamaica. ${currentIndustry.description}. 24/7 emergency delivery across all parishes.`}
+        <title>Industrial Fuel Solutions Jamaica | Sector-Specific ULSD | Nevloh Limited</title>
+        <meta
+          name="description"
+          content="Specialized Ultra Low Sulphur Diesel solutions for Jamaica's industries. Logistics, construction, agriculture, maritime, and power generation fuel delivery."
         />
-        <meta 
-          name="keywords" 
-          content={`${currentIndustry.seoKeywords}, Jamaica fuel delivery, ULSD, industry fuel solutions, ${currentIndustry.name.toLowerCase()} diesel`}
+        <meta
+          name="keywords"
+          content="industrial fuel Jamaica, fleet fuel delivery, construction diesel, agricultural fuel, marine fuel supply, generator fuel, ULSD industrial"
         />
-        
+        <link rel="canonical" href="https://www.nevloh.com/industries" />
+
         {/* Open Graph */}
-        <meta property="og:title" content={`${currentIndustry.name} Fuel Solutions | Nevloh Limited`} />
-        <meta property="og:description" content={currentIndustry.longDescription.substring(0, 155) + '...'} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://www.nevloh.com${router.pathname}`} />
-        <meta property="og:image" content={`https://www.nevloh.com/industry-${currentIndustry.id}.jpg`} />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${currentIndustry.name} Fuel Solutions | Nevloh Limited`} />
-        <meta name="twitter:description" content={currentIndustry.description} />
-        
-        {/* Canonical */}
-        <link rel="canonical" href={`https://www.nevloh.com${router.pathname}`} />
-        
-        {/* Structured Data */}
+        <meta property="og:title" content="Industrial Fuel Solutions | Nevloh Limited Jamaica" />
+        <meta property="og:description" content="Specialized ULSD solutions for Jamaica's leading industries." />
+        <meta property="og:image" content="https://www.nevloh.com/images/og-industries.png" />
+        <meta property="og:url" content="https://www.nevloh.com/industries" />
+
+        {/* Schema */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Service",
-              "name": `${currentIndustry.name} Fuel Solutions`,
-              "description": currentIndustry.longDescription,
-              "provider": {
-                "@type": "Organization",
-                "name": "Nevloh Limited",
-                "url": "https://www.nevloh.com",
-                "logo": "https://www.nevloh.com/logo.png",
-                "contactPoint": {
-                  "@type": "ContactPoint",
-                  "telephone": "+1-876-449-5172",
-                  "contactType": "customer service"
-                }
-              },
-              "areaServed": {
-                "@type": "Country",
-                "name": "Jamaica"
-              },
-              "serviceType": "Fuel Delivery",
-              "audience": {
-                "@type": "Audience",
-                "audienceType": currentIndustry.name
-              },
-              "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": `${currentIndustry.name} Services`,
-                "itemListElement": currentIndustry.applications.map((app, index) => ({
-                  "@type": "Offer",
-                  "position": index + 1,
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": app
-                  }
-                }))
-              }
-            })
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(industriesSchema) }}
         />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-        {/* Hero Section */}
-        <section className="relative py-20 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
-          <div className="relative max-w-7xl mx-auto">
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h1 className="text-5xl lg:text-6xl font-bold text-gray-800">
-                  Industries We
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block">
-                    Power Forward
-                  </span>
-                </h1>
-                <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                  From transportation fleets to mining operations, Nevloh Limited provides
-                  specialized Ultra Low Sulphur Diesel solutions tailored to each industry's unique needs across Jamaica.
-                </p>
+      <div className="min-h-screen bg-[#F8FAFC] font-sans selection:bg-emerald-100">
+
+        {/* ─── TIER 1 HERO ─── */}
+        <section className="relative pt-24 pb-24 bg-[#0F172A] overflow-hidden">
+          {/* Background Glows */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none" aria-hidden="true">
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            {/* Breadcrumbs */}
+            <div className="mb-12">
+              <Breadcrumbs items={breadcrumbConfigs.industries} />
+            </div>
+
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">
+                <Factory size={14} />
+                <span>Industry Solutions</span>
               </div>
+
+              <h1 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tight">
+                Fueling the <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
+                  Industrial Core
+                </span>
+              </h1>
+
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-12">
+                Nevloh Limited provides specialized fuel solutions for Jamaica&apos;s
+                key industries. We understand each sector&apos;s unique requirements
+                and deliver accordingly.
+              </p>
 
               {/* Overall Stats */}
-              <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                {overallStats.map((stat, index) => {
-                  const IconComponent = stat.icon;
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                {overallStats.map((stat, i) => {
+                  const Icon = stat.icon;
                   return (
-                    <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                      <div className={`w-12 h-12 bg-${stat.color}-100 rounded-lg flex items-center justify-center mx-auto mb-3`}>
-                        <IconComponent size={24} className={`text-${stat.color}-600`} aria-hidden="true" />
-                      </div>
-                      <div className="text-2xl font-bold text-gray-800">{stat.number}</div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    <div key={i} className="p-6 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+                      <Icon size={20} className="text-emerald-400 mx-auto mb-2" />
+                      <div className="text-white font-bold text-lg">{stat.val}</div>
+                      <div className="text-[10px] text-slate-500 uppercase tracking-widest">{stat.label}</div>
                     </div>
                   );
                 })}
@@ -404,212 +251,175 @@ const IndustriesPage = () => {
           </div>
         </section>
 
-        {/* Industries Navigation */}
-        <section className="px-4 -mt-8 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="bg-white rounded-2xl p-6 shadow-lg">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Select Industry</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {industries.map((industry, index) => {
-                  const IconComponent = industry.icon;
-                  const isActive = activeIndustry === index;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setActiveIndustry(index);
-                        handleIndustryClick(industry.name);
-                      }}
-                      className={`flex flex-col items-center p-4 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        isActive
-                          ? getActiveButtonClass(industry.color)
-                          : 'text-gray-600 hover:bg-gray-50'
-                      }`}
-                      aria-label={`Select ${industry.name} industry`}
-                    >
-                      <IconComponent size={24} className="mb-2" aria-hidden="true" />
-                      <span className="font-medium text-xs text-center">{industry.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
+        {/* ─── INDUSTRY NAVIGATION ─── */}
+        <section className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-6 overflow-x-auto">
+            <div className="flex justify-between py-4 min-w-[800px]">
+              {industries.map((ind, i) => {
+                const Icon = ind.icon;
+                const isActive = activeIndustry === i;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndustry(i)}
+                    className={`flex flex-col items-center gap-2 px-6 transition-all relative ${
+                      isActive ? 'text-blue-600' : 'text-slate-400 hover:text-slate-600'
+                    }`}
+                  >
+                    <Icon size={20} />
+                    <span className="text-[10px] font-black uppercase tracking-tighter">{ind.name}</span>
+                    {isActive && (
+                      <div className="absolute -bottom-4 left-0 w-full h-1 bg-blue-600 rounded-t-full" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* Industry Details */}
-        <section className="py-16 px-4" aria-labelledby="industry-details">
+        {/* ─── DYNAMIC SECTOR CONTENT ─── */}
+        <section className="py-24 px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-3 gap-12">
-              {/* Main Content */}
-              <div className="lg:col-span-2 space-y-8">
-                <article className="bg-white rounded-3xl p-8 shadow-xl">
-                  <header className="flex items-center space-x-4 mb-6">
-                    {React.createElement(industries[activeIndustry].icon, {
-                      size: 40,
-                      className: `text-${industries[activeIndustry].color}-600`,
-                      'aria-hidden': true
-                    })}
-                    <div>
-                      <h2 id="industry-details" className="text-3xl font-bold text-gray-800">
-                        {industries[activeIndustry].name}
-                      </h2>
-                      <p className="text-lg text-gray-600">
-                        {industries[activeIndustry].description}
-                      </p>
-                    </div>
-                  </header>
-
-                  <p className="text-gray-700 leading-relaxed mb-8">
-                    {industries[activeIndustry].longDescription}
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              {/* Content Side */}
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">
+                    {active.tagline}
+                  </h2>
+                  <p className="text-3xl md:text-4xl font-black text-slate-900 leading-tight tracking-tight">
+                    Solutions for <br />
+                    <span className="text-blue-600">{active.name}</span>
                   </p>
+                </div>
 
-                  {/* Challenge & Solution */}
-                  <div className="grid md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-red-50 rounded-xl p-6">
-                      <h3 className="font-semibold text-red-800 mb-2 flex items-center">
-                        <Target size={20} className="mr-2" aria-hidden="true" />
-                        Industry Challenges
-                      </h3>
-                      <p className="text-red-700 text-sm">
-                        {industries[activeIndustry].challenges}
-                      </p>
-                    </div>
-                    <div className="bg-green-50 rounded-xl p-6">
-                      <h3 className="font-semibold text-green-800 mb-2 flex items-center">
-                        <CheckCircle size={20} className="mr-2" aria-hidden="true" />
-                        Our Solution
-                      </h3>
-                      <p className="text-green-700 text-sm">
-                        {industries[activeIndustry].solution}
-                      </p>
+                {/* Challenge & Solution */}
+                <div className="space-y-4">
+                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
+                    <Activity className="text-slate-400 flex-shrink-0" size={24} />
+                    <div>
+                      <div className="font-bold text-slate-700 text-sm mb-1">Sector Context</div>
+                      <p className="text-slate-600 text-sm leading-relaxed">{active.challenge}</p>
                     </div>
                   </div>
-
-                  {/* Applications */}
-                  <div className="space-y-4">
-                    <h3 className="text-xl font-bold text-gray-800 flex items-center">
-                      <Settings size={24} className="mr-2" aria-hidden="true" />
-                      Key Applications
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-3">
-                      {industries[activeIndustry].applications.map((app, index) => (
-                        <div key={index} className="flex items-center space-x-3">
-                          <CheckCircle size={16} className={`text-${industries[activeIndustry].color}-500`} aria-hidden="true" />
-                          <span className="text-gray-700">{app}</span>
-                        </div>
-                      ))}
+                  <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 flex gap-4">
+                    <LifeBuoy className="text-emerald-500 flex-shrink-0" size={24} />
+                    <div>
+                      <div className="font-bold text-emerald-900 text-sm mb-1">How We Help</div>
+                      <p className="text-emerald-700 text-sm leading-relaxed">{active.solution}</p>
                     </div>
                   </div>
-                </article>
+                </div>
 
                 {/* Benefits */}
-                <div className="bg-white rounded-3xl p-8 shadow-xl">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                    <Award size={28} className="mr-3" aria-hidden="true" />
-                    Key Benefits for {industries[activeIndustry].name}
-                  </h3>
-                  <div className="space-y-4">
-                    {industries[activeIndustry].keyBenefits.map((benefit, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <CheckCircle size={20} className="text-green-500 flex-shrink-0 mt-1" aria-hidden="true" />
-                        <span className="text-gray-700 leading-relaxed">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="space-y-3">
+                  {active.benefits.map((benefit, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-slate-700">
+                      <CheckCircle size={16} className="text-blue-500 flex-shrink-0" />
+                      {benefit}
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTAs */}
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <Link
+                    href="/contact/jamaica"
+                    className="px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all flex items-center gap-2 group"
+                  >
+                    Discuss Requirements
+                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <a
+                    href="tel:+18764495172"
+                    className="px-8 py-4 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-all flex items-center gap-2"
+                  >
+                    <Phone size={18} />
+                    Contact Team
+                  </a>
                 </div>
               </div>
 
-              {/* Sidebar */}
-              <aside className="space-y-8">
-                {/* Industry Stats */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <BarChart3 size={24} className="mr-2" aria-hidden="true" />
-                    Industry Impact
-                  </h3>
-                  <div className="space-y-4">
-                    {industries[activeIndustry].stats.map((stat, index) => (
-                      <div key={index} className="text-center p-4 bg-gray-50 rounded-lg">
-                        <div className="text-2xl font-bold text-blue-600">{stat.value}</div>
-                        <div className="text-sm text-gray-600">{stat.label}</div>
+              {/* Stats & Compliance Side */}
+              <div className="space-y-6">
+                {/* Stats Card */}
+                <div className="bg-white rounded-[2.5rem] p-10 shadow-xl border border-slate-100 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full pointer-events-none" aria-hidden="true" />
+
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${
+                      active.color === 'emerald' ? 'bg-emerald-100' :
+                      active.color === 'blue' ? 'bg-blue-100' :
+                      active.color === 'green' ? 'bg-green-100' :
+                      active.color === 'cyan' ? 'bg-cyan-100' :
+                      active.color === 'orange' ? 'bg-orange-100' : 'bg-indigo-100'
+                    }`}>
+                      <ActiveIcon size={28} className={
+                        active.color === 'emerald' ? 'text-emerald-600' :
+                        active.color === 'blue' ? 'text-blue-600' :
+                        active.color === 'green' ? 'text-green-600' :
+                        active.color === 'cyan' ? 'text-cyan-600' :
+                        active.color === 'orange' ? 'text-orange-600' : 'text-indigo-600'
+                      } />
+                    </div>
+                    <div>
+                      <div className="font-black text-slate-900 text-lg">{active.name}</div>
+                      <div className="text-[10px] text-slate-500 uppercase tracking-widest">Sector Focus</div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    {active.stats.map((s, i) => (
+                      <div key={i} className="text-center p-4 bg-slate-50 rounded-xl">
+                        <div className="text-2xl font-black text-slate-900 mb-1">{s.v}</div>
+                        <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">{s.l}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Quick Contact */}
-                <div className={getReadyToStartClass(industries[activeIndustry].color)}>
-                  <h3 className="text-xl font-bold mb-4">Ready to Get Started?</h3>
-                  <p className="text-sm opacity-90 mb-6">
-                    Get a customized fuel solution for your {industries[activeIndustry].name.toLowerCase()} operations.
+                {/* Compliance Card */}
+                <div className="p-8 bg-slate-900 rounded-[2rem] text-white">
+                  <h4 className="text-lg font-bold mb-4 flex items-center gap-3">
+                    <Shield size={20} className="text-emerald-400" />
+                    Quality Standards
+                  </h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">
+                    Our ULSD meets ASTM D975 specifications, providing the fuel quality
+                    required by modern equipment across the {active.name.toLowerCase()} sector.
                   </p>
-                  <div className="space-y-3">
-                    <Link
-                      href="/contact"
-                      className="block w-full bg-white text-gray-800 text-center py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                      onClick={() => handleCTAClick('Quote', industries[activeIndustry].name)}
-                    >
-                      Get Industry Quote
-                    </Link>
-                    <Link
-                      href="/contact"
-                      className="block w-full border-2 border-white text-center py-3 rounded-lg font-semibold hover:bg-white hover:text-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                      onClick={() => handleCTAClick('Consultation', industries[activeIndustry].name)}
-                    >
-                      Schedule Consultation
-                    </Link>
-                  </div>
                 </div>
-
-                {/* Contact Info */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <h3 className="text-lg font-bold text-gray-800 mb-4">Industry Specialist</h3>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex items-center">
-                      <Phone size={16} className="text-blue-600 mr-2" aria-hidden="true" />
-                      <a href="tel:+18764495172" className="text-gray-700 hover:text-blue-600 transition-colors">
-                        (876) 449-5172
-                      </a>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock size={16} className="text-green-600 mr-2" aria-hidden="true" />
-                      <span className="text-gray-700">24/7 Emergency Service</span>
-                    </div>
-                    <div className="flex items-center">
-                      <Shield size={16} className="text-purple-600 mr-2" aria-hidden="true" />
-                      <span className="text-gray-700">Quality Guaranteed</span>
-                    </div>
-                  </div>
-                </div>
-              </aside>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section className="py-16 px-4 bg-white" aria-labelledby="why-choose-us">
+        {/* ─── SERVICE CAPABILITIES ─── */}
+        <section className="py-24 bg-slate-50 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
-              <h2 id="why-choose-us" className="text-4xl font-bold text-gray-800 mb-4">
-                Why Industries Choose Nevloh Limited
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
+                Capabilities
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                We understand that every industry has unique fuel requirements.
-                That's why we provide specialized solutions backed by exceptional service.
+              <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                Fuel Management Support
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {whyChooseUs.map((reason, index) => {
-                const IconComponent = reason.icon;
+            <div className="grid md:grid-cols-3 gap-8">
+              {governanceFeatures.map((feat, i) => {
+                const Icon = feat.icon;
                 return (
-                  <div key={index} className="text-center space-y-4">
-                    <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto">
-                      <IconComponent size={32} className="text-blue-600" aria-hidden="true" />
+                  <div
+                    key={i}
+                    className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 hover:shadow-xl transition-all group"
+                  >
+                    <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors">
+                      <Icon size={28} className="text-slate-400 group-hover:text-white transition-colors" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-800">{reason.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{reason.description}</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">{feat.title}</h3>
+                    <p className="text-slate-500 leading-relaxed text-sm">{feat.desc}</p>
                   </div>
                 );
               })}
@@ -617,67 +427,110 @@ const IndustriesPage = () => {
           </div>
         </section>
 
-        {/* Call to Action */}
-        <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
-          <div className="max-w-4xl mx-auto text-center text-white space-y-8">
-            <h2 className="text-4xl font-bold">
-              Power Your Industry with Premium ULSD
-            </h2>
-            <p className="text-xl opacity-90">
-              Join hundreds of businesses across Jamaica that trust Nevloh Limited
-              for reliable, clean, and efficient fuel solutions tailored to their industry needs.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                onClick={() => handleCTAClick('Final Quote', 'All Industries')}
-              >
-                <Phone size={20} className="mr-2" aria-hidden="true" />
-                Get Industry Quote
-              </Link>
-              <Link
-                href="/contact"
-                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors flex items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
-                onClick={() => handleCTAClick('Final Schedule', 'All Industries')}
-              >
-                <Calendar size={20} className="mr-2" aria-hidden="true" />
-                Schedule Delivery
-              </Link>
+        {/* ─── ALL INDUSTRIES GRID ─── */}
+        <section className="py-24 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
+                Sectors Served
+              </h2>
+              <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                Industries We Support
+              </p>
             </div>
-            <div className="flex justify-center items-center space-x-6 text-sm opacity-80">
-              <div className="flex items-center">
-                <Truck size={16} className="mr-1" aria-hidden="true" />
-                All Industries Served
-              </div>
-              <div className="flex items-center">
-                <Clock size={16} className="mr-1" aria-hidden="true" />
-                24/7 Emergency Service
-              </div>
-              <div className="flex items-center">
-                <Shield size={16} className="mr-1" aria-hidden="true" />
-                Quality Guaranteed
-              </div>
-              <div className="flex items-center">
-                <Globe size={16} className="mr-1" aria-hidden="true" />
-                Island-Wide Coverage
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {industries.map((ind, i) => {
+                const Icon = ind.icon;
+                return (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setActiveIndustry(i);
+                      window.scrollTo({ top: 500, behavior: 'smooth' });
+                    }}
+                    className="p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-left group"
+                  >
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:bg-blue-600 transition-colors">
+                        <Icon className="text-slate-400 group-hover:text-white transition-colors" size={24} />
+                      </div>
+                      <div>
+                        <div className="font-bold text-slate-900">{ind.name}</div>
+                        <div className="text-[10px] text-slate-500 uppercase tracking-widest">{ind.tagline}</div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-slate-500 line-clamp-2">{ind.solution}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ─── CTA ─── */}
+        <section className="py-24 px-6">
+          <div className="max-w-5xl mx-auto bg-gradient-to-br from-blue-600 to-[#0F172A] rounded-[3rem] p-12 md:p-16 text-white relative overflow-hidden shadow-2xl">
+            {/* Background Pattern */}
+            <div
+              className="absolute top-0 right-0 w-full h-full opacity-5 pointer-events-none"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23ffffff'/%3E%3C/svg%3E")`,
+                backgroundSize: '20px 20px'
+              }}
+              aria-hidden="true"
+            />
+
+            <div className="relative z-10 text-center">
+              <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight leading-tight">
+                Partner with <br />
+                <span className="text-blue-200">Nevloh Limited</span>
+              </h2>
+
+              <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+                Contact us to discuss your industry&apos;s fuel requirements.
+                We provide customized solutions for operations across Jamaica.
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link
+                  href="/contact/jamaica"
+                  className="px-10 py-5 bg-white text-slate-900 rounded-2xl font-black text-sm uppercase tracking-wider hover:bg-slate-100 transition-all flex items-center justify-center gap-2"
+                >
+                  <BarChart3 size={18} />
+                  Discuss Requirements
+                </Link>
+                <a
+                  href="tel:+18764495172"
+                  className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold text-sm uppercase tracking-wider transition-all border border-white/10 flex items-center justify-center gap-2"
+                >
+                  <Phone size={18} />
+                  Contact Our Team
+                </a>
               </div>
             </div>
           </div>
         </section>
+
+        {/* ─── BILATERAL LINK ─── */}
+        <section className="py-16 px-6 bg-slate-50">
+          <div className="max-w-4xl mx-auto text-center">
+            <p className="text-slate-500 mb-6">
+              <strong className="text-slate-700">Coverage:</strong> All 14 parishes • Multiple industries served
+            </p>
+            <Link
+              href="/contact/international"
+              className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 text-xs font-bold uppercase tracking-widest transition-colors"
+            >
+              <Globe size={14} />
+              International Inquiries →
+            </Link>
+          </div>
+        </section>
+
       </div>
     </>
   );
 };
-
-// Static props for SEO optimization
-export async function getStaticProps() {
-  return {
-    props: {
-      // Add any static props here if needed
-    },
-    revalidate: 86400, // Revalidate once per day
-  };
-}
 
 export default IndustriesPage;
