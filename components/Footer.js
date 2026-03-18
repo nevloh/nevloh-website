@@ -1,9 +1,11 @@
 // components/Footer.js
 // Tier 1 Institutional — Nevloh Group Bilateral Footer
-// WITH Functional Newsletter Subscription
-import React, { useState } from 'react';
+// WITH Functional Newsletter Subscription + Full Anti-Bot Protection
+// (Honeypot + Turnstile + Time-based validation - matching contact page)
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Script from 'next/script';
 import { Instagram, MapPin, Mail, Phone, ExternalLink, ShieldCheck, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function Footer() {
@@ -13,6 +15,118 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
+
+  // ═══════════════════════════════════════════════════════════════
+  // ANTI-BOT PROTECTION (matching contact page)
+  // ═══════════════════════════════════════════════════════════════
+
+  // 1. Honeypot field - bots will fill this, humans won't see it
+  const [honeypot, setHoneypot] = useState('');
+
+  // 2. Form load time tracking - reject if submitted too fast (< 3 seconds)
+  const formLoadTime = useRef(Date.now());
+
+  // 3. Turnstile token state
+  const [turnstileToken, setTurnstileToken] = useState(null);
+  const [turnstileLoaded, setTurnstileLoaded] = useState(false);
+  const turnstileRef = useRef(null);
+  const turnstileWidgetId = useRef(null);
+
+  // Reset form load time on mount
+  useEffect(() => {
+    formLoadTime.current = Date.now();
+  }, []);
+
+  // Turnstile site key from environment
+  const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  // Explicit Turnstile rendering — mounts/unmounts cleanly with React
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+
+    const renderWidget = () => {
+      if (!turnstileRef.current) return;
+      if (typeof window === 'undefined' || !window.turnstile) return;
+
+      // Remove existing widget if any (prevents duplicates)
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
+
+      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: 'dark',
+        size: 'compact',
+        callback: (token) => {
+          setTurnstileToken(token);
+        },
+        'error-callback': () => {
+          setTurnstileToken(null);
+        },
+        'expired-callback': () => {
+          setTurnstileToken(null);
+        }
+      });
+    };
+
+    // Turnstile script may still be loading — poll briefly then render
+    if (window.turnstile) {
+      renderWidget();
+      setTurnstileLoaded(true);
+    } else {
+      const interval = setInterval(() => {
+        if (window.turnstile) {
+          clearInterval(interval);
+          renderWidget();
+          setTurnstileLoaded(true);
+        }
+      }, 200);
+      // Stop polling after 10 seconds
+      const timeout = setTimeout(() => clearInterval(interval), 10000);
+      return () => { clearInterval(interval); clearTimeout(timeout); };
+    }
+
+    return () => {
+      if (turnstileWidgetId.current !== null) {
+        try { window.turnstile.remove(turnstileWidgetId.current); } catch (_) {}
+        turnstileWidgetId.current = null;
+      }
+    };
+  }, [TURNSTILE_SITE_KEY]);
+
+  // Reset Turnstile after submission
+  const resetTurnstile = () => {
+    if (turnstileWidgetId.current !== null && window.turnstile) {
+      try {
+        window.turnstile.reset(turnstileWidgetId.current);
+        setTurnstileToken(null);
+      } catch (_) {}
+    }
+  };
+
+  // Anti-spam validation (matching contact page logic)
+  const validateAntiSpam = () => {
+    // 1. Honeypot check - if filled, it's a bot
+    if (honeypot) {
+      console.log('🚫 Newsletter spam: honeypot filled');
+      return { valid: false, reason: 'spam_honeypot' };
+    }
+
+    // 2. Time-based check - reject if submitted in under 3 seconds
+    const timeElapsed = Date.now() - formLoadTime.current;
+    if (timeElapsed < 3000) {
+      console.log('🚫 Newsletter spam: submitted too fast', timeElapsed + 'ms');
+      return { valid: false, reason: 'spam_too_fast' };
+    }
+
+    // 3. Turnstile check - require if configured and loaded
+    if (TURNSTILE_SITE_KEY && turnstileLoaded && !turnstileToken) {
+      return { valid: false, reason: 'captcha_required' };
+    }
+
+    return { valid: true };
+  };
 
   const handleExternalLinkClick = (linkName) => {
     if (typeof window !== 'undefined' && window.gtag) {
@@ -28,12 +142,54 @@ export default function Footer() {
   const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
 
+    // ═══════════════════════════════════════════════════════════════
+    // ANTI-SPAM VALIDATION
+    // ═══════════════════════════════════════════════════════════════
+    const spamCheck = validateAntiSpam();
+
+    if (!spamCheck.valid) {
+      if (spamCheck.reason === 'captcha_required') {
+        // Tell user to complete captcha
+        setSubmitStatus({
+          type: 'error',
+          message: 'Please complete the security check.'
+        });
+        return;
+      } else {
+        // For honeypot/too-fast, show fake success to not alert bots
+        setSubmitStatus({
+          type: 'success',
+          message: 'Subscribed! Check your inbox.'
+        });
+        setEmail('');
+        return;
+      }
+    }
+
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email || !emailRegex.test(email)) {
       setSubmitStatus({
         type: 'error',
         message: 'Please enter a valid email address.'
+      });
+      return;
+    }
+
+    // Additional validation - block obvious fake emails
+    const suspiciousPatterns = [
+      /^test@test/i,
+      /^example@/i,
+      /^asdf/i,
+      /^qwerty/i,
+      /^[a-z]{1,2}@/i,  // Very short local parts like "a@" or "ab@"
+      /^[0-9]+@/,       // Only numbers before @
+    ];
+
+    if (suspiciousPatterns.some(pattern => pattern.test(email))) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please enter a valid business or personal email.'
       });
       return;
     }
@@ -55,8 +211,9 @@ export default function Footer() {
           message: 'Newsletter subscription from website footer.',
           newsletter: true,
           source: 'footer_newsletter',
-          // Anti-spam honeypot (leave empty)
-          website: ''
+          // Anti-spam fields
+          website: honeypot,              // Honeypot - should be empty
+          turnstileToken: turnstileToken  // Turnstile verification token
         }),
       });
 
@@ -68,6 +225,7 @@ export default function Footer() {
           message: 'Subscribed! Check your inbox.'
         });
         setEmail('');
+        resetTurnstile();
 
         // Track successful subscription
         if (typeof window !== 'undefined' && window.gtag) {
@@ -87,6 +245,7 @@ export default function Footer() {
           type: 'error',
           message: data.error || 'Subscription failed. Please try again.'
         });
+        resetTurnstile();
       }
     } catch (error) {
       console.error('Newsletter subscription error:', error);
@@ -94,6 +253,7 @@ export default function Footer() {
         type: 'error',
         message: 'Connection error. Please try again later.'
       });
+      resetTurnstile();
     } finally {
       setIsSubmitting(false);
     }
@@ -101,6 +261,17 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 text-slate-400 border-t border-slate-900" role="contentinfo" aria-label="Site footer">
+
+      {/* Cloudflare Turnstile Script (only load if site key configured) */}
+      {TURNSTILE_SITE_KEY && (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+          strategy="lazyOnload"
+          async={true}
+          defer={true}
+        />
+      )}
+
       {/* Institutional Schema — Nevloh Group (Bilateral) */}
       <script
         type="application/ld+json"
@@ -172,6 +343,25 @@ export default function Footer() {
               className="flex flex-col max-w-md mx-auto lg:mx-0"
               onSubmit={handleNewsletterSubmit}
             >
+              {/* Honeypot field - hidden from users, catches bots */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  opacity: 0,
+                  height: 0,
+                  width: 0,
+                  pointerEvents: 'none'
+                }}
+              />
+
               <div className="flex">
                 <input
                   type="email"
@@ -208,6 +398,19 @@ export default function Footer() {
                   )}
                 </button>
               </div>
+
+              {/* Cloudflare Turnstile Widget (compact, dark theme) */}
+              {TURNSTILE_SITE_KEY && (
+                <div className="mt-3 flex items-center gap-2">
+                  <div ref={turnstileRef} />
+                  {turnstileToken && (
+                    <span className="text-emerald-500 text-xs flex items-center gap-1">
+                      <CheckCircle size={12} />
+                      Verified
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* Status Message */}
               {submitStatus.message && (

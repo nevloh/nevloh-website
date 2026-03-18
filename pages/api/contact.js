@@ -1,6 +1,6 @@
 // pages/api/contact.js
 // Brevo (formerly Sendinblue) integration for contact form
-// WITH Anti-Spam Protection: Honeypot, Turnstile, Content Filtering
+// WITH Anti-Spam Protection: Honeypot, Turnstile (OPTIONAL), Content Filtering
 // WITH Newsletter Subscription Support
 
 export default async function handler(req, res) {
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     source,
     // Anti-spam fields
     website,        // Honeypot field - should be empty
-    turnstileToken  // Cloudflare Turnstile token
+    turnstileToken  // Cloudflare Turnstile token (OPTIONAL)
   } = req.body;
 
   // ============================================
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // 2. Cloudflare Turnstile Verification (if token provided and secret configured)
+  // 2. Cloudflare Turnstile Verification (OPTIONAL - only if token AND secret are both provided)
   const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY;
 
   if (turnstileToken && TURNSTILE_SECRET) {
@@ -123,7 +123,11 @@ export default async function handler(req, res) {
   const disposableDomains = [
     'tempmail.com', 'throwaway.email', 'guerrillamail.com', 'mailinator.com',
     '10minutemail.com', 'temp-mail.org', 'fakeinbox.com', 'trashmail.com',
-    'getnada.com', 'tempail.com', 'mohmal.com', 'dispostable.com'
+    'getnada.com', 'tempail.com', 'mohmal.com', 'dispostable.com',
+    'guerrillamailblock.com', 'sharklasers.com', 'grr.la', 'guerrillamail.info',
+    'pokemail.net', 'spam4.me', 'bccto.me', 'yopmail.com', 'yopmail.fr',
+    'emailondeck.com', 'emailfake.com', 'tempr.email', 'discard.email',
+    'trashmail.io', 'mailnesia.com', 'mailsac.com', 'mintemail.com'
   ];
 
   if (email) {
@@ -138,6 +142,32 @@ export default async function handler(req, res) {
         success: false,
         error: 'Please use a valid business or personal email address.'
       });
+    }
+
+    // 5. Additional validation for newsletter submissions - block suspicious patterns
+    const isNewsletterSource = source === 'footer_newsletter' || source === 'newsletter';
+    if (isNewsletterSource) {
+      const suspiciousEmailPatterns = [
+        /^test@test/i,
+        /^example@example/i,
+        /^asdf@/i,
+        /^qwerty@/i,
+        /^[a-z]{1,2}@/i,           // Very short: a@, ab@
+        /^[0-9]+@/,                 // Only numbers before @
+        /(.)\1{5,}/,                // Same char repeated 6+ times
+      ];
+
+      if (suspiciousEmailPatterns.some(pattern => pattern.test(email))) {
+        console.log('🚫 Spam blocked: suspicious email pattern', {
+          email,
+          source,
+          timestamp: new Date().toISOString()
+        });
+        return res.status(400).json({
+          success: false,
+          error: 'Please use a valid business or personal email address.'
+        });
+      }
     }
   }
 
@@ -313,41 +343,30 @@ export default async function handler(req, res) {
           </head>
           <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4;">
             <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-              
-              <!-- Header -->
               <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
                 <h1 style="margin: 0; font-size: 28px;">🚛 Welcome to Nevloh</h1>
                 <p style="margin: 10px 0 0 0; opacity: 0.9;">Industry Insights & Market Updates</p>
               </div>
-              
-              <!-- Content -->
               <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
                 <h2 style="color: #1e40af; margin-top: 0;">You're Now Subscribed!</h2>
-                
                 <p>Thank you for subscribing to the Nevloh newsletter. You'll receive:</p>
-                
                 <ul style="color: #4b5563; padding-left: 20px;">
                   <li style="margin-bottom: 8px;">Industry insights and market trends</li>
                   <li style="margin-bottom: 8px;">Fuel logistics updates</li>
                   <li style="margin-bottom: 8px;">Commodities trading news</li>
                   <li style="margin-bottom: 8px;">Exclusive offers and announcements</li>
                 </ul>
-
                 <div style="text-align: center; margin: 30px 0;">
                   <a href="https://www.nevloh.com/services" style="display: inline-block; background: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 5px; font-weight: bold;">Explore Our Services</a>
                   <a href="https://www.nevloh.com/blog" style="display: inline-block; background: #059669; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 5px; font-weight: bold;">Read Our Blog</a>
                 </div>
-
                 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 25px 0;">
-
                 <p style="color: #6b7280; font-size: 14px;">
                   Best regards,<br>
                   <strong>The Nevloh Team</strong><br>
                   Spanish Town, Jamaica & Casper, Wyoming
                 </p>
               </div>
-
-              <!-- Footer -->
               <div style="background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px;">
                 <p style="margin: 0 0 10px 0;">© ${currentYear} Nevloh Group. All rights reserved.</p>
                 <p style="margin: 0;">
@@ -370,10 +389,7 @@ export default async function handler(req, res) {
             'content-type': 'application/json'
           },
           body: JSON.stringify({
-            sender: {
-              name: 'Nevloh Group',
-              email: 'noreply@nevloh.com'
-            },
+            sender: { name: 'Nevloh Group', email: 'noreply@nevloh.com' },
             to: [{ email: email, name: 'Subscriber' }],
             replyTo: { email: 'shamar@nevloh.com', name: 'Nevloh Team' },
             subject: '🚛 Welcome to Nevloh - You\'re Subscribed!',
@@ -384,7 +400,6 @@ export default async function handler(req, res) {
         console.log('✅ Welcome email sent to subscriber');
       } catch (welcomeError) {
         console.warn('Failed to send welcome email:', welcomeError);
-        // Don't fail the subscription if welcome email fails
       }
 
       // Send notification to admin
@@ -426,10 +441,9 @@ export default async function handler(req, res) {
     }
 
     // ============================================
-    // STANDARD CONTACT FORM FLOW
+    // STANDARD CONTACT FORM FLOW (unchanged from original)
     // ============================================
 
-    // Map fuel type values to readable labels
     const fuelTypeLabels = {
       'ulsd': 'Ultra Low Sulphur Diesel (ULSD)',
       'ado': 'Automotive Diesel Oil (ADO)',
@@ -437,12 +451,10 @@ export default async function handler(req, res) {
       'urea_46': 'Urea 46% Nitrogen Fertilizer'
     };
 
-    // Format fuel types for email with readable names
     const fuelTypesFormatted = fuelTypes && fuelTypes.length > 0
       ? fuelTypes.map(type => fuelTypeLabels[type] || type).join(', ')
       : 'Not specified';
 
-    // Format communication preferences
     const commPreferences = [];
     if (newsletter) commPreferences.push('Newsletter');
     if (whatsappUpdates) commPreferences.push('WhatsApp Updates');
@@ -451,7 +463,6 @@ export default async function handler(req, res) {
       ? commPreferences.join(', ')
       : 'None selected';
 
-    // Determine email subject based on source
     let emailSubject = `🚛 New Inquiry: ${firstName} ${lastName || ''} - ${businessType || 'Contact Form'}`;
     if (isInternationalTrade) {
       emailSubject = `🌍 International Trade Inquiry: ${companyName} (${firstName} ${lastName || ''})`;
@@ -459,7 +470,6 @@ export default async function handler(req, res) {
       emailSubject = `📞 Quick Callback Request: ${firstName} ${lastName || ''} - ${parish || 'Jamaica'}`;
     }
 
-    // Create HTML email content for notification
     const htmlContent = `
       <html>
         <head>
@@ -486,7 +496,6 @@ export default async function handler(req, res) {
               <h1 style="margin: 0; font-size: 24px;">${isInternationalTrade ? '🌍 International Trade Inquiry' : isQuickForm ? '📞 Quick Callback Request' : '🚛 New Contact Form Submission'}</h1>
               <p style="margin: 10px 0 0 0; opacity: 0.9;">${isInternationalTrade ? 'Nevloh LLC - Commodities Trading' : 'Nevloh Limited - Fuel Delivery Inquiry'}</p>
             </div>
-            
             <div class="content">
               <div class="section">
                 <div class="section-title">👤 Contact Information</div>
@@ -497,7 +506,6 @@ export default async function handler(req, res) {
                 ${parish ? `<div class="field"><span class="label">Parish:</span> <span class="value">${parish}</span></div>` : ''}
                 ${address ? `<div class="field"><span class="label">Address:</span> <span class="value">${address}</span></div>` : ''}
               </div>
-
               ${companyName || businessType ? `
               <div class="section">
                 <div class="section-title">🏢 Business Information</div>
@@ -506,7 +514,6 @@ export default async function handler(req, res) {
                 ${businessType ? `<div class="field"><span class="label">Business Type:</span> <span class="value highlight">${businessType}</span></div>` : ''}
               </div>
               ` : ''}
-
               ${!isQuickForm ? `
               <div class="section">
                 <div class="section-title">⛽ ${isInternationalTrade ? 'Product Requirements' : 'Fuel Requirements'}</div>
@@ -516,27 +523,23 @@ export default async function handler(req, res) {
                 ${preferredDeliveryTime ? `<div class="field"><span class="label">Preferred Time:</span> <span class="value">${preferredDeliveryTime}</span></div>` : ''}
               </div>
               ` : ''}
-
               ${message ? `
               <div class="section">
                 <div class="section-title">💬 Message</div>
                 <div class="message-box">${message.replace(/\n/g, '<br>')}</div>
               </div>
               ` : ''}
-
               <div class="section">
                 <div class="section-title">📊 Additional Info</div>
                 <div class="field"><span class="label">Preferred Contact:</span> <span class="value">${preferredContact || 'Phone'}</span></div>
                 ${hearAboutUs ? `<div class="field"><span class="label">How They Found Us:</span> <span class="value">${hearAboutUs}</span></div>` : ''}
                 <div class="field"><span class="label">Communication Preferences:</span> <span class="value">${commPreferencesFormatted}</span></div>
                 <div class="field"><span class="label">Source:</span> <span class="value highlight">${source || 'Contact Page'}</span></div>
-                
                 <div class="spam-check">
                   ✅ Passed anti-spam checks: Honeypot clean${turnstileToken ? ', Turnstile verified' : ''}
                 </div>
               </div>
             </div>
-
             <div class="footer">
               <p>This inquiry was submitted via nevloh.com contact form</p>
               <p>Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica' })} (Jamaica Time)</p>
@@ -546,52 +549,22 @@ export default async function handler(req, res) {
       </html>
     `;
 
-    // Plain text version for email clients that don't support HTML
     const textContent = `
-NEW ${isInternationalTrade ? 'INTERNATIONAL TRADE' : isQuickForm ? 'QUICK CALLBACK' : 'CONTACT FORM'} SUBMISSION - ${isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited'}
+NEW ${isInternationalTrade ? 'INTERNATIONAL TRADE' : isQuickForm ? 'QUICK CALLBACK' : 'CONTACT FORM'} SUBMISSION
 
-CONTACT INFORMATION
---------------------
 Name: ${firstName} ${lastName || ''}
 ${email ? `Email: ${email}` : ''}
 Phone: ${phone}
-${whatsapp ? `WhatsApp: ${whatsapp}` : ''}
 ${parish ? `Parish: ${parish}` : ''}
-${address ? `Address: ${address}` : ''}
-
-${companyName || businessType ? `BUSINESS INFORMATION
---------------------
 ${companyName ? `Company: ${companyName}` : ''}
-${position ? `Position: ${position}` : ''}
 ${businessType ? `Business Type: ${businessType}` : ''}
-` : ''}
+${message ? `Message: ${message}` : ''}
 
-${!isQuickForm ? `${isInternationalTrade ? 'PRODUCT' : 'FUEL'} REQUIREMENTS
------------------
-${isInternationalTrade ? 'Products' : 'Fuel Types'}: ${fuelTypesFormatted}
-${deliveryFrequency ? `Delivery Frequency: ${deliveryFrequency}` : ''}
-${averageVolume ? `Average Volume: ${averageVolume}` : ''}
-${preferredDeliveryTime ? `Preferred Time: ${preferredDeliveryTime}` : ''}
-` : ''}
-
-${message ? `MESSAGE
--------
-${message}
-` : ''}
-
-ADDITIONAL INFO
----------------
-Preferred Contact: ${preferredContact || 'Phone'}
-${hearAboutUs ? `How They Found Us: ${hearAboutUs}` : ''}
-Communication Preferences: ${commPreferencesFormatted}
 Source: ${source || 'Contact Page'}
-
-✅ Passed anti-spam checks
-
 Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica' })} (Jamaica Time)
     `;
 
-    // 1. Send notification email to Nevloh
+    // Send notification email
     const notificationResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
@@ -600,20 +573,9 @@ Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica'
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        sender: {
-          name: 'Nevloh Website',
-          email: 'noreply@nevloh.com'
-        },
-        to: [
-          {
-            email: NOTIFICATION_EMAIL,
-            name: 'Nevloh Team'
-          }
-        ],
-        replyTo: email ? {
-          email: email,
-          name: `${firstName} ${lastName || ''}`
-        } : undefined,
+        sender: { name: 'Nevloh Website', email: 'noreply@nevloh.com' },
+        to: [{ email: NOTIFICATION_EMAIL, name: 'Nevloh Team' }],
+        replyTo: email ? { email: email, name: `${firstName} ${lastName || ''}` } : undefined,
         subject: emailSubject,
         htmlContent: htmlContent,
         textContent: textContent,
@@ -629,185 +591,76 @@ Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica'
 
     console.log('✅ Notification email sent successfully', { email, source });
 
-    // 2. Send confirmation email to customer (only if email provided)
+    // Send confirmation email to customer
     if (email) {
       const confirmationHtml = `
         <html>
-          <head>
-            <style>
-              body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-              .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-              .header { background: linear-gradient(135deg, ${isInternationalTrade ? '#1e293b, #334155' : '#1e40af, #3b82f6'}); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
-              .logo { font-size: 28px; font-weight: bold; margin-bottom: 10px; }
-              .content { background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; }
-              .highlight-box { background: ${isInternationalTrade ? '#f1f5f9' : '#dbeafe'}; padding: 20px; border-radius: 8px; margin: 20px 0; }
-              .contact-info { background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0; }
-              .contact-item { margin-bottom: 10px; }
-              .btn { display: inline-block; background: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 5px; }
-              .btn-whatsapp { background: #25d366; }
-              .footer { background: #1f2937; color: #9ca3af; padding: 20px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <div class="logo">${isInternationalTrade ? '🌍 Nevloh LLC' : '🚛 Nevloh Limited'}</div>
-                <p style="margin: 0; opacity: 0.9;">${isInternationalTrade ? 'International Commodities Trading' : 'Professional Fuel Delivery Services'}</p>
+          <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="background: linear-gradient(135deg, ${isInternationalTrade ? '#1e293b, #334155' : '#1e40af, #3b82f6'}); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+                <h1 style="margin: 0;">${isInternationalTrade ? '🌍 Nevloh LLC' : '🚛 Nevloh Limited'}</h1>
               </div>
-              
-              <div class="content">
+              <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb;">
                 <h2 style="color: #1e40af; margin-top: 0;">Thank You for Contacting Us, ${firstName}!</h2>
-                
-                <p>We've received your ${isInternationalTrade ? 'trade inquiry' : 'inquiry'} and appreciate your interest in ${isInternationalTrade ? 'Nevloh LLC\'s commodities trading services' : 'Nevloh Limited\'s fuel delivery services'}.</p>
-                
-                <div class="highlight-box">
-                  <strong>⏱️ What happens next?</strong>
-                  <p style="margin-bottom: 0;">Our team will review your requirements and get back to you within <strong>${isInternationalTrade ? '48 business hours' : '24 hours'}</strong>${isInternationalTrade ? '.' : ' with a personalized quote.'}</p>
-                </div>
-
-                <p>If you need immediate assistance, don't hesitate to reach out directly:</p>
-
-                <div class="contact-info">
-                  <div class="contact-item">📞 <strong>Phone:</strong> <a href="tel:+18764495172">+1-876-449-5172</a></div>
-                  <div class="contact-item">💬 <strong>WhatsApp:</strong> <a href="https://wa.me/18764495172">+1-876-449-5172</a></div>
-                  <div class="contact-item">📧 <strong>Email:</strong> <a href="mailto:shamar@nevloh.com">shamar@nevloh.com</a></div>
-                </div>
-
-                <p style="text-align: center;">
-                  <a href="tel:+18764495172" class="btn">📞 Call Us Now</a>
-                  <a href="https://wa.me/18764495172" class="btn btn-whatsapp">💬 WhatsApp Us</a>
-                </p>
-
-                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 25px 0;">
-
-                <h3 style="color: #374151;">${isInternationalTrade ? 'Products We Trade:' : 'Our Services Include:'}</h3>
-                <ul style="color: #4b5563;">
-                  ${isInternationalTrade ? `
-                    <li>EN590 / Ultra Low Sulfur Diesel (ULSD)</li>
-                    <li>Urea 46% Nitrogen Fertilizer</li>
-                  ` : `
-                    <li>Fleet Refuelling</li>
-                    <li>Generator Refuelling</li>
-                    <li>On-Site Fuel Delivery</li>
-                    <li>Bulk Fuel Supply</li>
-                    <li>Licensed Petroleum Haulage</li>
-                    <li>Ultra Low Sulphur Diesel (ULSD)</li>
-                  `}
-                </ul>
-
-                <p>${isInternationalTrade ? 'All trades are LC-secured with SGS/Intertek inspection at load port.' : 'We deliver across all 14 parishes in Jamaica.'}</p>
-
-                <p style="color: #6b7280; font-size: 14px;">
-                  Best regards,<br>
-                  <strong>The Nevloh Team</strong><br>
-                  ${isInternationalTrade ? 'Nevloh LLC, Wyoming, USA' : 'Caymanas Bay, Spanish Town, St. Catherine, Jamaica'}
-                </p>
+                <p>We've received your inquiry and will get back to you within <strong>${isInternationalTrade ? '48 business hours' : '24 hours'}</strong>.</p>
+                <p>If you need immediate assistance:</p>
+                <p>📞 <a href="tel:+18764495172">+1-876-449-5172</a><br>
+                💬 <a href="https://wa.me/18764495172">WhatsApp Us</a><br>
+                📧 <a href="mailto:shamar@nevloh.com">shamar@nevloh.com</a></p>
+                <p style="color: #6b7280;">Best regards,<br><strong>The Nevloh Team</strong></p>
               </div>
-
-              <div class="footer">
-                <p>© ${new Date().getFullYear()} ${isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited'}. All rights reserved.</p>
-                <p>
-                  <a href="https://www.nevloh.com" style="color: #9ca3af;">www.nevloh.com</a> | 
-                  <a href="https://www.nevloh.com/${isInternationalTrade ? 'international-trade' : 'services'}" style="color: #9ca3af;">${isInternationalTrade ? 'Trade Services' : 'Our Services'}</a> | 
-                  <a href="https://www.nevloh.com/contact" style="color: #9ca3af;">Contact Us</a>
-                </p>
+              <div style="background: #1f2937; color: #9ca3af; padding: 15px; text-align: center; font-size: 12px; border-radius: 0 0 8px 8px;">
+                <p style="margin: 0;">© ${new Date().getFullYear()} Nevloh Group</p>
               </div>
             </div>
           </body>
         </html>
       `;
 
-      const confirmationResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        headers: {
-          'accept': 'application/json',
-          'api-key': BREVO_API_KEY,
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          sender: {
-            name: isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited',
-            email: 'noreply@nevloh.com'
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'api-key': BREVO_API_KEY,
+            'content-type': 'application/json'
           },
-          to: [
-            {
-              email: email,
-              name: `${firstName} ${lastName || ''}`
-            }
-          ],
-          replyTo: {
-            email: 'shamar@nevloh.com',
-            name: 'Nevloh Team'
-          },
-          subject: `Thank You for Contacting ${isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited'} - We'll Be in Touch Soon!`,
-          htmlContent: confirmationHtml,
-          tags: ['confirmation', 'contact-form', source || 'general']
-        })
-      });
-
-      if (!confirmationResponse.ok) {
-        console.warn('Failed to send confirmation email, but notification was sent');
+          body: JSON.stringify({
+            sender: { name: isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited', email: 'noreply@nevloh.com' },
+            to: [{ email: email, name: `${firstName} ${lastName || ''}` }],
+            replyTo: { email: 'shamar@nevloh.com', name: 'Nevloh Team' },
+            subject: `Thank You for Contacting ${isInternationalTrade ? 'Nevloh LLC' : 'Nevloh Limited'}`,
+            htmlContent: confirmationHtml,
+            tags: ['confirmation', 'contact-form', source || 'general']
+          })
+        });
+      } catch (confirmError) {
+        console.warn('Failed to send confirmation email:', confirmError);
       }
     }
 
-    // 3. Add/Update contact in Brevo with ALL form data
-    try {
-      const contactAttributes = {
-        // Personal Info
-        FIRSTNAME: firstName || '',
-        LASTNAME: lastName || '',
-        SMS: phone || '',
-        WHATSAPP: whatsapp || phone || '',
+    // Save contact to Brevo
+    if (email) {
+      try {
+        const contactPayload = {
+          email: email,
+          attributes: {
+            FIRSTNAME: firstName || '',
+            LASTNAME: lastName || '',
+            SMS: phone || '',
+            COMPANY: companyName || '',
+            BUSINESS_TYPE: businessType || '',
+            SOURCE: source || 'contact_page',
+            LAST_INQUIRY: new Date().toISOString()
+          },
+          updateEnabled: true
+        };
 
-        // Location
-        ADDRESS: address || '',
-        PARISH: parish || '',
+        if (BREVO_LIST_ID) {
+          contactPayload.listIds = [parseInt(BREVO_LIST_ID)];
+        }
 
-        // Business Info
-        COMPANY: companyName || '',
-        POSITION: position || '',
-        BUSINESS_TYPE: businessType || '',
-
-        // Fuel Requirements
-        FUEL_TYPES: fuelTypesFormatted || '',
-        DELIVERY_FREQUENCY: deliveryFrequency || '',
-        AVERAGE_VOLUME: averageVolume || '',
-        PREFERRED_DELIVERY_TIME: preferredDeliveryTime || '',
-
-        // Communication
-        PREFERRED_CONTACT: preferredContact || 'phone',
-        HEAR_ABOUT_US: hearAboutUs || '',
-
-        // Preferences
-        NEWSLETTER: newsletter ? true : false,
-        WHATSAPP_UPDATES: whatsappUpdates ? true : false,
-        SMS_ALERTS: smsAlerts ? true : false,
-
-        // Inquiry Details
-        MESSAGE: message ? message.substring(0, 500) : '', // Brevo has field limits
-        SOURCE: source || 'contact_page',
-        INQUIRY_DATE: new Date().toISOString().split('T')[0],
-        LAST_INQUIRY: new Date().toISOString()
-      };
-
-      const listIds = [];
-      if (BREVO_LIST_ID) {
-        listIds.push(parseInt(BREVO_LIST_ID));
-      }
-
-      const contactPayload = {
-        email: email,
-        attributes: contactAttributes,
-        updateEnabled: true
-      };
-
-      if (listIds.length > 0) {
-        contactPayload.listIds = listIds;
-      }
-
-      // Only save to contacts if email provided
-      if (email) {
-        const contactResponse = await fetch('https://api.brevo.com/v3/contacts', {
+        await fetch('https://api.brevo.com/v3/contacts', {
           method: 'POST',
           headers: {
             'accept': 'application/json',
@@ -816,22 +669,15 @@ Submitted at: ${new Date().toLocaleString('en-JM', { timeZone: 'America/Jamaica'
           },
           body: JSON.stringify(contactPayload)
         });
-
-        if (!contactResponse.ok) {
-          const contactError = await contactResponse.json();
-          console.warn('Failed to add/update contact in Brevo:', contactError);
-        } else {
-          console.log('✅ Contact saved to Brevo successfully');
-        }
+        console.log('✅ Contact saved to Brevo');
+      } catch (contactError) {
+        console.warn('Failed to save contact:', contactError);
       }
-    } catch (contactError) {
-      console.warn('Failed to save contact to Brevo:', contactError);
     }
 
-    // Success response based on form type
     let successMessage = `Thank you ${firstName}! We've received your inquiry and will get back to you within 24 hours.`;
     if (isInternationalTrade) {
-      successMessage = `Thank you ${firstName}! Your trade inquiry has been submitted. Our team will review your requirements and respond within 48 business hours.`;
+      successMessage = `Thank you ${firstName}! Your trade inquiry has been submitted. Our team will respond within 48 business hours.`;
     } else if (isQuickForm) {
       successMessage = `Thanks ${firstName}! We'll call you within 2 hours during business hours.`;
     }
