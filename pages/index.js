@@ -15,14 +15,16 @@ export default function Home() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Nevloh Limited",
-    "alternateName": ["Nevloh", "Nevloh Fuel Services"],
+    // PRIMARY FIX: "Nevloh" as main name, with full legal name as alternate
+    "name": "Nevloh",
+    "legalName": "Nevloh Limited",
+    "alternateName": ["Nevloh Limited", "Nevloh Fuel", "Nevloh Jamaica", "Nevloh Fuel Services", "Nevloh Diesel", "Nevloh Group"],
     "image": [
       "https://www.nevloh.com/images/nevloh-logo.webp",
       "https://www.nevloh.com/images/fuel-truck-delivery.jpg",
       "https://www.nevloh.com/images/ulsd-diesel-tank.webp"
     ],
-    "description": "Jamaica's premier Ultra Low Sulphur Diesel supplier and professional fuel delivery service. Serving all 14 parishes with 24/7 emergency service, competitive prices, and eco-friendly solutions since 2018.",
+    "description": "Nevloh is Jamaica's premier Ultra Low Sulphur Diesel supplier and professional fuel delivery service. Serving all 14 parishes with 24/7 emergency service, competitive prices, and eco-friendly solutions.",
     "url": "https://www.nevloh.com",
     "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
     "telephone": "+1-876-449-5172",
@@ -66,7 +68,7 @@ export default function Home() {
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Professional Fuel Delivery Services",
+      "name": "Nevloh Professional Fuel Delivery Services",
       "itemListElement": [
         {
           "@type": "Offer",
@@ -116,10 +118,18 @@ export default function Home() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Do you deliver fuel to all parishes in Jamaica?",
+        "name": "What is Nevloh?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, Nevloh Limited provides professional fuel delivery to all 14 parishes in Jamaica including Kingston, Spanish Town, Saint Catherine, and across the island with our modern fleet."
+          "text": "Nevloh is Jamaica's leading fuel delivery company, officially registered as Nevloh Limited. We specialize in Ultra Low Sulphur Diesel (ULSD) delivery, serving all 14 parishes with professional fuel services including emergency delivery, commercial bulk supply, and construction site refueling."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Nevloh deliver fuel to all parishes in Jamaica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh provides professional fuel delivery to all 14 parishes in Jamaica including Kingston, Spanish Town, Saint Catherine, and across the island with our modern fleet."
         }
       },
       {
@@ -127,15 +137,23 @@ export default function Home() {
         "name": "What makes Ultra Low Sulphur Diesel better?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ULSD has 90% reduced sulfur content, producing cleaner emissions and extending engine life by up to 25%. It's environmentally friendly and better for modern diesel engines."
+          "text": "ULSD has 90% reduced sulfur content, producing cleaner emissions and extending engine life by up to 25%. It's environmentally friendly and better for modern diesel engines. Nevloh is Jamaica's premier ULSD supplier."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you provide emergency fuel delivery?",
+        "name": "Does Nevloh provide emergency fuel delivery?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, we offer 24/7 emergency fuel delivery across Jamaica. Call +1-876-449-5172 for immediate assistance with urgent fuel needs."
+          "text": "Yes, Nevloh offers 24/7 emergency fuel delivery across Jamaica. Call +1-876-449-5172 for immediate assistance with urgent fuel needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I contact Nevloh?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can reach Nevloh at +1-876-449-5172, email info@nevloh.com, or visit our website at nevloh.com. Our team is available for fuel delivery inquiries across Jamaica."
         }
       }
     ]
@@ -144,10 +162,13 @@ export default function Home() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Nevloh Limited",
+    // PRIMARY FIX: "Nevloh" as main name
+    "name": "Nevloh",
+    "legalName": "Nevloh Limited",
+    "alternateName": ["Nevloh Limited", "Nevloh Fuel", "Nevloh Jamaica", "Nevloh Group", "Nevloh Diesel"],
     "url": "https://www.nevloh.com",
     "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
-    "description": "Leading fuel delivery company in Jamaica specializing in Ultra Low Sulphur Diesel and sustainable energy solutions.",
+    "description": "Nevloh is a leading fuel delivery company in Jamaica specializing in Ultra Low Sulphur Diesel and sustainable energy solutions. Part of the Nevloh Group.",
     "foundingDate": "2022",
     "founder": {
       "@type": "Person",
@@ -165,46 +186,83 @@ export default function Home() {
     "sameAs": [
       "https://www.facebook.com/nevlohlimited",
       "https://www.linkedin.com/company/nevloh-limited",
-      "https://twitter.com/nevlohlimited"
+      "https://twitter.com/nevlohlimited",
+      "https://www.instagram.com/nevlohltd"
     ]
+  };
+
+  // NEW: Brand/WebSite schema for brand recognition
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Nevloh",
+    "alternateName": ["Nevloh Limited", "Nevloh Fuel", "Nevloh Jamaica"],
+    "url": "https://www.nevloh.com",
+    "description": "Nevloh - Jamaica's premier fuel delivery service. ULSD diesel, emergency delivery, commercial supply.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nevloh",
+      "legalName": "Nevloh Limited"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.nevloh.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
+  // NEW: Brand schema for direct brand searches
+  const brandSchema = {
+    "@context": "https://schema.org",
+    "@type": "Brand",
+    "name": "Nevloh",
+    "alternateName": ["Nevloh Limited", "Nevloh Fuel", "Nevloh Jamaica", "Nevloh Group"],
+    "logo": "https://www.nevloh.com/images/nevloh-logo.webp",
+    "url": "https://www.nevloh.com",
+    "description": "Nevloh is Jamaica's trusted fuel delivery brand, providing professional diesel services island-wide.",
+    "slogan": "Jamaica's Premier Fuel Delivery Service"
   };
 
   return (
     <>
       <Head>
-        {/* Primary Meta Tags - Server-Side Rendered */}
-        <title>Nevloh Limited - Jamaica's #1 ULSD Fuel Delivery | Emergency Diesel Service 24/7</title>
-        <meta name="description" content="Professional Ultra Low Sulphur Diesel delivery across Jamaica. 24/7 emergency service, commercial bulk supply, construction refueling. 90% cleaner emissions, 25% longer engine life. Call +1-876-449-5172" />
+        {/* PRIMARY FIX: Title now leads with "Nevloh" brand */}
+        <title>Nevloh | Jamaica's #1 Fuel Delivery Service | ULSD Diesel & Emergency 24/7</title>
 
-        {/* Refined Keywords - Focus on High-Value Terms */}
-        <meta name="keywords" content="fuel delivery Jamaica, diesel delivery Jamaica, ULSD supplier, emergency fuel delivery, commercial diesel supply, Kingston fuel delivery, Spanish Town fuel service, construction fuel delivery, 24/7 fuel service, Nevloh Limited, rapid onsite, generator refuelling, bulk fuel, diesel" />
+        {/* UPDATED: Description starts with "Nevloh" for brand association */}
+        <meta name="description" content="Nevloh - Jamaica's premier fuel delivery service. Professional Ultra Low Sulphur Diesel (ULSD) delivery across all 14 parishes. 24/7 emergency service, commercial bulk supply, construction refueling. 90% cleaner emissions. Call +1-876-449-5172" />
+
+        {/* CRITICAL FIX: Keywords now include standalone "Nevloh" variations */}
+        <meta name="keywords" content="Nevloh, Nevloh Limited, Nevloh Jamaica, Nevloh fuel, Nevloh diesel, fuel delivery Jamaica, diesel delivery Jamaica, ULSD supplier Jamaica, emergency fuel delivery, commercial diesel supply, Kingston fuel delivery, Spanish Town fuel service, construction fuel delivery, 24/7 fuel service, Nevloh Group, rapid onsite, generator refuelling, bulk fuel" />
 
         {/* Essential Meta Tags */}
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <meta name="author" content="Nevloh Limited" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="author" content="Nevloh" />
+        <meta name="publisher" content="Nevloh Limited" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#1e40af" />
 
         {/* Google Verification */}
         <meta name="google-site-verification" content="SNQyeeACmprojKg91nG5N9GEp00a2yV6L5SRpOA1YMc" />
 
-        {/* Open Graph Tags */}
+        {/* UPDATED: Open Graph with "Nevloh" brand focus */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.nevloh.com/" />
-        <meta property="og:title" content="Jamaica's Premier ULSD Fuel Delivery Service | Nevloh Limited" />
-        <meta property="og:description" content="Professional fuel delivery across all 14 Jamaican parishes. Emergency service, commercial supply, eco-friendly ULSD. Fast, reliable, competitive pricing." />
+        <meta property="og:title" content="Nevloh | Jamaica's Premier ULSD Fuel Delivery Service" />
+        <meta property="og:description" content="Nevloh provides professional fuel delivery across all 14 Jamaican parishes. Emergency service, commercial supply, eco-friendly ULSD. Fast, reliable, competitive pricing." />
         <meta property="og:image" content="https://www.nevloh.com/images/nevloh-og-image.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Nevloh Limited Professional Fuel Delivery Service in Jamaica" />
-        <meta property="og:site_name" content="Nevloh Limited" />
+        <meta property="og:image:alt" content="Nevloh Professional Fuel Delivery Service in Jamaica" />
+        <meta property="og:site_name" content="Nevloh" />
         <meta property="og:locale" content="en_JM" />
 
-        {/* Twitter Tags */}
+        {/* UPDATED: Twitter with "Nevloh" brand focus */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@nevlohlimited" />
-        <meta name="twitter:title" content="Jamaica's #1 ULSD Fuel Delivery | Nevloh Limited" />
-        <meta name="twitter:description" content="Professional diesel delivery across Jamaica. 24/7 emergency service, commercial supply, eco-friendly ULSD. Call +1-876-449-5172" />
+        <meta name="twitter:creator" content="@nevlohlimited" />
+        <meta name="twitter:title" content="Nevloh | Jamaica's #1 Fuel Delivery Service" />
+        <meta name="twitter:description" content="Nevloh - Professional diesel delivery across Jamaica. 24/7 emergency service, commercial supply, eco-friendly ULSD. Call +1-876-449-5172" />
         <meta name="twitter:image" content="https://www.nevloh.com/images/nevloh-twitter-image.webp" />
 
         {/* Local SEO */}
@@ -255,6 +313,26 @@ export default function Home() {
         }}
       />
 
+      {/* NEW: Website schema for brand searches */}
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema)
+        }}
+      />
+
+      {/* NEW: Brand schema for direct brand recognition */}
+      <Script
+        id="brand-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(brandSchema)
+        }}
+      />
+
       {/* Main Content with Semantic HTML */}
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 text-gray-800 font-inter antialiased">
         {/* International Trade Announcement Banner */}
@@ -291,10 +369,14 @@ export default function Home() {
         )}
 
         <main role="main" itemScope itemType="https://schema.org/LocalBusiness">
-          {/* Hidden semantic content for accessibility and SEO context */}
+          {/* UPDATED: Hidden semantic content with "Nevloh" brand emphasis */}
           <div className="sr-only">
-            <h1>Professional Fuel Delivery Services in Jamaica</h1>
-            <p>Nevloh Limited provides Ultra Low Sulphur Diesel delivery across all 14 Jamaican parishes with 24/7 emergency service, commercial supply, and eco-friendly solutions.</p>
+            <h1>Nevloh - Professional Fuel Delivery Services in Jamaica</h1>
+            <p>Nevloh (Nevloh Limited) provides Ultra Low Sulphur Diesel delivery across all 14 Jamaican parishes with 24/7 emergency service, commercial supply, and eco-friendly solutions.</p>
+            <span itemProp="name">Nevloh</span>
+            <span itemProp="alternateName">Nevloh Limited</span>
+            <span itemProp="alternateName">Nevloh Jamaica</span>
+            <span itemProp="alternateName">Nevloh Fuel</span>
           </div>
 
           <HeroSection />
