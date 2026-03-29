@@ -155,26 +155,43 @@ export default function InternationalTrade() {
     }
   };
 
+  // ═══════════════════════════════════════════════════════════════════════════
+  // FIXED PRODUCT SCHEMAS WITH AGGREGATEOFFER PRICING
+  // Resolves Google Search Console error: "Missing field 'price' (in 'offers')"
+  // Uses AggregateOffer with lowPrice/highPrice for variable commodity pricing
+  // ═══════════════════════════════════════════════════════════════════════════
+
   const dieselProductSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": "https://www.nevloh.com/international-trade#en590diesel",
     "name": "EN590 Ultra Low Sulfur Diesel (ULSD) 10ppm",
-    "description": "Premium grade EN590 diesel fuel with ultra-low sulfur content (≤10 ppm) meeting European environmental standards. Available for export worldwide.",
+    "description": "Premium grade EN590 diesel fuel with ultra-low sulfur content (≤10 ppm) meeting European environmental standards. Available for export worldwide. Pricing based on Platts benchmarks.",
     "brand": { "@type": "Brand", "name": "Nevloh LLC" },
     "category": "Petroleum Products > Diesel Fuel",
+    "sku": "EN590-ULSD-10PPM",
+    "mpn": "EN590-10PPM",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "Sulfur Content", "value": "≤10 ppm" },
       { "@type": "PropertyValue", "name": "Specification", "value": "EN590 / ASTM D975" },
       { "@type": "PropertyValue", "name": "Cetane Number", "value": "Minimum 51" },
-      { "@type": "PropertyValue", "name": "Density", "value": "820-845 kg/m³ at 15°C" }
+      { "@type": "PropertyValue", "name": "Density", "value": "820-845 kg/m³ at 15°C" },
+      { "@type": "PropertyValue", "name": "Minimum Order", "value": "2,000 MT" }
     ],
     "offers": {
-      "@type": "Offer",
+      "@type": "AggregateOffer",
       "availability": "https://schema.org/InStock",
       "priceCurrency": "USD",
-      "eligibleRegion": "Worldwide",
-      "seller": { "@id": "https://www.nevloh.com/international-trade#organization" }
+      "lowPrice": 500,
+      "highPrice": 950,
+      "offerCount": 1,
+      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      "seller": {
+        "@type": "Organization",
+        "name": "Nevloh LLC",
+        "url": "https://www.nevloh.com/international-trade"
+      },
+      "url": "https://www.nevloh.com/contact/international"
     }
   };
 
@@ -183,19 +200,30 @@ export default function InternationalTrade() {
     "@type": "Product",
     "@id": "https://www.nevloh.com/international-trade#urea46",
     "name": "Urea 46% Nitrogen Fertilizer",
-    "description": "High-quality agricultural grade urea with 46% nitrogen content. Available in granular and prilled forms. Export worldwide.",
+    "description": "High-quality agricultural grade urea with 46% nitrogen content. Available in granular and prilled forms for export worldwide. Market-based pricing.",
     "brand": { "@type": "Brand", "name": "Nevloh LLC" },
     "category": "Agricultural Products > Fertilizers",
+    "sku": "UREA-46-AG",
+    "mpn": "UREA46-GRAN",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "Nitrogen Content", "value": "46%" },
-      { "@type": "PropertyValue", "name": "Form", "value": "Granular / Prilled" }
+      { "@type": "PropertyValue", "name": "Form", "value": "Granular / Prilled" },
+      { "@type": "PropertyValue", "name": "Grade", "value": "Agricultural" }
     ],
     "offers": {
-      "@type": "Offer",
+      "@type": "AggregateOffer",
       "availability": "https://schema.org/InStock",
       "priceCurrency": "USD",
-      "eligibleRegion": "Worldwide",
-      "seller": { "@id": "https://www.nevloh.com/international-trade#organization" }
+      "lowPrice": 280,
+      "highPrice": 550,
+      "offerCount": 1,
+      "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      "seller": {
+        "@type": "Organization",
+        "name": "Nevloh LLC",
+        "url": "https://www.nevloh.com/international-trade"
+      },
+      "url": "https://www.nevloh.com/contact/international"
     }
   };
 

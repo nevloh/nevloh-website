@@ -1,7 +1,9 @@
 // pages/services/fleet-refuelling.js
 // Tier 1 Institutional — Fleet Logistics Performance Partner
+// BRAND SEO OPTIMIZED — "Nevloh" as primary brand name
 import React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import Link from 'next/link';
 import {
   Truck, Clock, Shield, CheckCircle, ArrowRight, MapPin,
@@ -10,30 +12,37 @@ import {
 import Breadcrumbs, { breadcrumbConfigs } from '../../components/Breadcrumbs';
 
 const FleetRefuelling = () => {
-  // Enhanced Service Schema
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BRAND-OPTIMIZED SCHEMA MARKUP
+  // "Nevloh" as primary name, legal names as alternates
+  // ═══════════════════════════════════════════════════════════════════════════
+
   const fleetSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": "https://www.nevloh.com/services/fleet-refuelling#service",
-    "name": "On-Site Fleet Refuelling Jamaica",
+    "name": "Nevloh On-Site Fleet Refuelling Jamaica",
+    "alternateName": ["Nevloh Fleet Fueling", "Nevloh Mobile Refuelling", "Nevloh NightFill"],
     "serviceType": "Mobile Fleet Refuelling",
     "provider": {
       "@type": "Organization",
-      "name": "Nevloh Group",
+      "name": "Nevloh",
+      "legalName": "Nevloh Limited",
+      "alternateName": ["Nevloh Limited", "Nevloh Jamaica", "Nevloh Fuel"],
       "url": "https://www.nevloh.com"
     },
-    "description": "24/7 mobile fleet fueling for logistics, construction, and tour operators across all 14 parishes. Eliminate downtime with on-site diesel delivery.",
+    "description": "Nevloh provides 24/7 mobile fleet fueling for logistics, construction, and tour operators across all 14 Jamaican parishes. Eliminate downtime with on-site diesel delivery.",
     "areaServed": {
       "@type": "Country",
       "name": "Jamaica"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Fleet Fueling Programs",
+      "name": "Nevloh Fleet Fueling Programs",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "NightFill™ Program" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Job-Site Direct" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Emergency Response" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Nevloh NightFill™ Program" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Nevloh Job-Site Direct" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Nevloh Emergency Response" } }
       ]
     }
   };
@@ -44,20 +53,47 @@ const FleetRefuelling = () => {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How does fleet refuelling work in Jamaica?",
+        "name": "What is Nevloh fleet refuelling?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nevloh Limited provides on-site fleet refuelling where our certified technicians come directly to your fleet location. We refuel your vehicles overnight while drivers rest, eliminating trips to gas stations and recovering 80% of lost driver time."
+          "text": "Nevloh fleet refuelling is an on-site mobile fueling service where Nevloh's certified technicians come directly to your fleet location. We refuel your vehicles overnight while drivers rest, eliminating trips to gas stations and recovering 80% of lost driver time."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the NightFill™ Program?",
+        "name": "How does fleet refuelling work in Jamaica?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "NightFill™ is our signature overnight refuelling service. We refuel your fleet while vehicles are stationary, ensuring 100% mission-ready operations every morning with zero driver downtime."
+          "text": "Nevloh provides on-site fleet refuelling where our certified technicians come directly to your fleet location. We refuel your vehicles overnight while drivers rest, eliminating trips to gas stations and recovering 80% of lost driver time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Nevloh NightFill™ Program?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NightFill™ is Nevloh's signature overnight refuelling service. We refuel your fleet while vehicles are stationary, ensuring 100% mission-ready operations every morning with zero driver downtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Nevloh offer emergency fleet fueling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Nevloh offers 24/7 emergency fleet fueling with a 2-hour response time. Critical fuel support is available for hospitals, data centers, and cold-chain logistics during power outages or hurricanes."
         }
       }
+    ]
+  };
+
+  // Breadcrumb schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Nevloh", "item": "https://www.nevloh.com" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.nevloh.com/services" },
+      { "@type": "ListItem", "position": 3, "name": "Fleet Refuelling", "item": "https://www.nevloh.com/services/fleet-refuelling" }
     ]
   };
 
@@ -65,21 +101,21 @@ const FleetRefuelling = () => {
     {
       title: 'NightFill™ Program',
       icon: Clock,
-      desc: 'Our most popular service. We refuel your fleet overnight while vehicles are stationary, ensuring 100% mission-ready mornings.',
+      desc: 'Nevloh\'s most popular service. We refuel your fleet overnight while vehicles are stationary, ensuring 100% mission-ready mornings.',
       accent: 'bg-indigo-600',
       features: ['Zero driver downtime', 'Automated scheduling', 'Full tank guarantee']
     },
     {
       title: 'Job-Site Direct',
       icon: MapPin,
-      desc: 'Direct fueling for heavy equipment and yellow-iron on construction sites. We come to the mud so you don\'t have to.',
+      desc: 'Direct fueling for heavy equipment and yellow-iron on construction sites. Nevloh comes to the mud so you don\'t have to.',
       accent: 'bg-orange-500',
       features: ['All-terrain delivery', 'Equipment tracking', 'Site fuel audit']
     },
     {
       title: 'Emergency Response',
       icon: Zap,
-      desc: 'Critical fuel support for hospitals, data centers, and cold-chain logistics during power outages or hurricanes.',
+      desc: 'Nevloh\'s critical fuel support for hospitals, data centers, and cold-chain logistics during power outages or hurricanes.',
       accent: 'bg-red-500',
       features: ['2-hour response', '24/7 dispatch', 'Priority protocols']
     }
@@ -101,35 +137,77 @@ const FleetRefuelling = () => {
   return (
     <>
       <Head>
-        <title>On-Site Fleet Refuelling & Mobile Fueling Jamaica | Nevloh Limited</title>
+        {/* PRIMARY: Title leads with "Nevloh" brand */}
+        <title>Nevloh Fleet Refuelling | On-Site Mobile Fueling Jamaica | 24/7 Service</title>
+
+        {/* UPDATED: Description starts with "Nevloh" */}
         <meta
           name="description"
-          content="Eliminate downtime with Nevloh's on-site fleet refuelling. 24/7 mobile diesel delivery for logistics and construction fleets across Jamaica. Save 80% on driver downtime."
+          content="Nevloh eliminates fleet downtime with on-site refuelling. 24/7 mobile diesel delivery for logistics and construction fleets across Jamaica. Save 80% on driver downtime with Nevloh's NightFill™ program."
         />
+
+        {/* CRITICAL: Keywords include standalone "Nevloh" variations */}
         <meta
           name="keywords"
-          content="fleet refuelling Jamaica, on-site fuel delivery, mobile refuelling, NightFill, commercial fleet fuel, 24/7 emergency fuel, fleet fuel management, logistics fuel Jamaica"
+          content="Nevloh, Nevloh fleet refuelling, Nevloh mobile fueling, Nevloh NightFill, fleet refuelling Jamaica, on-site fuel delivery, mobile refuelling Jamaica, commercial fleet fuel, 24/7 emergency fuel, fleet fuel management, logistics fuel Jamaica, Nevloh fuel delivery"
         />
+
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="author" content="Nevloh" />
+        <meta name="publisher" content="Nevloh Limited" />
+
         <link rel="canonical" href="https://www.nevloh.com/services/fleet-refuelling" />
 
-        {/* Open Graph */}
-        <meta property="og:title" content="On-Site Fleet Refuelling | Zero Downtime | Nevloh Limited" />
-        <meta property="og:description" content="24/7 mobile fleet fueling. We refuel while your drivers sleep. Save 80% on driver downtime." />
+        {/* UPDATED: Open Graph with "Nevloh" brand focus */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Nevloh Fleet Refuelling | Zero Downtime Mobile Fueling Jamaica" />
+        <meta property="og:description" content="Nevloh's 24/7 mobile fleet fueling. We refuel while your drivers sleep. Save 80% on driver downtime with Nevloh." />
         <meta property="og:image" content="https://www.nevloh.com/images/og-fleet-refuelling.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://www.nevloh.com/services/fleet-refuelling" />
+        <meta property="og:site_name" content="Nevloh" />
+        <meta property="og:locale" content="en_JM" />
 
-        {/* Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(fleetSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
+        {/* UPDATED: Twitter with "Nevloh" brand focus */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@nevlohlimited" />
+        <meta name="twitter:title" content="Nevloh Fleet Refuelling | On-Site Mobile Fueling Jamaica" />
+        <meta name="twitter:description" content="Nevloh eliminates fleet downtime. 24/7 mobile diesel delivery across Jamaica. Save 80% on driver time." />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/og-fleet-refuelling.png" />
       </Head>
 
+      {/* Structured Data - Using Script component for better performance */}
+      <Script
+        id="fleet-service-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(fleetSchema) }}
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <div className="min-h-screen bg-[#fcfdfe] font-sans selection:bg-blue-100">
+
+        {/* Hidden semantic content for brand SEO */}
+        <div className="sr-only">
+          <h1>Nevloh Fleet Refuelling - On-Site Mobile Fueling Jamaica</h1>
+          <p>Nevloh (Nevloh Limited) provides 24/7 mobile fleet refuelling services across all 14 Jamaican parishes.</p>
+          <span itemProp="name">Nevloh</span>
+          <span itemProp="alternateName">Nevloh Limited</span>
+          <span itemProp="alternateName">Nevloh Fleet Refuelling</span>
+          <span itemProp="alternateName">Nevloh NightFill</span>
+        </div>
 
         {/* ─── TIER 1 HERO: Operational Excellence ─── */}
         <section className="relative pt-24 pb-32 bg-slate-900 overflow-hidden">
@@ -155,6 +233,7 @@ const FleetRefuelling = () => {
                   <span>Zero-Downtime Logistics</span>
                 </div>
 
+                {/* UPDATED: H1 includes implicit "Nevloh" context */}
                 <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-8">
                   Never Visit a <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
@@ -162,8 +241,9 @@ const FleetRefuelling = () => {
                   </span>
                 </h1>
 
+                {/* UPDATED: Body copy mentions "Nevloh" */}
                 <p className="text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-                  We refuel your fleet while your drivers sleep. Nevloh's mobile fueling units
+                  Nevloh refuels your fleet while your drivers sleep. Our mobile fueling units
                   deliver premium ULSD directly to your yard, job site, or depot 24/7.
                 </p>
 
@@ -195,7 +275,7 @@ const FleetRefuelling = () => {
                       <div className="w-3 h-3 rounded-full bg-yellow-500" />
                       <div className="w-3 h-3 rounded-full bg-green-500" />
                     </div>
-                    <div className="text-[10px] text-slate-500 font-mono tracking-wider">LIVE_FLEET_STATUS_v2.1</div>
+                    <div className="text-[10px] text-slate-500 font-mono tracking-wider">NEVLOH_FLEET_STATUS_v2.1</div>
                   </div>
 
                   {/* Fleet Status Items */}
@@ -218,7 +298,7 @@ const FleetRefuelling = () => {
 
                   {/* Dashboard Footer */}
                   <div className="mt-6 pt-4 border-t border-slate-700/50 flex items-center justify-between">
-                    <div className="text-[10px] text-slate-500 uppercase tracking-widest">Next scheduled fill</div>
+                    <div className="text-[10px] text-slate-500 uppercase tracking-widest">Nevloh Next Fill</div>
                     <div className="text-sm font-bold text-emerald-400">05:00 AM</div>
                   </div>
                 </div>
@@ -249,6 +329,7 @@ const FleetRefuelling = () => {
                 <p className="text-lg text-slate-500 mb-10 leading-relaxed">
                   When a driver takes a 15-ton truck to a retail gas station, you lose more than just fuel costs.
                   You lose driver hours, increase wear and tear, and risk safety incidents in tight retail spaces.
+                  Nevloh eliminates all of this.
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-6">
@@ -317,7 +398,7 @@ const FleetRefuelling = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
-                Fuel Programs
+                Nevloh Fuel Programs
               </h2>
               <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
                 Precision Programs
@@ -368,7 +449,7 @@ const FleetRefuelling = () => {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
-                Fleet Coverage
+                Nevloh Fleet Coverage
               </h2>
               <p className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
                 Industries We Serve
@@ -410,12 +491,13 @@ const FleetRefuelling = () => {
                 <span>Free Assessment</span>
               </div>
 
+              {/* UPDATED: CTA includes "Nevloh" */}
               <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tight">
-                Ready for a Fleet Audit?
+                Ready for a Nevloh Fleet Audit?
               </h2>
               <p className="text-blue-200 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
                 Join the 100+ fleets in Jamaica saving an average of $250,000 JMD
-                per month in hidden labor costs.
+                per month in hidden labor costs with Nevloh.
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">

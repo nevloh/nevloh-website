@@ -1,7 +1,9 @@
 // pages/about.js
 // Tier 1 Institutional — Nevloh Group Governance & Vision
+// BRAND SEO OPTIMIZED — "Nevloh" as primary brand name
 import React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -39,14 +41,24 @@ const AboutPage = () => {
     }
   ];
 
-  // Schema markup for About page
+  // ═══════════════════════════════════════════════════════════════════════════
+  // BRAND-OPTIMIZED SCHEMA MARKUP
+  // "Nevloh" as primary name, legal names as alternates
+  // ═══════════════════════════════════════════════════════════════════════════
+
   const aboutPageSchema = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
+    "name": "About Nevloh",
+    "description": "Learn about Nevloh - a bilateral energy group specializing in Jamaica fuel logistics and international commodities trade.",
+    "url": "https://www.nevloh.com/about",
     "mainEntity": {
       "@type": "Organization",
-      "name": "Nevloh Group",
-      "description": "Bilateral energy group specializing in Jamaica fuel logistics (Nevloh Limited) and international commodities trade (Nevloh LLC, Wyoming USA). UCP 600 / ISBP 745 compliant.",
+      // PRIMARY: "Nevloh" as brand name
+      "name": "Nevloh",
+      "legalName": "Nevloh Group",
+      "alternateName": ["Nevloh Group", "Nevloh Limited", "Nevloh LLC", "Nevloh Jamaica", "Nevloh Fuel", "Nevloh Energy"],
+      "description": "Nevloh is a bilateral energy group specializing in Jamaica fuel logistics (Nevloh Limited) and international commodities trade (Nevloh LLC, Wyoming USA). UCP 600 / ISBP 745 compliant.",
       "url": "https://www.nevloh.com",
       "logo": "https://www.nevloh.com/images/logo.png",
       "foundingDate": "2022",
@@ -71,45 +83,131 @@ const AboutPage = () => {
           "addressCountry": "Jamaica"
         }
       ],
-      "areaServed": ["Jamaica", "Caribbean Basin", "International"],
+      "areaServed": ["Jamaica", "Caribbean Basin", "International", "Worldwide"],
       "knowsAbout": [
         "Petroleum Logistics",
         "Commodities Trading",
         "UCP 600",
         "EN590 Diesel",
-        "Urea 46%"
+        "Urea 46%",
+        "Fuel Delivery Jamaica"
       ]
     }
+  };
+
+  // Organization schema for brand recognition
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Nevloh",
+    "legalName": "Nevloh Group",
+    "alternateName": ["Nevloh Group", "Nevloh Limited", "Nevloh LLC", "Nevloh Jamaica", "Nevloh Fuel"],
+    "url": "https://www.nevloh.com",
+    "logo": "https://www.nevloh.com/images/logo.png",
+    "description": "Nevloh is a bilateral energy group: Jamaica fuel logistics + international commodities trading.",
+    "foundingDate": "2022",
+    "founder": {
+      "@type": "Person",
+      "name": "Sashell Cooper-Nevins",
+      "jobTitle": "Managing Director & Founder"
+    },
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 10,
+      "maxValue": 50
+    },
+    "sameAs": [
+      "https://www.facebook.com/nevlohlimited",
+      "https://www.linkedin.com/company/nevloh-limited",
+      "https://twitter.com/nevlohlimited"
+    ]
+  };
+
+  // Breadcrumb schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Nevloh", "item": "https://www.nevloh.com" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.nevloh.com/about" }
+    ]
   };
 
   return (
     <>
       <Head>
-        <title>Governance & Vision | Nevloh Group | Energy Infrastructure</title>
+        {/* PRIMARY: Title leads with "Nevloh" brand */}
+        <title>About Nevloh | Governance & Vision | Energy Infrastructure Group</title>
+
+        {/* UPDATED: Description starts with "Nevloh" */}
         <meta
           name="description"
-          content="Discover the Nevloh Group. From Jamaica's logistics leader, Nevloh Limited, to the Wyoming-based trade desk, Nevloh LLC. Led by Sashell Cooper-Nevins. UCP 600 compliant."
+          content="Nevloh is a bilateral energy group bridging global commodities procurement and Caribbean logistics. From Jamaica's fuel leader Nevloh Limited to Wyoming-based Nevloh LLC. Founded by Sashell Cooper-Nevins. UCP 600 compliant."
         />
+
+        {/* CRITICAL: Keywords include standalone "Nevloh" variations */}
         <meta
           name="keywords"
-          content="Nevloh Group, Nevloh Limited, Nevloh LLC, Sashell Cooper-Nevins, Jamaica fuel delivery, Wyoming trade desk, UCP 600, commodities trading, energy infrastructure, Caribbean energy"
+          content="Nevloh, Nevloh Group, Nevloh Limited, Nevloh LLC, Nevloh Jamaica, Nevloh fuel, Nevloh energy, Sashell Cooper-Nevins, Jamaica fuel delivery, Wyoming trade desk, UCP 600, commodities trading, energy infrastructure, Caribbean energy, fuel logistics Jamaica"
         />
+
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="author" content="Nevloh" />
+        <meta name="publisher" content="Nevloh Group" />
+
         <link rel="canonical" href="https://www.nevloh.com/about" />
 
-        {/* Open Graph */}
-        <meta property="og:title" content="Governance & Vision | Nevloh Group" />
-        <meta property="og:description" content="Bilateral energy group: Jamaica logistics (Nevloh Limited) + international commodities trade (Nevloh LLC, Wyoming). UCP 600 compliant." />
+        {/* UPDATED: Open Graph with "Nevloh" brand focus */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="About Nevloh | Governance & Vision | Energy Infrastructure" />
+        <meta property="og:description" content="Nevloh is a bilateral energy group: Jamaica logistics (Nevloh Limited) + international commodities trade (Nevloh LLC, Wyoming). UCP 600 compliant. Founded by Sashell Cooper-Nevins." />
         <meta property="og:image" content="https://www.nevloh.com/images/og-about.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://www.nevloh.com/about" />
+        <meta property="og:site_name" content="Nevloh" />
+        <meta property="og:locale" content="en_JM" />
 
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
-        />
+        {/* UPDATED: Twitter with "Nevloh" brand focus */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@nevlohlimited" />
+        <meta name="twitter:title" content="About Nevloh | Energy Infrastructure Group" />
+        <meta name="twitter:description" content="Nevloh - Bilateral energy group: Jamaica fuel logistics + international commodities trading. UCP 600 compliant." />
+        <meta name="twitter:image" content="https://www.nevloh.com/images/og-about.png" />
       </Head>
 
+      {/* Structured Data - Using Script component for better performance */}
+      <Script
+        id="about-page-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <div className="bg-[#fcfdfe] min-h-screen font-sans selection:bg-blue-100">
+
+        {/* Hidden semantic content for brand SEO */}
+        <div className="sr-only">
+          <h1>About Nevloh - Energy Infrastructure Group</h1>
+          <p>Nevloh (also known as Nevloh Group, Nevloh Limited, and Nevloh LLC) is a bilateral energy company founded by Sashell Cooper-Nevins.</p>
+          <span itemProp="name">Nevloh</span>
+          <span itemProp="alternateName">Nevloh Group</span>
+          <span itemProp="alternateName">Nevloh Limited</span>
+          <span itemProp="alternateName">Nevloh LLC</span>
+          <span itemProp="alternateName">Nevloh Jamaica</span>
+        </div>
 
         {/* ─── SECTION 1: INSTITUTIONAL HERO ─── */}
         <section className="relative py-24 px-6 overflow-hidden bg-slate-950 text-white">
@@ -128,12 +226,13 @@ const AboutPage = () => {
                   <ShieldCheck size={12} />
                   <span>Strategic Vision & Governance</span>
                 </div>
+                {/* UPDATED: H1 includes "Nevloh" brand */}
                 <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] mb-8">
-                  Redefining <br />
+                  Nevloh: Redefining <br />
                   <span className="text-blue-500">Energy Reliability.</span>
                 </h1>
                 <p className="text-xl text-slate-400 max-w-xl leading-relaxed">
-                  Nevloh Group is a bilateral energy entity bridging the gap between global commodities
+                  Nevloh is a bilateral energy group bridging the gap between global commodities
                   procurement and regional logistics excellence across the Caribbean Basin.
                 </p>
               </div>
@@ -169,8 +268,9 @@ const AboutPage = () => {
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
                 Structural Framework
               </h2>
+              {/* UPDATED: Section title includes "Nevloh" */}
               <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
-                The Nevloh Group Ecosystem
+                The Nevloh Ecosystem
               </p>
             </div>
 
@@ -251,7 +351,7 @@ const AboutPage = () => {
                 <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white bg-gradient-to-br from-blue-100 to-slate-100">
                   <Image
                     src="/images/sashell-cooper-nevins.png"
-                    alt="Sashell Cooper-Nevins - Managing Director of Nevloh Group"
+                    alt="Sashell Cooper-Nevins - Managing Director and Founder of Nevloh"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -271,16 +371,17 @@ const AboutPage = () => {
                 <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-6">
                   Strategic Stewardship
                 </h2>
+                {/* UPDATED: Quote includes "Nevloh" brand */}
                 <h3 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-8 leading-tight">
-                  "Building the ecosystem for Jamaica's energy transformation."
+                  "Building the Nevloh ecosystem for Jamaica's energy transformation."
                 </h3>
                 <div className="space-y-6 text-slate-600 leading-relaxed text-lg">
                   <p>
-                    When I founded Nevloh Limited in 2022, the objective was clear: institutionalize the fuel delivery sector through
+                    When I founded Nevloh in 2022, the objective was clear: institutionalize the fuel delivery sector through
                     safety, transparency, and operational rigor.
                   </p>
                   <p>
-                    Today, as we expand into renewable energy installations and international commodities trading, our governance
+                    Today, as Nevloh expands into renewable energy installations and international commodities trading, our governance
                     remains rooted in financial security. We aren't just moving energy; we are securing the supply chains that
                     power the Caribbean's economic future.
                   </p>
@@ -288,7 +389,7 @@ const AboutPage = () => {
                 <div className="mt-10 flex gap-12">
                   <div>
                     <div className="text-4xl font-black text-slate-900">2022</div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Group Founding</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Nevloh Founded</p>
                   </div>
                   <div>
                     <div className="text-4xl font-black text-slate-900">14</div>
@@ -311,8 +412,9 @@ const AboutPage = () => {
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600 mb-4">
                 Core Competencies
               </h2>
+              {/* UPDATED: Includes "Nevloh" */}
               <p className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
-                Technical Capability
+                Nevloh Technical Capability
               </p>
             </div>
 
@@ -323,7 +425,7 @@ const AboutPage = () => {
                   <Fuel size={40} className="mb-6 opacity-40" />
                   <h4 className="text-3xl font-bold mb-4">ULSD Infrastructure</h4>
                   <p className="text-blue-100 max-w-md text-lg leading-relaxed">
-                    Leading the market in 90% cleaner emissions fuel delivery with a 99.8% precision rate across all Jamaican parishes.
+                    Nevloh leads the market in 90% cleaner emissions fuel delivery with a 99.8% precision rate across all Jamaican parishes.
                   </p>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -339,7 +441,7 @@ const AboutPage = () => {
                   <Zap size={40} className="text-emerald-600 mb-6" />
                   <h4 className="text-2xl font-bold text-slate-900 mb-4">Renewable Integration</h4>
                   <p className="text-slate-600 text-sm leading-relaxed">
-                    Strategic pivot into solar energy, battery storage, and smart grid consulting for the 2025-2030 roadmap.
+                    Nevloh's strategic pivot into solar energy, battery storage, and smart grid consulting for the 2025-2030 roadmap.
                   </p>
                 </div>
                 <Link
@@ -357,7 +459,7 @@ const AboutPage = () => {
                   <Building2 size={40} className="text-indigo-400 mb-6" />
                   <h4 className="text-2xl font-bold mb-4">Trade Finance</h4>
                   <p className="text-slate-400 text-sm leading-relaxed">
-                    Disciplined execution is our standard. No prepayment schemes — bank-to-bank settlement via irrevocable LC only.
+                    Disciplined execution is the Nevloh standard. No prepayment schemes — bank-to-bank settlement via irrevocable LC only.
                   </p>
                 </div>
                 <div className="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
@@ -379,7 +481,7 @@ const AboutPage = () => {
                 <div>
                   <h4 className="text-xl font-bold text-slate-900 mb-2">Community & Local Development</h4>
                   <p className="text-slate-500 text-sm leading-relaxed">
-                    Supporting Jamaican industrial growth through reliable energy access, direct job creation, and sustainable haulage initiatives across all 14 parishes.
+                    Nevloh supports Jamaican industrial growth through reliable energy access, direct job creation, and sustainable haulage initiatives across all 14 parishes.
                   </p>
                 </div>
               </div>
@@ -395,7 +497,7 @@ const AboutPage = () => {
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-20">
               <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500 mb-4">
-                Corporate Roadmap
+                Nevloh Corporate Roadmap
               </h2>
               <h3 className="text-3xl md:text-5xl font-black tracking-tight">Strategic Growth Pillars</h3>
             </div>
@@ -422,10 +524,11 @@ const AboutPage = () => {
         {/* ─── SECTION 6: INSTITUTIONAL CTA ─── */}
         <section className="py-24 px-6 bg-white">
           <div className="max-w-4xl mx-auto bg-slate-50 border border-slate-100 rounded-[3rem] p-12 md:p-20 text-center shadow-xl shadow-slate-200/50">
+            {/* UPDATED: CTA includes "Nevloh" brand */}
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 mb-6">Partner with Nevloh.</h3>
             <p className="text-slate-500 text-lg mb-10 leading-relaxed max-w-xl mx-auto">
               Whether you require localized logistics for your fleet or structured international settlement,
-              we deliver with institutional precision.
+              Nevloh delivers with institutional precision.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
