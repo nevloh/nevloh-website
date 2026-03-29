@@ -296,7 +296,7 @@ export const blogPosts = [
     readTime: "6 min read",
     category: "Environment",
     tags: ["ULSD", "Environment", "Sustainability", "Clean Energy", "ESG"],
-    image: "/images/blog/environmental-impact.jpg",
+    image: "/images/blog/environmental-impact.JPG",
     featured: false
   },
   {
